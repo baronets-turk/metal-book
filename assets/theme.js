@@ -2,11 +2,11 @@
   const KEY = 'metal-book-theme';
   const MODES = [['light', 'Светлая'], ['dark', 'Тёмная'], ['system', 'Системная']];
   const mq = window.matchMedia('(prefers-color-scheme: dark)');
-  let mode = 'light';
+  let mode = 'system';
   try {
-    mode = localStorage.getItem(KEY) || 'light';
+    mode = localStorage.getItem(KEY) || 'system';
   } catch (e) {
-    mode = 'light';
+    mode = 'system';
   }
 
   function apply() {
@@ -45,6 +45,6 @@
       buttons.forEach((b, i) => b.classList.toggle('on', MODES[i][0] === mode));
     }
     mark();
-    document.body.append(box);
+    (document.querySelector('.topbar') || document.body).append(box);
   });
 })();

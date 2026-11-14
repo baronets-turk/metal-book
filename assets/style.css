@@ -45,11 +45,8 @@
 }
 
 .theme-switch {
-  position: fixed;
-  left: 18px;
-  bottom: 18px;
-  z-index: 20;
   display: flex;
+  flex: none;
   padding: 3px;
   background: var(--panel-2);
   border: 1px solid var(--line);
@@ -89,9 +86,9 @@ a { color: var(--copper); }
 
 .topbar {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
   gap: 16px;
-  padding: 14px 20px;
+  padding: 10px 20px;
   font-family: var(--sans);
   font-size: 14px;
   color: var(--muted);
@@ -99,6 +96,7 @@ a { color: var(--copper); }
 }
 
 .topbar a { text-decoration: none; }
+.topbar > :first-child { margin-right: auto; }
 
 .hero {
   max-width: 980px;
@@ -636,6 +634,8 @@ button.quiz-opt.wrong {
 
 @media (max-width: 700px) {
   body { font-size: 17px; }
+  .fb, .widget-title .fb-mini, .topbar-info { display: none !important; }
+  .topbar { padding: 8px 16px; }
   .duo, .lens-side { grid-template-columns: 1fr; }
   .toc li { grid-template-columns: 40px 1fr; }
   .toc .era { grid-column: 2; }
