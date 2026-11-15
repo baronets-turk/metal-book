@@ -105,9 +105,10 @@
     const ctx = setupCanvas(canvas, W, H);
     const cx = 340;
     const ground = 286;
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let cur = 600;
     let last = 0;
-    let moving = false;
+    let time = 0;
     const fuel = choice('f-fuel', change);
     const walls = choice('f-walls', change);
     const air = choice('f-air', change);
@@ -134,30 +135,140 @@
       ctx.moveTo(lerp(x0, x1, 0.86), lerp(y0, y1, 0.86));
       ctx.lineTo(x1, y1);
       ctx.stroke();
-      ctx.strokeStyle = K.air;
-      ctx.lineWidth = 2;
-      ctx.setLineDash([5, 6]);
       const ux = (x1 - x0) / Math.hypot(x1 - x0, y1 - y0);
       const uy = (y1 - y0) / Math.hypot(x1 - x0, y1 - y0);
+      ctx.strokeStyle = K.carbon;
+      ctx.lineWidth = 1.5;
+      ctx.globalAlpha = 0.6;
+      [0.25, 0.5, 0.72].forEach((k) => {
+        const nx = lerp(x0, x1, k);
+        const ny = lerp(y0, y1, k);
+        ctx.beginPath();
+        ctx.moveTo(nx - uy * 4, ny + ux * 4);
+        ctx.lineTo(nx + uy * 4, ny - ux * 4);
+        ctx.stroke();
+      });
+      ctx.globalAlpha = 0.85;
+      ctx.fillStyle = P.muted;
+      ctx.beginPath();
+      ctx.ellipse(x0 - ux * 30, y0 - uy * 30 + 34, 30, 20, 0, Math.PI, TAU);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(x0 - ux * 17, y0 - uy * 17, 17, 0, TAU);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      ctx.strokeStyle = K.air;
+      ctx.lineWidth = 2;
+      ctx.lineCap = 'round';
+      const drift = (time * 60) % 16;
+      ctx.setLineDash([6, 10]);
+      ctx.lineDashOffset = -drift;
       for (let i = -1; i <= 1; i++) {
         ctx.beginPath();
         ctx.moveTo(x1 + ux * 8 - uy * i * 5, y1 + uy * 8 + ux * i * 5);
-        ctx.lineTo(x1 + ux * 44 - uy * i * 14, y1 + uy * 44 + ux * i * 14);
+        ctx.quadraticCurveTo(x1 + ux * 30 - uy * i * 9, y1 + uy * 30 + ux * i * 9 + 4, x1 + ux * 52 - uy * i * 16, y1 + uy * 52 + ux * i * 16);
         ctx.stroke();
       }
       ctx.setLineDash([]);
+      ctx.lineDashOffset = 0;
     }
 
-    function render() {
-      const pit = walls() === 'pit';
-      const wood = fuel() === 'wood';
-      const pipes = +air();
-      const g = glow(cur);
-      const base = pit ? ground + 26 : ground;
-      ctx.clearRect(0, 0, W, H);
-      ctx.fillStyle = css(P.bond);
-      ctx.globalAlpha = 0.3;
+    function log(x, y, len, r, ang) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(ang);
+      ctx.fillStyle = K.wood;
+      ctx.beginPath();
+      ctx.roundRect(-len / 2, -r, len, r * 2, r * 0.45);
+      ctx.fill();
+      ctx.strokeStyle = K.carbon;
+      ctx.lineWidth = 1;
+      ctx.globalAlpha = 0.55;
+      for (let i = -1; i <= 1; i++) {
+        ctx.beginPath();
+        ctx.moveTo(-len / 2 + 8, i * r * 0.45);
+        ctx.bezierCurveTo(-len / 6, i * r * 0.45 + 3, len / 6, i * r * 0.45 - 3, len / 2 - r, i * r * 0.45);
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = mix(rgbOf(K.wood), rgbOf(K.clay), 0.7);
+      ctx.beginPath();
+      ctx.ellipse(len / 2 - r * 0.2, 0, r * 0.5, r * 0.94, 0, 0, TAU);
+      ctx.fill();
+      ctx.strokeStyle = K.wood;
+      ctx.lineWidth = 1.2;
+      [0.62, 0.3].forEach((k) => {
+        ctx.beginPath();
+        ctx.ellipse(len / 2 - r * 0.2, 0, r * 0.5 * k, r * 0.94 * k, 0, 0, TAU);
+        ctx.stroke();
+      });
+      ctx.restore();
+    }
+
+    function tongue(x, y, w, h, sway, fill, alpha) {
+      ctx.fillStyle = fill;
+      ctx.globalAlpha = alpha;
+      ctx.beginPath();
+      ctx.moveTo(x - w / 2, y);
+      ctx.bezierCurveTo(x - w / 2, y - h * 0.45, x - w * 0.18 + sway, y - h * 0.62, x + sway, y - h);
+      ctx.bezierCurveTo(x + w * 0.12 + sway * 0.5, y - h * 0.55, x + w / 2, y - h * 0.4, x + w / 2, y);
+      ctx.closePath();
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+
+    function flames(y, list, g, lift) {
+      const outer = mix(GLOW[3][1], g, 0.25);
+      const core = css(GLOW[6][1]);
+      const mid = css(GLOW[5][1]);
+      list.forEach((f, i) => {
+        const beat = 0.86 + 0.14 * Math.sin(time * 7 + i * 1.9);
+        const sway = 7 * Math.sin(time * 3.1 + i * 1.3);
+        const h = (f[2] + lift) * beat;
+        tongue(f[0], y, f[1], h, sway, outer, 0.85);
+        tongue(f[0], y, f[1] * 0.62, h * 0.68, sway * 0.7, mid, 0.9);
+        tongue(f[0], y, f[1] * 0.3, h * 0.38, sway * 0.4, core, 0.95);
+      });
+    }
+
+    function lumpShape(x, y, r, i) {
+      ctx.beginPath();
+      for (let v = 0; v < 7; v++) {
+        const a = (v / 7) * TAU + hash(i, 20) * 2;
+        const d = r * (0.72 + 0.4 * hash(i * 7 + v, 21));
+        const px = x + Math.cos(a) * d * 1.15;
+        const py = y + Math.sin(a) * d * 0.85;
+        if (v === 0) {
+          ctx.moveTo(px, py);
+        } else {
+          ctx.lineTo(px, py);
+        }
+      }
+      ctx.closePath();
+    }
+
+    function soil(pit, base) {
+      ctx.fillStyle = mix(rgbOf(K.clay), rgbOf(K.wood), 0.45);
+      ctx.globalAlpha = 0.5;
       ctx.fillRect(0, ground, 700, H - ground);
+      ctx.globalAlpha = 1;
+      ctx.strokeStyle = K.wood;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(0, ground);
+      ctx.lineTo(700, ground);
+      ctx.stroke();
+      ctx.fillStyle = K.clay;
+      for (let i = 0; i < 16; i++) {
+        const x = 20 + hash(i, 51) * 660;
+        if (Math.abs(x - cx) < 190) {
+          continue;
+        }
+        ctx.globalAlpha = 0.7;
+        ctx.beginPath();
+        ctx.ellipse(x, ground + 12 + hash(i, 52) * 46, 5 + 6 * hash(i, 53), 3 + 3 * hash(i, 54), 0, 0, TAU);
+        ctx.fill();
+      }
       ctx.globalAlpha = 1;
       if (pit) {
         ctx.fillStyle = K.well;
@@ -168,17 +279,43 @@
         ctx.lineTo(cx + 150, ground - 40);
         ctx.closePath();
         ctx.fill();
-        ctx.strokeStyle = K.clay;
-        ctx.lineWidth = 18;
         ctx.lineJoin = 'round';
         ctx.lineCap = 'round';
-        ctx.beginPath();
-        ctx.moveTo(cx - 158, ground - 44);
-        ctx.lineTo(cx - 124, base + 18);
-        ctx.lineTo(cx + 124, base + 18);
-        ctx.lineTo(cx + 158, ground - 44);
-        ctx.stroke();
+        [[K.wood, 24], [K.clay, 20]].forEach((pass) => {
+          ctx.strokeStyle = pass[0];
+          ctx.lineWidth = pass[1];
+          ctx.beginPath();
+          ctx.moveTo(cx - 158, ground - 44);
+          ctx.lineTo(cx - 124, base + 18);
+          ctx.lineTo(cx + 124, base + 18);
+          ctx.lineTo(cx + 158, ground - 44);
+          ctx.stroke();
+        });
+        ctx.strokeStyle = K.wood;
+        ctx.lineWidth = 1.2;
+        ctx.globalAlpha = 0.6;
+        for (let i = 0; i < 9; i++) {
+          const k = hash(i, 61);
+          const side = i % 2 ? 1 : -1;
+          const x = cx + side * lerp(156, 126, k);
+          const y = lerp(ground - 38, base + 8, k);
+          ctx.beginPath();
+          ctx.moveTo(x - 5, y - 4);
+          ctx.lineTo(x + 4, y + 5);
+          ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
       }
+    }
+
+    function render() {
+      const pit = walls() === 'pit';
+      const wood = fuel() === 'wood';
+      const pipes = +air();
+      const g = glow(cur);
+      const base = pit ? ground + 26 : ground;
+      ctx.clearRect(0, 0, W, H);
+      soil(pit, base);
       if (g) {
         const k = clamp((cur - 500) / 700);
         const halo = ctx.createRadialGradient(cx, base - 40, 10, cx, base - 40, 120 + 90 * k);
@@ -187,32 +324,23 @@
         ctx.fillStyle = halo;
         ctx.fillRect(0, 0, 700, H);
       }
+      const lift = (cur - 600) * 0.2;
+      const melted = cur >= MELT;
+      const py = base - (wood ? 52 : 66);
       if (wood) {
-        for (let i = 0; i < 6; i++) {
-          const x = cx - 95 + (i % 3) * 62 + (i > 2 ? 30 : 0);
-          const y = base - 14 - (i > 2 ? 24 : 0);
-          ctx.fillStyle = K.wood;
-          ctx.beginPath();
-          ctx.ellipse(x + 28, y, 40, 12, (hash(i, 3) - 0.5) * 0.5, 0, TAU);
-          ctx.fill();
-        }
+        log(cx - 62, base - 12, 150, 13, 0.05);
+        log(cx + 58, base - 12, 150, 13, -0.06);
         if (g) {
-          ctx.fillStyle = css(g);
-          for (let i = 0; i < 5; i++) {
-            const x = cx - 70 + i * 36;
-            const h = 50 + 40 * hash(i, 9) + (cur - 600) * 0.12;
-            ctx.globalAlpha = 0.8;
-            ctx.beginPath();
-            ctx.moveTo(x - 16, base - 34);
-            ctx.quadraticCurveTo(x - 10, base - 34 - h * 0.6, x, base - 34 - h);
-            ctx.quadraticCurveTo(x + 12, base - 34 - h * 0.5, x + 16, base - 34);
-            ctx.closePath();
-            ctx.fill();
-          }
-          ctx.globalAlpha = 1;
+          flames(base - 22, [[cx - 72, 44, 96], [cx - 8, 54, 128], [cx + 60, 46, 104]], g, lift);
         }
+        log(cx - 6, base - 34, 172, 12, -0.14);
+        log(cx + 8, base - 40, 168, 12, 0.2);
       } else {
-        const lump = hotRgb(rgbOf(K.carbon), cur);
+        const cold = rgbOf(K.carbon);
+        const lump = hotRgb(cold, cur);
+        if (g && pipes) {
+          flames(base - 44, [[cx - 54, 26, 30], [cx + 6, 30, 40], [cx + 62, 24, 28]], g, lift * 0.3);
+        }
         for (let i = 0; i < 34; i++) {
           const row = i < 13 ? 0 : i < 24 ? 1 : i < 31 ? 2 : 3;
           const inRow = i - [0, 13, 24, 31][row];
@@ -220,22 +348,71 @@
           const x = cx + (inRow - (count - 1) / 2) * 18 + (hash(i, 1) - 0.5) * 6;
           const y = base - 8 - row * 15 + (hash(i, 2) - 0.5) * 4;
           const edge = Math.abs(inRow - (count - 1) / 2) / count;
-          ctx.fillStyle = css(lump.map((v, j) => Math.round(lerp(v, rgbOf(K.carbon)[j], edge * 1.1 + (pipes ? 0 : 0.25)))));
-          ctx.beginPath();
-          ctx.ellipse(x, y, 10 + 3 * hash(i, 4), 8 + 2 * hash(i, 5), hash(i, 6) * 3, 0, TAU);
+          const pulse = pipes ? 0.06 * Math.sin(time * 5 + i) : 0;
+          ctx.fillStyle = css(lump.map((v, j) => Math.round(lerp(v, cold[j], clamp(edge * 1.1 + (pipes ? 0 : 0.25) + pulse)))));
+          lumpShape(x, y, 10 + 3 * hash(i, 4), i);
           ctx.fill();
+          ctx.strokeStyle = K.well;
+          ctx.globalAlpha = 0.45;
+          ctx.lineWidth = 1.2;
+          ctx.stroke();
+          ctx.globalAlpha = 1;
         }
       }
-      const melted = cur >= MELT;
-      const py = base - (wood ? 48 : 66);
-      ctx.fillStyle = melted ? K.liquid : css(hotRgb(P.atom, cur));
-      ctx.beginPath();
       if (melted) {
-        ctx.ellipse(cx, py + 6, 30, 9, 0, 0, TAU);
+        ctx.fillStyle = K.liquid;
+        ctx.beginPath();
+        ctx.ellipse(cx, py + 6, 32, 10, 0, 0, TAU);
+        ctx.fill();
+        ctx.fillStyle = css(GLOW[6][1]);
+        ctx.globalAlpha = 0.7;
+        ctx.beginPath();
+        ctx.ellipse(cx - 8, py + 3, 12, 3, 0, 0, TAU);
+        ctx.fill();
+        ctx.globalAlpha = 1;
       } else {
-        ctx.roundRect(cx - 22, py - 8, 44, 16, 4);
+        ctx.fillStyle = css(hotRgb(P.atom, cur));
+        ctx.beginPath();
+        ctx.moveTo(cx - 24, py + 4);
+        ctx.bezierCurveTo(cx - 28, py - 8, cx - 12, py - 14, cx - 2, py - 10);
+        ctx.bezierCurveTo(cx + 6, py - 16, cx + 26, py - 10, cx + 24, py + 2);
+        ctx.bezierCurveTo(cx + 22, py + 12, cx - 18, py + 12, cx - 24, py + 4);
+        ctx.fill();
+        ctx.strokeStyle = K.text;
+        ctx.lineWidth = 1.5;
+        ctx.globalAlpha = 0.7;
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = css(GLOW[6][1]);
+        ctx.globalAlpha = 0.28;
+        ctx.beginPath();
+        ctx.ellipse(cx - 8, py - 4, 9, 3, -0.3, 0, TAU);
+        ctx.fill();
+        ctx.globalAlpha = 1;
       }
-      ctx.fill();
+      if (wood && g) {
+        flames(base - 30, [[cx - 40, 30, 62], [cx + 34, 32, 70]], g, lift * 0.6);
+        ctx.fillStyle = P.muted;
+        for (let i = 0; i < 5; i++) {
+          const rise = (time * 22 + i * 37) % 110;
+          ctx.globalAlpha = 0.22 * (1 - rise / 110);
+          ctx.beginPath();
+          ctx.arc(cx - 30 + i * 16 + 10 * Math.sin(time + i), base - 170 - rise, 9 + rise * 0.12, 0, TAU);
+          ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+      }
+      if (g && pipes) {
+        ctx.fillStyle = css(GLOW[6][1]);
+        for (let i = 0; i < 9; i++) {
+          const rise = (time * 70 + i * 53) % 150;
+          ctx.globalAlpha = 0.9 * (1 - rise / 150);
+          ctx.beginPath();
+          ctx.arc(cx + (hash(i, 71) - 0.5) * 150 + 8 * Math.sin(time * 2 + i), base - 60 - rise, 1.6, 0, TAU);
+          ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+      }
       if (pipes >= 1) {
         pipe(70, 150, cx - (pit ? 100 : 80), base - 30);
       }
@@ -290,30 +467,28 @@
       const dt = Math.min(0.05, (now - last) / 1000);
       last = now;
       const t = target();
+      const settled = cur === t;
+      requestAnimationFrame(frame);
+      if (!onScreen(canvas) || (still && settled)) {
+        return;
+      }
       cur += (t - cur) * Math.min(1, dt * 3);
       if (Math.abs(t - cur) < 1) {
         cur = t;
-        moving = false;
       }
+      time = still ? 0 : now / 1000;
       render();
       el('f-temp').textContent = Math.round(cur / 10) * 10 + ' °C';
-      if (moving) {
-        requestAnimationFrame(frame);
-      }
     }
 
     function change() {
       meters();
-      if (!moving) {
-        moving = true;
-        last = performance.now();
-        requestAnimationFrame(frame);
-      }
     }
 
     renders.push(render);
     render();
     meters();
+    requestAnimationFrame(frame);
   }
 
   function smelt() {
