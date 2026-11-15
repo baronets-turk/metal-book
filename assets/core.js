@@ -108,3 +108,12 @@ window.MB = (function () {
 
   return { el, renders, P, setupCanvas, mix, jolt, drawLattice };
 })();
+
+(function () {
+  const items = Array.from(document.querySelectorAll('ol.sources > li'));
+  document.querySelectorAll('a.fn').forEach((a) => {
+    const n = items.findIndex((li) => '#' + li.id === a.getAttribute('href')) + 1;
+    a.textContent = n ? '[' + n + ']' : '[?]';
+    a.title = 'Источник ' + n + ' в списке в конце главы';
+  });
+})();

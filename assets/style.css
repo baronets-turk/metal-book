@@ -650,6 +650,22 @@ button.quiz-opt.wrong {
 
 .fb-list { margin-top: 10px; }
 
+a.fn {
+  font-family: var(--sans);
+  font-size: 0.68em;
+  vertical-align: super;
+  line-height: 0;
+  text-decoration: none;
+  padding: 0 1px;
+  white-space: nowrap;
+}
+
+ol.sources { font-size: 16px; }
+
+ol.sources li { padding: 3px 6px; border-radius: 6px; scroll-margin-top: 70px; }
+
+ol.sources li:target { background: var(--panel-2); }
+
 .steps-duo {
   display: grid;
   grid-template-columns: 1fr 1fr;
