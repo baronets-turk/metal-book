@@ -110,6 +110,27 @@ window.MB = (function () {
     return text.replace(/\{(\w+)\}/g, (m, k) => values[k]);
   }
 
+  function tr(node, key) {
+    const widget = node.closest('.widget');
+    const path = key.split('.');
+    const value = ((widget && widget.strings) || window.T)[path[0]];
+    return path.length > 1 ? value[path[1]] : value;
+  }
+
+  function say(node, ...parts) {
+    node.said = parts;
+    node.textContent = parts.map((p) => (typeof p === 'string' ? tr(node, p) : fmt(tr(node, p[0]), p[1]))).join(' ');
+  }
+
+  function resay(root) {
+    root.querySelectorAll('*').forEach((node) => {
+      if (node.said) {
+        say(node, ...node.said);
+      }
+    });
+    renders.forEach((f) => f());
+  }
+
   function footnotes(root) {
     const items = Array.from(document.querySelectorAll('ol.sources > li'));
     root.querySelectorAll('ol.sources a').forEach((a) => {
@@ -125,5 +146,5 @@ window.MB = (function () {
 
   footnotes(document);
 
-  return { el, renders, P, setupCanvas, mix, jolt, drawLattice, fmt, footnotes };
+  return { el, renders, P, setupCanvas, mix, jolt, drawLattice, fmt, footnotes, tr, say, resay };
 })();

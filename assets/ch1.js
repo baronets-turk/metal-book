@@ -1,6 +1,5 @@
 (function () {
-  const { el, renders, P, setupCanvas, mix, jolt, drawLattice, fmt } = window.MB;
-  const T = window.T;
+  const { el, renders, P, setupCanvas, mix, jolt, drawLattice, tr, say } = window.MB;
 
   function experimentHit() {
     const pieces = Array.from(document.querySelectorAll('#flint .piece'));
@@ -16,8 +15,6 @@
         'translate(-12px,8px) rotate(22deg)'
       ]
     ];
-    const flintText = [''].concat(T.flint);
-    const copperText = [''].concat(T.copper);
     const blob = el('copper-blob');
     const caption = el('w1-caption');
     let f = 0;
@@ -33,19 +30,19 @@
       f = Math.min(3, f + 1);
       render();
       jolt(el('flint-svg'));
-      caption.textContent = flintText[f];
+      say(caption, 'flint.' + (f - 1));
     };
     el('hit-copper').onclick = () => {
       c = Math.min(5, c + 1);
       render();
       jolt(el('copper-svg'));
-      caption.textContent = copperText[c];
+      say(caption, 'copper.' + (c - 1));
     };
     el('reset-w1').onclick = () => {
       f = 0;
       c = 0;
       render();
-      caption.textContent = T.hitStart;
+      say(caption, 'hitStart');
     };
   }
 
@@ -147,12 +144,12 @@
       ctx.clearRect(0, 0, W, H);
       ctx.fillStyle = P.muted;
       ctx.font = '600 13px -apple-system, sans-serif';
-      ctx.fillText(T.labelMetal, 20, 26);
-      ctx.fillText(T.labelStone, W / 2 + 20, 26);
+      ctx.fillText(tr(ctx.canvas, 'labelMetal'), 20, 26);
+      ctx.fillText(tr(ctx.canvas, 'labelStone'), W / 2 + 20, 26);
       drawMetal();
       drawStone();
-      el('w2-metal').textContent = s === 0 ? T.metalStill : s >= 1 ? T.metalDone : T.metalMoving;
-      el('w2-stone').textContent = broken ? T.stoneBroken : s === 0 ? T.stoneStill : T.stoneStretch;
+      say(el('w2-metal'), s === 0 ? 'metalStill' : s >= 1 ? 'metalDone' : 'metalMoving');
+      say(el('w2-stone'), broken ? 'stoneBroken' : s === 0 ? 'stoneStill' : 'stoneStretch');
     }
 
     function settle() {
@@ -195,14 +192,13 @@
     const g = { w: 780, h: 240, a: 28, cols: 25, rows: 8, r: 11.5, left: 32, bottom: 212, bulk: false };
     const ctx = setupCanvas(el('w3-canvas'), g.w, g.h);
     const stops = [-14, 5, 10, 15, 20, 40].map((k) => g.left + k * g.a);
-    const texts = T.fold;
     const d = { p: 3, x: stops[0], dir: 1, state: 'move' };
     let step = 0;
     let raf = 0;
 
     function render() {
       drawLattice(ctx, g, [d], null);
-      el('w3-caption').textContent = texts[step];
+      say(el('w3-caption'), 'fold.' + step);
     }
 
     function animateTo(target) {
@@ -343,7 +339,7 @@
         }
       };
       tick();
-      caption.textContent = T.lensCrack;
+      say(caption, 'lensCrack');
       el('lens-hit').disabled = true;
       meters();
     }
@@ -357,15 +353,15 @@
         startCrack();
         return;
       }
-      let tail = '';
+      const parts = [['lensBlow', { n: blows, passed, stuck: Math.max(0, stuckNew) }]];
       if (ds.length === 0) {
-        tail = ' ' + T.lensClean;
+        parts.push('lensClean');
       } else if (ds.length > SMAX * 0.6) {
-        tail = ' ' + T.lensFull;
+        parts.push('lensFull');
       } else if (stuckNew > 0) {
-        tail = ' ' + T.lensBlocked;
+        parts.push('lensBlocked');
       }
-      caption.textContent = fmt(T.lensBlow, { n: blows, passed, stuck: Math.max(0, stuckNew) }) + tail;
+      say(caption, ...parts);
     }
 
     function hit() {
@@ -415,7 +411,7 @@
       done = 0;
       crack = null;
       el('lens-hit').disabled = false;
-      caption.textContent = T.lensStart;
+      say(caption, 'lensStart');
       meters();
       render();
     };
@@ -537,10 +533,10 @@
         }
         ctx.fillStyle = P.muted;
         ctx.font = '600 13px -apple-system, sans-serif';
-        ctx.fillText(T.pushLabel, PAD, 22);
+        ctx.fillText(tr(ctx.canvas, 'pushLabel'), PAD, 22);
         el(key + '-now').textContent = tense;
         el(key + '-max').textContent = worst;
-        el(key + '-cap').textContent = captions(Math.round(pos));
+        say(el(key + '-cap'), captions(Math.round(pos)));
         el(key + '-back').disabled = target === 0 && pos === 0;
         el(key + '-step').disabled = target === last;
       }
@@ -579,11 +575,11 @@
       render();
     }
 
-    panel('w5a', 4, (p) => p / 4, null, (i) => T.whole[i]);
+    panel('w5a', 4, (p) => p / 4, null, (i) => 'whole.' + i);
 
     const core = (p) => (p <= 1 ? -2.5 + 2.5 * p : p <= N ? p - 1 : N - 1 + 2.5 * (p - N));
     panel('w5b', N + 1, (p, r, c) => smooth(0.5 - (c - core(p)) / (2 * (1.5 + 0.5 * (r - 1)))), core, (i) => (
-      i === 0 ? T.whole[0] : i === 1 ? T.stepIn : i <= N ? T.stepMove : T.stepOut
+      i === 0 ? 'whole.0' : i === 1 ? 'stepIn' : i <= N ? 'stepMove' : 'stepOut'
     ));
   }
 

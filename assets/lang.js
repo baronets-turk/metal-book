@@ -2,6 +2,7 @@
   const UI = window.UI;
   const KEY = 'metal-book-lang';
   const BLOCKS = 'h1, h2, h3, p, li, dt, dd, div.note, div.step, div.eyebrow';
+  const CONTROLS = 'a, button, input, canvas, svg, summary';
   const here = UI.lang;
   const other = here === 'en' ? 'ru' : 'en';
   const file = location.pathname.split('/').pop() || 'index.html';
@@ -32,7 +33,25 @@
     return bar ? bar.offsetHeight : 0;
   }
 
+  function textNodes(root) {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    const list = [];
+    while (walker.nextNode()) {
+      list.push(walker.currentNode);
+    }
+    return list;
+  }
+
   const blocks = collect(document);
+  document.querySelectorAll('.widget').forEach((widget) => {
+    textNodes(widget).forEach((node) => {
+      node.own = node.nodeValue;
+    });
+    widget.querySelectorAll('*').forEach((node) => {
+      node.own = true;
+    });
+  });
+
   const jump = /^#b(\d+)$/.exec(location.hash);
   const fromOutside = !document.referrer || new URL(document.referrer).origin !== location.origin;
   if (!jump && fromOutside && stored() === other) {
@@ -71,19 +90,33 @@
   });
   (document.querySelector('.topbar') || document.body).append(box);
 
+  function load(url) {
+    return fetch(url).then((res) => (res.ok ? res.text() : Promise.reject(new Error(url + ' ' + res.status))));
+  }
+
+  function literal(source, name, open, close) {
+    const start = source.indexOf('window.' + name + ' = ' + open);
+    if (start < 0) {
+      return null;
+    }
+    const from = source.indexOf(open, start);
+    const to = source.indexOf('\n' + close + ';', from);
+    return new Function('return ' + source.slice(from, to + 2))();
+  }
+
   let loading = null;
 
-  function otherBlocks() {
+  function otherPage() {
     if (!loading) {
-      loading = fetch(otherUrl)
-        .then((res) => (res.ok ? res.text() : Promise.reject(new Error(res.status))))
-        .then((html) => {
-          const list = collect(new DOMParser().parseFromString(html, 'text/html'));
-          if (list.length !== blocks.length) {
-            return Promise.reject(new Error('block count ' + blocks.length + ' vs ' + list.length));
-          }
-          return list;
-        });
+      const uiTag = document.querySelector('script[src*="ui.' + here + '.js"]');
+      loading = Promise.all([load(otherUrl), load(uiTag.src.replace('ui.' + here, 'ui.' + other))]).then(([html, ui]) => {
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        const list = collect(doc);
+        if (list.length !== blocks.length) {
+          return Promise.reject(new Error('block count ' + blocks.length + ' vs ' + list.length));
+        }
+        return { doc, blocks: list, strings: literal(html, 'T', '{', '}'), quiz: literal(html, 'QUIZ', '[', ']'), ui: literal(ui, 'UI', '{', '}') };
+      });
       loading.catch((err) => {
         console.warn('peek unavailable:', err.message);
         chip.remove();
@@ -92,32 +125,87 @@
     return loading;
   }
 
-  const saved = new Map();
   const touch = window.matchMedia('(hover: none)').matches;
+  const kept = new Map();
 
-  function toggle(node) {
-    if (saved.has(node)) {
-      node.innerHTML = saved.get(node);
-      saved.delete(node);
-      node.classList.remove('peek');
-      node.removeAttribute('lang');
-      refresh(node);
-      return Promise.resolve();
+  function swapBlock(node, page, on) {
+    if (on === kept.has(node)) {
+      return;
     }
-    return otherBlocks().then((list) => {
-      saved.set(node, node.innerHTML);
-      node.innerHTML = list[blocks.indexOf(node)].innerHTML;
-      node.classList.add('peek');
+    if (on) {
+      kept.set(node, node.innerHTML);
+      node.innerHTML = page.blocks[blocks.indexOf(node)].innerHTML;
       node.lang = other;
-      refresh(node);
-    }, () => null);
-  }
-
-  function refresh(node) {
+    } else {
+      node.innerHTML = kept.get(node);
+      kept.delete(node);
+      node.removeAttribute('lang');
+    }
+    node.classList.toggle('peek', on);
     if (window.MB) {
       window.MB.footnotes(node);
     }
-    place(node);
+  }
+
+  function swapStatic(mine, theirs, on) {
+    const nodes = Array.from(mine.childNodes).filter((node) => node.own !== undefined);
+    if (mine.said || mine.matches(BLOCKS) || nodes.length !== theirs.childNodes.length) {
+      return;
+    }
+    nodes.forEach((node, i) => {
+      const twin = theirs.childNodes[i];
+      if (node.nodeType === 1 && twin.nodeType === 1) {
+        swapStatic(node, twin, on);
+      } else if (node.nodeType === 3 && twin.nodeType === 3 && node.own.trim()) {
+        node.nodeValue = on ? twin.nodeValue : node.own;
+      }
+    });
+  }
+
+  function swapWidget(widget, page, on) {
+    swapStatic(widget, page.doc.getElementById(widget.id), on);
+    widget.strings = on ? page.strings : null;
+    widget.classList.toggle('peek', on);
+    blocks.filter((node) => widget.contains(node)).forEach((node) => swapBlock(node, page, on));
+    window.MB.resay(widget);
+  }
+
+  function swapCard(card, page, on) {
+    card.fill((on ? page.quiz : window.QUIZ)[card.index], on ? page.ui : UI);
+    card.classList.toggle('peek', on);
+  }
+
+  function toggle(unit) {
+    return otherPage().then((page) => {
+      const on = !unit.classList.contains('peek');
+      if (unit.classList.contains('widget')) {
+        swapWidget(unit, page, on);
+      } else if (unit.classList.contains('quiz-card')) {
+        swapCard(unit, page, on);
+      } else {
+        swapBlock(unit, page, on);
+      }
+      place(unit);
+    }, () => null);
+  }
+
+  function unitOf(node) {
+    if (!node.closest) {
+      return null;
+    }
+    const card = node.closest('.quiz-card');
+    if (card) {
+      return card;
+    }
+    let block = node.closest(BLOCKS);
+    while (block && block.parentElement.closest(BLOCKS)) {
+      block = block.parentElement.closest(BLOCKS);
+    }
+    if (block && blocks.includes(block)) {
+      return block;
+    }
+    const widget = node.closest('.widget');
+    return widget && widget.id && window.MB ? widget : null;
   }
 
   const chip = document.createElement('button');
@@ -126,16 +214,16 @@
   document.body.append(chip);
   let target = null;
 
-  function place(node) {
+  function place(unit) {
     if (touch) {
       return;
     }
-    target = node;
-    const rect = node.getBoundingClientRect();
-    const peeked = saved.has(node);
-    chip.textContent = (peeked ? here : other).toUpperCase();
-    chip.title = peeked ? UI.peekBack : UI.peekShow;
-    chip.classList.toggle('on', peeked);
+    target = unit;
+    const rect = unit.getBoundingClientRect();
+    const on = unit.classList.contains('peek');
+    chip.textContent = (on ? here : other).toUpperCase();
+    chip.title = on ? UI.peekBack : UI.peekShow;
+    chip.classList.toggle('on', on);
     chip.style.display = 'block';
     chip.style.top = rect.top + window.scrollY + 'px';
     chip.style.left = Math.max(4, rect.left - 46) + 'px';
@@ -147,33 +235,21 @@
     }
   };
 
-  function blockOf(node) {
-    const found = node.closest ? node.closest(BLOCKS) : null;
-    if (!found) {
-      return null;
-    }
-    let top = found;
-    while (top.parentElement.closest(BLOCKS)) {
-      top = top.parentElement.closest(BLOCKS);
-    }
-    return blocks.includes(top) ? top : null;
-  }
-
   if (touch) {
     document.addEventListener('click', (e) => {
-      if (e.target.closest('a, button, input, canvas, svg, summary')) {
+      if (e.target.closest(CONTROLS)) {
         return;
       }
-      const node = blockOf(e.target);
-      if (node && String(window.getSelection()) === '') {
-        toggle(node);
+      const unit = unitOf(e.target);
+      if (unit && String(window.getSelection()) === '') {
+        toggle(unit);
       }
     });
   } else {
     document.addEventListener('mouseover', (e) => {
-      const node = blockOf(e.target);
-      if (node) {
-        place(node);
+      const unit = unitOf(e.target);
+      if (unit) {
+        place(unit);
       }
     });
   }

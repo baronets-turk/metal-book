@@ -25,10 +25,11 @@
     const total = h('div', 'quiz-total', count(UI.quizAnswered, 0));
     data.forEach((item, i) => {
       const card = h('div', 'quiz-card');
-      card.append(h('div', 'quiz-q', (i + 1) + '. ' + item.q));
+      const question = h('div', 'quiz-q');
       const why = h('div', 'quiz-why');
+      let chosen = null;
       const buttons = item.options.map((text, k) => {
-        const btn = h('button', 'quiz-opt', text);
+        const btn = h('button', 'quiz-opt');
         btn.onclick = () => {
           buttons.forEach((b) => {
             b.disabled = true;
@@ -40,7 +41,8 @@
             btn.classList.add('wrong');
           }
           answered++;
-          why.textContent = (k === item.answer ? UI.quizRight : UI.quizWrong) + ' ' + item.why + ' ' + UI.quizSection.replace('{name}', item.where);
+          chosen = k;
+          card.fill(card.shown, card.ui);
           why.style.display = 'block';
           total.textContent = answered < data.length
             ? count(UI.quizAnswered, answered)
@@ -49,7 +51,20 @@
         };
         return btn;
       });
-      card.append(...buttons, why);
+      card.index = i;
+      card.fill = (shown, ui) => {
+        card.shown = shown;
+        card.ui = ui;
+        question.textContent = (i + 1) + '. ' + shown.q;
+        buttons.forEach((b, k) => {
+          b.textContent = shown.options[k];
+        });
+        if (chosen !== null) {
+          why.textContent = (chosen === item.answer ? ui.quizRight : ui.quizWrong) + ' ' + shown.why + ' ' + ui.quizSection.replace('{name}', shown.where);
+        }
+      };
+      card.fill(item, UI);
+      card.append(question, ...buttons, why);
       box.append(card);
     });
     const again = h('button', 'ghost', UI.quizAgain);
