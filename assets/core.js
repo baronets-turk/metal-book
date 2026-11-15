@@ -106,18 +106,24 @@ window.MB = (function () {
     }
   }
 
-  return { el, renders, P, setupCanvas, mix, jolt, drawLattice };
-})();
+  function fmt(text, values) {
+    return text.replace(/\{(\w+)\}/g, (m, k) => values[k]);
+  }
 
-(function () {
-  const items = Array.from(document.querySelectorAll('ol.sources > li'));
-  document.querySelectorAll('ol.sources a').forEach((a) => {
-    a.target = '_blank';
-    a.rel = 'noopener';
-  });
-  document.querySelectorAll('a.fn').forEach((a) => {
-    const n = items.findIndex((li) => '#' + li.id === a.getAttribute('href')) + 1;
-    a.textContent = n ? '[' + n + ']' : '[?]';
-    a.title = 'Источник ' + n + ' в списке в конце главы';
-  });
+  function footnotes(root) {
+    const items = Array.from(document.querySelectorAll('ol.sources > li'));
+    root.querySelectorAll('ol.sources a').forEach((a) => {
+      a.target = '_blank';
+      a.rel = 'noopener';
+    });
+    root.querySelectorAll('a.fn').forEach((a) => {
+      const n = items.findIndex((li) => '#' + li.id === a.getAttribute('href')) + 1;
+      a.textContent = n ? '[' + n + ']' : '[?]';
+      a.title = fmt(window.UI.footnote, { n });
+    });
+  }
+
+  footnotes(document);
+
+  return { el, renders, P, setupCanvas, mix, jolt, drawLattice, fmt, footnotes };
 })();

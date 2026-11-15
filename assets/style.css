@@ -68,6 +68,24 @@
   background: var(--copper);
 }
 
+.peek { box-shadow: -10px 0 0 var(--bg), -13px 0 0 var(--copper); }
+
+.peek-chip {
+  position: absolute;
+  z-index: 5;
+  padding: 2px 7px;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  opacity: 0.75;
+}
+
+.peek-chip:hover, .peek-chip.on { opacity: 1; color: var(--on-accent); background: var(--copper); }
+
 * { box-sizing: border-box; }
 
 html { scroll-behavior: smooth; }
@@ -85,6 +103,10 @@ body {
 a { color: var(--copper); }
 
 .topbar {
+  position: sticky;
+  top: 0;
+  z-index: 6;
+  background: var(--bg);
   display: flex;
   align-items: center;
   gap: 16px;
@@ -684,7 +706,9 @@ ol.sources li:target { background: var(--panel-2); }
 @media (max-width: 700px) {
   body { font-size: 17px; }
   .fb, .widget-title .fb-mini, .topbar-info { display: none !important; }
-  .topbar { padding: 8px 16px; }
+  .topbar { padding: 8px 10px; gap: 6px; font-size: 13px; }
+  .theme-switch { padding: 2px; }
+  .theme-switch button { padding: 5px 6px; font-size: 11px; }
   .duo, .lens-side, .steps-duo { grid-template-columns: 1fr; }
   .steps-duo .caption { min-height: 0; }
   .toc li { grid-template-columns: 40px 1fr; }

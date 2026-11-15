@@ -1,15 +1,16 @@
 (function () {
-  const { el, renders, P, setupCanvas, mix, jolt, drawLattice } = window.MB;
+  const { el, renders, P, setupCanvas, mix, jolt, drawLattice, fmt } = window.MB;
+  const T = window.T;
   const MELT = 1085;
   const GLOW = [
-    [525, [70, 8, 4], 'красное свечение едва заметно'],
-    [700, [140, 24, 12], 'тёмно-красный'],
-    [800, [190, 44, 22], 'тёмно-вишнёвый'],
-    [900, [228, 72, 30], 'вишнёвый'],
-    [1000, [248, 112, 44], 'светло-вишнёвый'],
-    [1100, [255, 150, 56], 'тёмно-оранжевый'],
-    [1200, [255, 188, 96], 'оранжевый']
-  ];
+    [525, [70, 8, 4]],
+    [700, [140, 24, 12]],
+    [800, [190, 44, 22]],
+    [900, [228, 72, 30]],
+    [1000, [248, 112, 44]],
+    [1100, [255, 150, 56]],
+    [1200, [255, 188, 96]]
+  ].map((row, i) => row.concat(T.glow[i]));
 
   function glow(t) {
     if (t < GLOW[0][0]) {
@@ -78,17 +79,17 @@
     function caption(t) {
       const g = glow(t);
       el('v-temp').textContent = t + ' °C';
-      el('v-glow').textContent = g ? g.name : 'не светится';
+      el('v-glow').textContent = g ? g.name : T.noGlow;
       if (t >= MELT) {
-        return 'Выше 1085 °C медь плавится. Дрожание такое сильное, что атомы срываются со своих мест, и ровных рядов больше нет.';
+        return T.heatMelt;
       }
       if (t >= 525) {
-        return 'Металл светится. Для отжига меди это с запасом: при долгой выдержке она размягчается уже при 200–300 °C.';
+        return T.heatGlow;
       }
       if (t >= 200) {
-        return 'С этих температур идёт отжиг меди: дрожание достаточно сильное, чтобы атомы понемногу перестраивались. Металл ещё не светится, на глаз эту температуру не определить.';
+        return T.heatAnneal;
       }
-      return 'Комнатная температура и немного выше. Атомы дрожат, но каждый остаётся на своём месте. Наклёпанная медь остаётся твёрдой.';
+      return T.heatRoom;
     }
 
     function frame(now) {
@@ -204,25 +205,21 @@
 
     function stage(t) {
       if (done) {
-        return 'Готово. Старое зерно со складками целиком заменено новыми зёрнами без складок. Металл снова мягкий, его можно ковать дальше.';
+        return T.annealDone;
       }
       if (!running) {
-        return grains.length || annihilated
-          ? 'Вынули из огня. Всё, что успело перестроиться, так и осталось: остывание ничего не возвращает назад.'
-          : 'Наклёпанная медь из первой главы: 20 застрявших складок. Выбери температуру и положи её в огонь.';
+        return grains.length || annihilated ? T.annealOut : T.annealStart;
       }
       if (t < 250 && grains.length) {
-        return 'Рекристаллизация остановилась: для неё слишком холодно. Уже выросшие зёрна остаются как есть.';
+        return T.annealStalled;
       }
       if (t < 150) {
-        return 'Слишком холодно. Атомы дрожат, но складки остаются на местах: металл не меняется.';
+        return T.annealCold;
       }
       if (t < 250) {
-        return recoveryOver
-          ? 'Возврат закончился: оставшимся складкам не с кем сойтись. Чтобы убрать их, нужна рекристаллизация, подними температуру выше 250 °C.'
-          : 'Возврат. Складки получили подвижность. Две соседние складки разного знака сползаются и взаимно уничтожаются. Зерно остаётся прежним, твёрдость падает немного.';
+        return recoveryOver ? T.recoveryOver : T.recovery;
       }
-      return 'Рекристаллизация. В самых искажённых местах появляются новые зёрна с ровной решёткой. Они растут и поглощают старый металл вместе со складками.';
+      return T.recryst;
     }
 
     function meters() {
@@ -231,10 +228,10 @@
       el('a-temp').textContent = t + ' °C';
       el('a-hard').textContent = '×' + (1 + k).toFixed(1);
       el('a-hard-bar').style.width = (10 + 90 * k) + '%';
-      el('a-left').textContent = ds.length + ' из ' + start;
+      el('a-left').textContent = fmt(T.leftOf, { n: ds.length, total: start });
       el('a-grains').textContent = grains.length;
       el('a-caption').textContent = stage(t);
-      el('a-fire').textContent = running ? 'Вынуть из огня' : 'Положить в огонь';
+      el('a-fire').textContent = running ? T.fireOut : T.fireIn;
       el('a-fire').disabled = done;
     }
 
@@ -413,10 +410,10 @@
       el('c-cracks').setAttribute('visibility', broken ? 'visible' : 'hidden');
       el('c-crack-l').setAttribute('d', 'M' + (160 - w / 2 - 1) + ' ' + (96 - h / 2) + ' l10 -2 l7 3 l9 -2');
       el('c-crack-r').setAttribute('d', 'M' + (160 + w / 2 + 1) + ' ' + (96 - h / 2) + ' l-9 2 l-8 -3 l-8 2');
-      el('c-thick').textContent = thick.toFixed(1) + ' мм';
+      el('c-thick').textContent = fmt(T.thickness, { n: thick.toFixed(1) });
       el('c-reserve').textContent = Math.round(100 * (1 - hard / LIMIT)) + '%';
       el('c-reserve-bar').style.width = 100 * (1 - hard / LIMIT) + '%';
-      el('c-count').textContent = 'Ударов: ' + blows + ' · Отжигов: ' + anneals;
+      el('c-count').textContent = fmt(T.cycleCount, { blows, anneals });
       el('c-hit').disabled = broken || thick <= GOAL;
       el('c-anneal').disabled = broken || thick <= GOAL;
       el('c-caption').textContent = text;
@@ -426,26 +423,26 @@
       jolt(el('w-cycle'));
       if (hard >= LIMIT) {
         broken = true;
-        render('Треснуло. Запас пластичности был исчерпан, а ты ударил ещё раз. Заготовку придётся начинать заново.');
+        render(T.cycleBroken);
         return;
       }
       blows++;
       hard++;
       thick *= 0.88;
       if (thick <= GOAL) {
-        render('Лист готов: толщина меньше 5 мм. Ударов: ' + blows + ', отжигов: ' + anneals + '. Без отжига до такой толщины дойти нельзя.');
+        render(fmt(T.cycleDone, { blows, anneals }));
         return;
       }
-      render(hard >= LIMIT ? 'Металл затвердел до предела. Следующий удар его порвёт: пора в огонь.' : 'Кусок стал тоньше и твёрже.');
+      render(hard >= LIMIT ? T.cycleLimit : T.cycleHit);
     };
     el('c-anneal').onclick = () => {
       if (hard === 0) {
-        render('Металл и так мягкий: этот отжиг ничего не дал, только сжёг дрова.');
+        render(T.cycleWasted);
         return;
       }
       hard = 0;
       anneals++;
-      render('Отжиг. Складки исчезли, запас пластичности полный. Толщина осталась прежней.');
+      render(T.cycleAnneal);
     };
     el('c-reset').onclick = () => {
       thick = 20;
@@ -453,7 +450,7 @@
       blows = 0;
       anneals = 0;
       broken = false;
-      render('Самородок толщиной 20 мм. Задача: расковать его в лист тоньше 5 мм и не дать ему треснуть.');
+      render(T.cycleStart);
     };
     el('c-reset').onclick();
   }

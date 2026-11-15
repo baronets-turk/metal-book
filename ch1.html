@@ -1,42 +1,43 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Глава 1. Камень, который не колется</title>
-<link rel="stylesheet" href="assets/style.css?v=8">
-<script src="assets/theme.js?v=8"></script>
+<title>Chapter 1. The stone that would not chip</title>
+<link rel="stylesheet" href="assets/style.css?v=9">
+<script src="assets/ui.en.js?v=9"></script>
+<script src="assets/theme.js?v=9"></script>
 </head>
 <body>
 
 <nav class="topbar">
-  <a href="index.html">← Оглавление</a>
-  <span class="topbar-info">Глава 1 из 10</span>
+  <a href="index.html">← Contents</a>
+  <span class="topbar-info">Chapter 1 of 10</span>
 </nav>
 
 <header class="hero">
-  <div class="eyebrow">Глава 1 · около 8500–7500 до н. э. · Анатолия, Передний Восток</div>
-  <h1>Камень, который не колется</h1>
-  <p class="lead">Люди и их предки больше двух с половиной миллионов лет били камнем по камню.<a class="fn" href="#s-tools"></a> Однажды под удар попал кусок, который повёл себя неправильно.</p>
+  <div class="eyebrow">Chapter 1 · about 8500–7500 BCE · Anatolia, the Near East</div>
+  <h1>The stone that would not chip</h1>
+  <p class="lead">For more than two and a half million years, people and their ancestors struck stone against stone.<a class="fn" href="#s-tools"></a> Then someone struck a piece that behaved quite differently.</p>
 </header>
 
 <div class="core">
-  <p><b>Вся глава в одной фразе.</b> Медь от удара не раскалывается, а мнётся, потому что её атомы умеют съезжать рядами, не теряя связи друг с другом. Но каждый удар оставляет внутри застрявшие «складки», и из-за них металл становится твёрже, а потом трескается.</p>
+  <p><b>The chapter in a few words.</b> Hit copper, and it dents instead of splitting. Its <span class="term">atoms</span>, the tiny balls that make up matter, can slide in rows and still hold together. But each blow leaves trapped “folds” in those rows. These make the metal harder. Eventually, it cracks.</p>
 </div>
 
 <main>
 
 <section>
-  <div class="step">Шаг 1 · Наблюдение</div>
-  <h2>Он не откололся. Он помялся</h2>
-  <p>Главное умение каменного века: ударить по кремню так, чтобы от него откололась острая пластина. Этим занимались все и каждый день, так что бить по любому новому камню было привычкой.</p>
-  <p>Иногда в руслах рек и в скалах попадались тяжёлые красноватые куски с зелёной коркой. Это <span class="term">самородная медь</span>: чистый металл, который лежит в природе готовым. Человек бьёт по такому куску, как привык, и ждёт скола. Скола нет. На куске вмятина.</p>
+  <div class="step">Step 1 · What people noticed</div>
+  <h2>A dent instead of a chip</h2>
+  <p>In the Stone Age, a key skill was knowing how to strike <span class="term">flint</span>, a stone, to knock off a sharp flake. Everyone did this, every day. So when someone found an unfamiliar stone, hitting it was a natural thing to try.</p>
+  <p>Sometimes a riverbed or a rock face held a heavy, reddish lump with a green crust. This was <span class="term">native copper</span>: pure metal found ready-made in nature. Picture someone striking it and expecting a flake to break off. Nothing breaks away. The blow leaves a dent.</p>
 
   <div class="widget" id="w1">
-    <div class="widget-title"><strong>Опыт 1. Ударь по обоим</strong><span>нажимай по нескольку раз</span></div>
+    <div class="widget-title"><strong>Experiment 1. Strike both pieces</strong><span>try several blows</span></div>
     <div class="duo">
       <div class="cell">
-        <h4>Кремень</h4>
+        <h4>Flint</h4>
         <svg viewBox="0 0 220 150" id="flint-svg">
           <line x1="20" y1="132" x2="200" y2="132" style="stroke:var(--line)" stroke-width="2"/>
           <g id="flint">
@@ -49,7 +50,7 @@
         </svg>
       </div>
       <div class="cell">
-        <h4>Самородная медь</h4>
+        <h4>Native copper</h4>
         <svg viewBox="0 0 220 150" id="copper-svg">
           <line x1="5" y1="132" x2="215" y2="132" style="stroke:var(--line)" stroke-width="2"/>
           <g id="copper-g">
@@ -59,123 +60,123 @@
       </div>
     </div>
     <div class="controls">
-      <button id="hit-flint">Ударить по кремню</button>
-      <button id="hit-copper">Ударить по меди</button>
-      <button class="ghost" id="reset-w1">Заново</button>
+      <button id="hit-flint">Strike the flint</button>
+      <button id="hit-copper">Strike the copper</button>
+      <button class="ghost" id="reset-w1">Reset</button>
     </div>
-    <div class="caption" id="w1-caption">Два куска на вид похожи: оба твёрдые, оба тяжёлые.</div>
+    <div class="caption" id="w1-caption">The two pieces look alike. Both are hard. Both are heavy.</div>
   </div>
 
-  <p>Для человека того времени это выглядело как камень с новым свойством: ему можно придать форму ударами, и он её сохранит. Камень так не умеет никакой.</p>
-  <div class="note"><b>Почему медь лежит в природе готовой.</b> Почти все металлы в земле соединены с другими веществами и выглядят как обычная горная порода. Немного металла есть почти в любом камне. <span class="term">Рудой</span> называют только ту породу, где его столько, что добывать его оттуда стоит труда.<a class="fn" href="#s-ore"></a> Медь, золото и серебро вступают в такие соединения неохотно, поэтому изредка встречаются чистыми. Химики обозначают медь <b>Cu</b>, от латинского cuprum, «металл с Кипра».</div>
+  <p>To that person, this looked like a stone with a new property. You could hammer it into a shape, and it would keep that shape. No stone could do that.</p>
+  <div class="note"><b>Why copper can be found as metal.</b> Almost all metals in the ground are joined to other substances. They look like ordinary rock. Almost any stone contains a little metal. We call a rock <span class="term">ore</span> only when it contains enough to make extracting the metal worth the work.<a class="fn" href="#s-ore"></a> Copper, gold and silver do not readily join other substances in this way. So, occasionally, they occur pure. The chemical symbol for copper is <b>Cu</b>. It comes from the Latin word cuprum, “metal from Cyprus”.</div>
 </section>
 
 <section>
-  <div class="step">Шаг 2 · Приём</div>
-  <h2>Холодная ковка</h2>
-  <p>Из наблюдения получилось ремесло. Кусок меди клали на плоский камень и били другим камнем: расплющивали в лист, лист сворачивали в трубочку и получали бусину, вытягивали в шило, крючок или булавку. Огонь для этого не нужен, поэтому приём называют <span class="term">холодной ковкой</span>.</p>
-  <p>Самое известное раннее собрание таких вещей нашли в поселении Чайоню-Тепеси на юго-востоке нынешней Турции: около 113 бусин, крючков, шил и булавок из самородной меди, возраст 8200–7500 до н. э.<a class="fn" href="#s-foll"></a> Есть находки, которые могут быть ещё старше: медные бусины из Ашиклы-Хёюка (возможно, 8500 до н. э. или раньше)<a class="fn" href="#s-foll"></a> и подвеска из северного Ирака, которую относят примерно к 8700 до н. э.<a class="fn" href="#s-copper"></a></p>
-  <p>На другом конце света, у Великих озёр в Северной Америке, люди независимо пришли к тому же. Остатки дерева и шнуров на их медных вещах датированы промежутком от 8500 до 3580 лет назад. Металл они ковали и отжигали; делали ли они что-то сверх этого (плавку, литьё), археологи спорят.<a class="fn" href="#s-lakes"></a></p>
-  <div class="note"><b>Честная оговорка о порядке событий.</b> Обычно пишут, что сначала была только холодная ковка, а нагрев добавился позже. Но уже в вещах из Чайоню исследователи видят следы нагрева между проковками. Периода, когда медь точно ковали только холодной, в находках пока не видно: возможно, он был коротким, возможно, его вещи просто не нашли. Мы разбираем холодную ковку отдельно потому, что это отдельное физическое явление, а не потому, что так шла хронология.</div>
-  <p>Мастера заметили две вещи. Чем дольше бьёшь, тем кусок твёрже: это полезно, шило из битой меди острее и не гнётся. И чем дольше бьёшь, тем ближе момент, когда по краям пойдут трещины и вещь придётся выбросить.</p>
+  <div class="step">Step 2 · What people learned to do</div>
+  <h2>Cold forging</h2>
+  <p>That discovery became a craft. Put a piece of copper on a flat stone and strike it with another stone. Flatten it into a sheet. Roll the sheet into a little tube, and you have a bead. Or hammer the copper into an <span class="term">awl</span>, a pointed tool for making holes, a hook or a pin. This needs no fire. Shaping metal with blows without heating it is called <span class="term">cold forging</span>.</p>
+  <p>The best-known early collection comes from the settlement of Çayönü Tepesi, in what is now southeastern Turkey. It contains about 113 beads, hooks, awls and pins made from native copper. They date to 8200–7500 BCE.<a class="fn" href="#s-foll"></a> Some finds may be older: copper beads from Aşıklı Höyük, possibly from 8500 BCE or earlier,<a class="fn" href="#s-foll"></a> and a pendant from northern Iraq, dated to about 8700 BCE.<a class="fn" href="#s-copper"></a></p>
+  <p>People near the Great Lakes in North America made the same discovery independently. Wood and cord left on their copper objects date from 8500 to 3580 years ago. They forged the copper and used <span class="term">annealing</span>, heating it to make it soft again. Archaeologists still debate whether they also melted it and <span class="term">cast</span> it, pouring the melted metal into a shape.<a class="fn" href="#s-lakes"></a></p>
+  <div class="note"><b>The order of events is less clear.</b> The usual story puts cold forging first and heating later. Yet the objects from Çayönü already show signs of heating between rounds of hammering. So far, the finds reveal no clear period when people only forged copper cold. Perhaps that period was short. Perhaps its objects have simply not been found. We study cold forging on its own because it is a separate physical process. This is not a claim about which came first.</div>
+  <p>The craft brought two lessons. The more you hammer a piece, the harder it gets. That is useful: an awl made from hammered copper is sharper and does not bend. But every blow also brings the piece closer to cracking at the edges. Then the work must be thrown away.</p>
 </section>
 
 <section>
-  <div class="step">Шаг 3 · Как это объясняли тогда</div>
-  <h2>Никак: писать ещё не умели</h2>
-  <p>До письменности оставалось почти пять тысяч лет (первые таблички из Урука относят к 3350–3200 до н. э.<a class="fn" href="#s-uruk"></a>), так что объяснений тех людей у нас нет. Как они сами понимали медь, мы не знаем. Предположение, что её считали особым камнем, правдоподобно, но это догадка, а не факт.</p>
-  <p>Откуда тогда известно, что они делали? Из самих вещей. Если разрезать древнюю бусину и посмотреть срез под микроскопом, по рисунку металла видно, били его или нет и грели ли после этого. К микроскопу мы вернёмся в девятой главе, а пока заглянем глубже, чем он позволяет.</p>
+  <div class="step">Step 3 · How people explained it then</div>
+  <h2>They left no written explanation</h2>
+  <p>Writing was still almost five thousand years away. The first tablets from Uruk date to 3350–3200 BCE.<a class="fn" href="#s-uruk"></a> So we have no explanations from the people who first worked copper. We do not know what they thought it was. It is plausible that they saw it as a special kind of stone. But that is a guess, not a fact.</p>
+  <p>The objects themselves tell us how people worked. Cut an ancient bead open and look at the cut surface through a microscope. The pattern in the metal shows whether it was hammered and whether it was heated afterwards. We will return to the microscope in chapter nine. For now, we will look deeper than it can show us.</p>
 </section>
 
 <section>
-  <div class="step">Шаг 4 · Взгляд внутрь</div>
-  <h2>Что происходит в металле под ударом</h2>
+  <div class="step">Step 4 · A look inside</div>
+  <h2>What a blow does inside the metal</h2>
 
-  <h3>Новое слово: атом</h3>
-  <p>Любое вещество состоит из <span class="term">атомов</span>. Пока хватит такого представления: это очень маленькие шарики. В меди и в других металлах они не свалены в кучу, а уложены ровными рядами, как апельсины на прилавке. Такая правильная укладка называется <span class="term">кристаллом</span>. Так устроены не все твёрдые вещества: в стекле, например, атомы стоят без дальнего порядка.<a class="fn" href="#s-amorph"></a></p>
-  <p>Соседние атомы меди стоят на расстоянии 0,256 нанометра друг от друга (нанометр: миллионная доля миллиметра).<a class="fn" href="#s-copper"></a> В одном миллиметре их помещается в ряд около четырёх миллионов. Всё, что дальше нарисовано шариками, увеличено в десятки миллионов раз.</p>
+  <h3>Meet the atom</h3>
+  <p>All matter is made of atoms. For now, picture them as very small balls. In copper and other metals, they do not sit in a jumble. They form neat rows, like oranges stacked on a stall. This regular arrangement is called a <span class="term">crystal</span>. Not every solid has it. In glass, for example, the pattern of atoms does not repeat over long distances.<a class="fn" href="#s-amorph"></a></p>
+  <p>In copper, neighbouring atoms are 0.256 nanometres apart. A <span class="term">nanometre</span> is a millionth of a millimetre.<a class="fn" href="#s-copper"></a> About four million copper atoms fit in a row one millimetre long. The balls in the pictures below are enlarged tens of millions of times.</p>
 
-  <h3>Почему камень колется, а медь мнётся</h3>
-  <p>Разница в том, как шарики держатся друг за друга.</p>
-  <p>Кремень состоит из кварца (кремний и кислород, SiO<sub>2</sub>).<a class="fn" href="#s-flint"></a> В нём каждый атом сцеплен с конкретными соседями жёсткими связями, как спицами. Сдвинь один слой относительно другого, и спицы рвутся. Назад они не срастаются: получилась трещина.</p>
-  <p>В металле атомы не держатся за конкретных соседей. Их скрепляет общий «клей», который разлит между всеми сразу (в шестой главе узнаем, что это электроны). Сдвинь слой на один шаг, и каждый атом окажется рядом с новым соседом, а клей никуда не делся. Это называется <span class="term">металлической связью</span>.</p>
+  <h3>Why stone splits and copper dents</h3>
+  <p>The difference lies in what holds those tiny balls together.</p>
+  <p>Flint is made of <span class="term">quartz</span>, a substance in which silicon and oxygen are joined together: SiO<sub>2</sub>.<a class="fn" href="#s-flint"></a> Each atom is held to particular neighbours by stiff links, called <span class="term">bonds</span>. Imagine little rods between them. Slide one layer past another, and the rods break. They do not join up again. A crack has formed.</p>
+  <p>In metal, the atoms are not tied to particular neighbours. A shared “glue” spreads between them all and holds them together. In chapter six, we will meet the <span class="term">electrons</span> that provide this glue. Move a layer by one step. Each atom now has a new neighbour, but the glue is still there. This way of holding atoms together is called <span class="term">metallic bonding</span>.</p>
 
   <div class="widget" id="w2">
-    <div class="widget-title"><strong>Опыт 2. Сдвинь верхний слой</strong><span>тяни ползунок, потом отпусти</span></div>
+    <div class="widget-title"><strong>Experiment 2. Slide the top layer</strong><span>drag the slider, then release it</span></div>
     <canvas id="w2-canvas"></canvas>
     <div class="controls">
-      <span>Сдвиг</span>
+      <span>Slide</span>
       <input type="range" id="w2-slider" min="0" max="100" value="0">
-      <button class="ghost" id="w2-reset">Заново</button>
+      <button class="ghost" id="w2-reset">Reset</button>
     </div>
     <div class="duo" style="margin-top:12px">
       <div class="caption" id="w2-metal"></div>
       <div class="caption" id="w2-stone"></div>
     </div>
-    <div class="note"><b>Что здесь верно, а что упрощено.</b> Верно: в металле связь не привязана к конкретным соседям и после сдвига восстанавливается, в камне связи направленные и после разрыва не восстанавливаются. Упрощено: настоящие кристаллы объёмные, а решётка кварца сложнее квадратной сетки. Камень в жизни раскалывается не сдвигом целого слоя: трещина стартует от мелкого дефекта и бежит через кусок, разрывая связи по очереди. И в меди слой не едет целиком, об этом следующий опыт.</div>
+    <div class="note"><b>What is true, and what is simplified.</b> In metal, bonds are not tied to particular neighbours. They form again after a layer slides. In stone, the bonds point in particular directions and do not form again once broken. Those differences are real. The picture is simplified: real crystals have depth, and the <span class="term">lattice</span>, the repeating arrangement of atoms, is more complex in quartz than a square grid. A real stone does not split because a whole layer slides at once. A crack starts at a small flaw and runs through the piece, breaking bonds one after another. Nor does a whole layer move at once in copper. The next experiment shows why.</div>
   </div>
 
-  <p>Обрати внимание на мелочь: если отпустить ползунок раньше середины, слой меди возвращается назад. Это упругость, из-за неё медная пластина пружинит. Если после середины, слой перескакивает на шаг вперёд и остаётся там. Это и есть вмятина. В настоящей меди упругий сдвиг намного меньше половины шага: почему, объясняет следующий раздел.</p>
+  <p>Try releasing the slider before the halfway point. The copper layer moves back. This return to its old shape is called <span class="term">elasticity</span>. It is why a copper sheet springs back. Release the slider after halfway, and the layer jumps forward by one step and stays there. That is the dent. In real copper, the movement that can spring back is much smaller than half a step. The next section explains why.</p>
 
-  <h3>Слой едет не весь сразу</h3>
-  <p>Тут есть неувязка. Чтобы сдвинуть целый слой атомов разом, нужна огромная сила. Расчёт для сдвига слоя целиком даёт для меди несколько гигапаскалей, а настоящий чистый металл начинает течь при нагрузке примерно в тысячу раз меньше.<a class="fn" href="#s-strength"></a> Почему же он такой мягкий?</p>
-  <p>Попробуй сдвинуть большой ковёр, потянув за край. Тяжело. Теперь сделай на нём складку и гони её от края до края: ковёр переедет на ширину складки почти без усилия. В кристалле работает то же самое. По нему бежит маленькая «складка», место, где один ряд атомов лишний, и в каждый момент рвётся и заново смыкается только одна линия связей.</p>
-  <p>Научное имя складки: <span class="term">дислокация</span>. Мягкость металла объясняется именно ею.</p>
+  <h3>The layer moves a little at a time</h3>
+  <p>Moving a whole layer of atoms at once would take an enormous force. For copper, the calculation gives several <span class="term">gigapascals</span>, units that measure force per area. Yet real, pure metal starts to flow under a load about a thousand times smaller.<a class="fn" href="#s-strength"></a> Something must make movement easier.</p>
+  <p>Try pulling a large carpet across the floor by its edge. It is hard work. Now make a fold and push it from one end to the other. The carpet moves by the width of the fold with almost no effort. Something similar happens in a crystal. A small “fold” travels through it: a place with an extra row of atoms. At any moment, only one line of bonds breaks and joins up again.</p>
+  <p>The scientific name for this fold is a <span class="term">dislocation</span>. It is what makes the metal soft.</p>
 
   <div class="widget" id="w3">
-    <div class="widget-title"><strong>Опыт 3. Прогони складку</strong><span>выделенные цветом атомы: решётка искажена сильнее всего</span></div>
+    <div class="widget-title"><strong>Experiment 3. Move a fold through the crystal</strong><span>coloured atoms: where the lattice is most distorted</span></div>
     <canvas id="w3-canvas"></canvas>
     <div class="controls">
-      <button id="w3-hit">Ударить</button>
-      <button class="ghost" id="w3-reset">Заново</button>
+      <button id="w3-hit">Strike</button>
+      <button class="ghost" id="w3-reset">Reset</button>
     </div>
     <div class="caption" id="w3-caption"></div>
-    <div class="note"><b>Что здесь верно, а что упрощено.</b> Верно: устройство складки (лишний полуряд атомов сверху), то, что она сдвигает кристалл ровно на один атом, и ступенька на краю после её выхода. Упрощено: это плоский срез. В объёмном кристалле складка представляет собой линию, уходящую вглубь экрана. Смещения атомов рядом с ней нарисованы по плавной кривой, а не рассчитаны по силам между атомами.</div>
+    <div class="note"><b>What is true, and what is simplified.</b> The fold has the right structure: an extra half-row of atoms above it. It shifts the crystal by exactly one atom and leaves a step at the edge when it comes out. The picture is a flat slice. In a crystal with depth, the fold is a line running into the screen. The atoms near it follow a smooth curve drawn for the model. Their positions were not calculated from the forces between atoms.</div>
   </div>
 
-  <p>Теперь то же самое по шагам и с линиями между атомами. Линия соединяет два атома, которые сейчас стоят друг напротив друга через плоскость сдвига. Чем сильнее линия растянута, тем она краснее. В обоих окнах верхний слой в итоге сдвигается на один атом. Смотри, сколько линий натянуто в каждый момент.</p>
+  <p>Now watch the same process one step at a time, with lines between the atoms. Each line joins two atoms facing each other across the <span class="term">slip plane</span>, the surface along which the layers slide. The more a line stretches, the redder it gets. In both windows, the top layer ends up one atom further along. Watch how many lines are stretched at any one moment.</p>
 
   <div class="widget" id="w5">
-    <div class="widget-title"><strong>Опыт 4. Два способа сдвинуть слой, по шагам</strong><span>нажимай «Шаг» в каждом окне</span></div>
+    <div class="widget-title"><strong>Experiment 4. Two ways to move a layer, step by step</strong><span>press Step in each window</span></div>
     <div class="steps-duo">
       <div>
-        <h4>Весь слой разом</h4>
+        <h4>The whole layer at once</h4>
         <canvas id="w5a-canvas"></canvas>
         <div class="controls">
-          <button class="ghost" id="w5a-back">Назад</button>
-          <button id="w5a-step">Шаг</button>
-          <button class="ghost" id="w5a-play">Играть</button>
+          <button class="ghost" id="w5a-back">Back</button>
+          <button id="w5a-step">Step</button>
+          <button class="ghost" id="w5a-play">Play</button>
         </div>
-        <div class="meter-head" style="margin-top:12px"><span>Натянуто связей сейчас</span><b id="w5a-now"></b></div>
-        <div class="meter-head"><span>Больше всего за раз</span><b id="w5a-max"></b></div>
+        <div class="meter-head" style="margin-top:12px"><span>Bonds stretched now</span><b id="w5a-now"></b></div>
+        <div class="meter-head"><span>Most stretched at once</span><b id="w5a-max"></b></div>
         <div class="caption" id="w5a-cap"></div>
       </div>
       <div>
-        <h4>Складкой</h4>
+        <h4>With a fold</h4>
         <canvas id="w5b-canvas"></canvas>
         <div class="controls">
-          <button class="ghost" id="w5b-back">Назад</button>
-          <button id="w5b-step">Шаг</button>
-          <button class="ghost" id="w5b-play">Играть</button>
+          <button class="ghost" id="w5b-back">Back</button>
+          <button id="w5b-step">Step</button>
+          <button class="ghost" id="w5b-play">Play</button>
         </div>
-        <div class="meter-head" style="margin-top:12px"><span>Натянуто связей сейчас</span><b id="w5b-now"></b></div>
-        <div class="meter-head"><span>Больше всего за раз</span><b id="w5b-max"></b></div>
+        <div class="meter-head" style="margin-top:12px"><span>Bonds stretched now</span><b id="w5b-now"></b></div>
+        <div class="meter-head"><span>Most stretched at once</span><b id="w5b-max"></b></div>
         <div class="caption" id="w5b-cap"></div>
       </div>
     </div>
-    <div class="note"><b>Что здесь верно, а что упрощено.</b> Верно: при сдвиге слоя целиком все связи через плоскость сдвига растягиваются одновременно, а при проходе складки в каждый момент переключается одна; итоговый сдвиг в обоих случаях один и тот же, на один атом.<a class="fn" href="#s-glide"></a> Упрощено: решётка нарисована квадратной и плоской, у меди она объёмная и уложена плотнее. Линии условны: в металле атом не держится за конкретного соседа отдельной связью (вспомни общий «клей»), линия лишь отмечает ближайшего соседа напротив. Счётчик считает линию натянутой, когда она отклонилась больше чем на 15% расстояния между атомами; это мой порог для наглядности, а не измеренная величина. Смещения атомов рядом со складкой нарисованы по плавной кривой, а не рассчитаны по силам.</div>
+    <div class="note"><b>What is true, and what is simplified.</b> If the whole layer moves at once, all bonds across the slip plane stretch together. When a fold passes, one bond changes neighbours at a time. Both routes give the same final shift: one atom.<a class="fn" href="#s-glide"></a> The drawing is a flat, square grid. Copper has a more closely packed lattice with depth. The lines are only guides. A metal atom does not have a separate bond to one particular neighbour: remember the shared glue. Each line simply marks the nearest atom opposite. The counter calls a line stretched when its sideways movement exceeds 15% of the distance between atoms. I chose that threshold to make the picture clear; it is not a measured value. The atoms near the fold follow a drawn curve, not a calculation of forces.</div>
   </div>
 
-  <h3>Почему от ударов медь твердеет</h3>
-  <p>Каждый удар рождает в металле новые складки. Пока их мало, они свободно пробегают насквозь, и кусок легко меняет форму. Но складки мешают друг другу: две встретились на соседних рядах и сцепились, третья упёрлась в них, четвёртая в третью.</p>
-  <p>Металл с застрявшими складками мять труднее, ведь двигаться больше нечему. Мастер чувствует это рукой: кусок стал твёрже. Такое упрочнение ударами называется <span class="term">наклёп</span>. Наклёпанная медь примерно вдвое твёрже мягкой. У топора из самородной меди с Великих озёр, оставленного после холодной ковки, твёрдость 116 единиц по шкале Виккерса, а у наконечника копья, который после ковки прогрели на огне, 59.<a class="fn" href="#s-hard"></a> Когда складкам двигаться почти некуда, металл уже не может уступить удару, сминаясь. Нагрузка копится в самых забитых местах, и там раскрываются трещины.</p>
-  <p>У этой связи есть точный закон: прочность растёт как квадратный корень из плотности складок.<a class="fn" href="#s-workhard"></a> Чтобы удвоить прибавку прочности, складок нужно вчетверо больше.</p>
+  <h3>Why hammering makes copper harder</h3>
+  <p>Every blow creates new folds. When there are few, they can travel freely through the metal, and the piece changes shape easily. But folds get in each other’s way. Two meet on neighbouring rows and lock together. A third runs into them. A fourth runs into the third.</p>
+  <p>With its folds trapped, the metal is harder to reshape: nothing is free to move. You can feel the difference through the hammer. This strengthening by blows is called <span class="term">work hardening</span>. Copper hardened in this way is about twice as hard as soft copper. A native copper axe from the Great Lakes was left as it was after cold forging. Its hardness is 116 on the <span class="term">Vickers scale</span>, a scale for measuring hardness. A spearhead heated in a fire after forging measures 59.<a class="fn" href="#s-hard"></a> When folds have almost nowhere to go, the metal can no longer give way to a blow by changing shape. The load builds up in the most crowded places, and cracks open there.</p>
+  <p>There is a precise rule: strength grows as the square root of the density of folds, meaning how closely they are packed.<a class="fn" href="#s-workhard"></a> Put simply, to double the extra strength, you need four times as many folds.</p>
 
-  <h3>Кусок металла состоит из зёрен</h3>
-  <p>Кусок металла почти никогда не бывает одним кристаллом. Он состоит из множества кристалликов, сросшихся вплотную, и в каждом ряды атомов идут в своём направлении. Такой кристаллик называют <span class="term">зерном</span>, а место, где встречаются два зерна, <span class="term">границей зёрен</span>.<a class="fn" href="#s-grains"></a></p>
+  <h3>A piece of metal is made of grains</h3>
+  <p>A piece of metal is almost never one crystal. It consists of many small crystals joined tightly together. In each, the rows of atoms point in a different direction. Each small crystal is called a <span class="term">grain</span>. The place where two grains meet is a <span class="term">grain boundary</span>.<a class="fn" href="#s-grains"></a></p>
 
   <div class="widget" id="w-grains">
-    <div class="widget-title"><strong>Схема. Зёрна</strong><span>масштаб условный</span></div>
+    <div class="widget-title"><strong>Diagram. Grains</strong><span>not to scale</span></div>
     <svg viewBox="0 0 600 220" style="width:100%;height:auto;border-radius:10px;background:var(--well)">
       <defs>
         <pattern id="gr1" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(0)"><circle cx="6" cy="6" r="3.6" fill="#c97b4a"/></pattern>
@@ -196,29 +197,29 @@
       <rect x="262" y="26" width="92" height="46" fill="none" style="stroke:var(--fold-move)" stroke-width="2" stroke-dasharray="6 4"/>
     </svg>
     <div class="legend">
-      <span style="--c:var(--atom)">атомы; в каждом зерне ряды повёрнуты по-своему</span>
-      <span style="--c:var(--patina)">границы зёрен</span>
-      <span style="--c:var(--fold-move)">пунктир: такой участок показывает линза</span>
+      <span style="--c:var(--atom)">atoms; rows point a different way in each grain</span>
+      <span style="--c:var(--patina)">grain boundaries</span>
+      <span style="--c:var(--fold-move)">dashed outline: a patch like the one in the lens</span>
     </div>
-    <div class="note"><b>Что здесь верно, а что упрощено.</b> Верно: металл состоит из зёрен с разным направлением рядов. Упрощено: размеры. В меди зёрна бывают от сотых долей миллиметра до почти миллиметра (измерено 0,02–0,08 мм и 0,03–0,7 мм),<a class="fn" href="#s-grains"></a> так что поперёк настоящего зерна помещаются не десятки атомов, как на рисунке, а от десятков тысяч до миллионов. Атомы на самих границах нарисованы условно.</div>
+    <div class="note"><b>What is true, and what is simplified.</b> Metal really does contain grains whose rows point in different directions. The sizes are simplified. Copper grains range from hundredths of a millimetre to almost a millimetre. Measured ranges include 0.02–0.08 mm and 0.03–0.7 mm.<a class="fn" href="#s-grains"></a> So a real grain has tens of thousands to millions of atoms across it, not the few dozen shown here. The atoms at the boundaries are only a rough sketch.</div>
   </div>
 
-  <h3>Откуда берутся складки и почему они бегут в обе стороны</h3>
-  <p>Молот не толкает складку, как рука толкает складку на ковре. Удар сжимает весь кусок, и во всей его толще сразу возникает усилие, которое стремится сдвинуть слои атомов друг по другу. Сильнее всего оно на плоскостях, наклонённых к направлению удара.<a class="fn" href="#s-crss"></a></p>
-  <p>Складки бывают двух знаков: у одной лишний полуряд атомов сверху, у другой снизу. Одно и то же усилие гонит складки разных знаков в противоположные стороны.<a class="fn" href="#s-opposite"></a> Поэтому в линзе они бегут и вправо, и влево, хотя молот бьёт с одной стороны.</p>
-  <p>Откуда они берутся. В начале деформации складки стартуют в основном от неровностей на границах зёрен. От поверхности куска они тоже стартуют, но в металле из многих зёрен это мало что меняет: большинство зёрен поверхности не касается.<a class="fn" href="#s-disl"></a> Внутри зерна работают источники, которые под нагрузкой выпускают складку в виде замкнутой петли, и петля расширяется во все стороны.<a class="fn" href="#s-frank"></a> Наш рисунок плоский, это срез. Петля пересекает такой срез в двух местах, и в срезе она выглядит как две складки разных знаков, которые расходятся.<a class="fn" href="#s-loop"></a> Между ними слой уже сдвинут на один атом.</p>
-  <p>Само движение складок по кристаллу не выдумка для наглядности. В 1956 году его увидели напрямую: Хирш, Хорн и Уилан сняли в электронный микроскоп, как дислокации движутся в тонкой алюминиевой фольге.<a class="fn" href="#s-hirsch"></a></p>
+  <h3>Where folds come from, and why they travel both ways</h3>
+  <p>A hammer does not push a fold as your hand pushes a fold in a carpet. A blow squeezes the whole piece. Throughout it, a force tries to slide the layers of atoms past each other. This effect is strongest on planes at an angle to the blow.<a class="fn" href="#s-crss"></a></p>
+  <p>Folds come in two kinds, called opposite <span class="term">signs</span>. One has its extra half-row above it; the other has it below. The same force drives folds of opposite signs in opposite directions.<a class="fn" href="#s-opposite"></a> That is why folds in the lens move both left and right, although the hammer strikes from one side.</p>
+  <p>When the metal first starts to change shape, folds mostly begin at uneven places on grain boundaries. They also start at the surface of the piece. But this matters little in a metal made of many grains: most grains do not touch the surface.<a class="fn" href="#s-disl"></a> Inside a grain, there are sources that release a fold as a closed loop under load. The loop expands in every direction.<a class="fn" href="#s-frank"></a> Our picture is a flat slice. A loop crosses that slice in two places, so it looks like two folds of opposite signs moving apart.<a class="fn" href="#s-loop"></a> Between them, the layer has already shifted by one atom.</p>
+  <p>Moving folds are more than a helpful picture. In 1956, the researchers Hirsch, Horne and Whelan recorded dislocations moving through thin aluminium foil with an electron microscope.<a class="fn" href="#s-hirsch"></a> They saw the motion directly.</p>
 
-  <p>Линза ниже показывает маленький участок внутри одного зерна. Границы зёрен тоже мешают складкам: в соседнем зерне ряды повёрнуты, и складка не может просто продолжить путь. Подробно о зёрнах будет в главах 2 и 9.</p>
+  <p>The lens below shows a small patch inside one grain. Its meters show hardness and <span class="term">ductility</span>, the ability to change shape without cracking. Grain boundaries also block folds. In the next grain, the rows point a different way, so a fold cannot simply carry on. We will look more closely at grains in chapters 2 and 9.</p>
 
   <div class="widget" id="w4">
-    <div class="widget-title"><strong>Линза. Наклёп</strong><span>окно внутрь куска меди</span></div>
+    <div class="widget-title"><strong>Lens. Work hardening</strong><span>a view inside a piece of copper</span></div>
     <canvas id="lens-canvas"></canvas>
     <div class="legend">
-      <span style="--c:var(--atom)">атом меди</span>
-      <span style="--c:var(--atom-hot)">место, где решётка искажена</span>
-      <span style="--c:var(--fold-move)">складка в движении</span>
-      <span style="--c:var(--patina)">застрявшая складка</span>
+      <span style="--c:var(--atom)">copper atom</span>
+      <span style="--c:var(--atom-hot)">distorted lattice</span>
+      <span style="--c:var(--fold-move)">moving fold</span>
+      <span style="--c:var(--patina)">trapped fold</span>
     </div>
     <div class="lens-side">
       <svg viewBox="0 0 220 110" id="nugget-svg">
@@ -228,186 +229,188 @@
           <path id="crack-l" d="M0 0" fill="none"/>
           <path id="crack-r" d="M0 0" fill="none"/>
         </g>
-        <text x="110" y="20" text-anchor="middle" style="fill:var(--muted)" font-family="-apple-system, sans-serif" font-size="11">тот же кусок снаружи</text>
+        <text x="110" y="20" text-anchor="middle" style="fill:var(--muted)" font-family="-apple-system, sans-serif" font-size="11">the same piece from outside</text>
       </svg>
       <div>
         <div class="meter">
-          <div class="meter-head"><span>Твёрдость</span><b id="m-hard">×1.0</b></div>
+          <div class="meter-head"><span>Hardness</span><b id="m-hard">×1.0</b></div>
           <div class="bar"><i id="b-hard"></i></div>
         </div>
         <div class="meter">
-          <div class="meter-head"><span>Запас пластичности (сколько ещё можно мять)</span><b id="m-duct">100%</b></div>
+          <div class="meter-head"><span>Ductility left (how much more it can change shape)</span><b id="m-duct">100%</b></div>
           <div class="bar"><i id="b-duct" class="green"></i></div>
         </div>
-        <div class="meter-head"><span>Ударов: <b id="m-blows">0</b></span><span>Застрявших складок: <b id="m-stuck">0</b></span></div>
+        <div class="meter-head"><span>Blows: <b id="m-blows">0</b></span><span>Trapped folds: <b id="m-stuck">0</b></span></div>
       </div>
     </div>
     <div class="controls">
-      <button id="lens-hit">Ударить молотом</button>
-      <button class="ghost" id="lens-reset">Заново</button>
-      <button disabled>Нагреть: это в главе 2</button>
+      <button id="lens-hit">Strike with the hammer</button>
+      <button class="ghost" id="lens-reset">Reset</button>
+      <button disabled>Heat: coming in chapter 2</button>
     </div>
-    <div class="caption" id="lens-caption">Свежий самородок: в этом маленьком окне ряды ровные, складок не видно. Бей и следи, сколько складок проходит насквозь, а сколько застревает.</div>
-    <div class="note"><b>Что здесь верно, а что упрощено.</b> Верно: удары плодят складки; складки мешают друг другу и застревают; чем их больше, тем металл твёрже и тем меньше он может мяться. Шкала твёрдости считается по настоящему закону (корень из числа застрявших складок), а её верх выставлен на измеренное «примерно вдвое». Упрощено: окно начинается пустым. В мягкой меди складки есть, только редко, и в такой маленький участок они не попадают. Мягкая она как раз потому, что складки в ней есть и им ничто не мешает: кристалл совсем без складок сдвинуть очень трудно.<a class="fn" href="#s-workhard"></a> Ещё упрощения:это плоский срез с одним направлением сдвига, а в меди таких направлений двенадцать, и складки застревают в основном на пересечениях разных направлений. Каждая пара складок в окне изображает срез одной петли от источника внутри зерна; место её появления выбирается случайно. В металле складки в начале деформации стартуют в основном от границ зёрен, этого в окне нет. Слои, по которым идёт сдвиг, нарисованы горизонтально: окно повёрнуто вдоль них, а молот в жизни бьёт под углом к ним. Число складок, при котором появляется трещина, задано вручную: в жизни момент разрушения зависит от формы вещи и от того, как по ней бьют.</div>
+    <div class="caption" id="lens-caption">A fresh nugget. In this small window, the rows are regular and no folds are visible. Strike it. Watch how many folds pass through and how many get trapped.</div>
+    <div class="note"><b>What is true, and what is simplified.</b> Blows create folds. Folds block each other and become trapped. More trapped folds mean harder metal with less room to change shape. The hardness meter follows the real rule: the square root of the number of trapped folds. Its upper limit is set to the measured “about twice as hard”. The empty starting window is a simplification. Soft copper already has folds, but they are sparse enough to miss this small patch. Indeed, copper is soft because it has folds that are free to move. A crystal with no folds at all is very hard to shift.<a class="fn" href="#s-workhard"></a> There are other simplifications. This is a flat slice with one direction of sliding. Copper has twelve such directions, and folds mainly get trapped where different directions cross. Each pair here is a slice through a loop from a source inside a grain. Its starting point is chosen at random. In real metal, early folds mostly start at grain boundaries, which this window does not show. The sliding layers are horizontal because the view is turned to line up with them. A real hammer strikes at an angle to them. The number of folds that triggers a crack is set by hand. In real work, failure depends on the shape of the object and how it is struck.</div>
   </div>
 
-  <p>Это окно будет с нами до конца учебника. В следующих главах в нём появятся новые ручки: огонь, чужие атомы, быстрое и медленное охлаждение.</p>
+  <p>This window will stay with us throughout the book. Later chapters will add new controls: fire, atoms of other substances, and fast or slow cooling.</p>
 </section>
 
 <section>
-  <div class="step">Шаг 5 · Что это дало и во что упёрлось</div>
-  <h2>Твёрдое шило и треснувшая заготовка</h2>
-  <p>Форму камню, кости и дереву люди придавали задолго до меди, но только снимая лишнее: скалывая, срезая, стачивая. Холодная ковка дала прочный материал, который можно перелепить ударами, ничего от него не отнимая: расплющить в лист, вытянуть в стержень, согнуть в крючок. Наклёп дал способ сделать вещь твёрже без всяких добавок: шило и лезвие нарочно проковывали по краю.</p>
-  <p>Но тот же наклёп ставил предел. Большую вещь из самородка не выковать: металл затвердеет и лопнет раньше, чем примет нужную форму. Мастеру нужен был способ вернуть битой меди мягкость.</p>
+  <div class="step">Step 5 · What it made possible, and what stood in the way</div>
+  <h2>A hard awl and a cracked piece of copper</h2>
+  <p>Long before copper, people shaped stone, bone and wood by taking material away. They chipped, cut or ground it off. Cold forging gave them a strong material they could reshape with blows, losing nothing. They could flatten it into a sheet, draw it out into a rod or bend it into a hook. Work hardening made an object harder without adding anything. People deliberately hammered the working edge of an awl or blade.</p>
+  <p>But work hardening also set a limit. You could not forge a large object from a nugget: the copper would become hard and split before it reached the right shape. The craft needed a way to make hammered copper soft again.</p>
 </section>
 
 </main>
 
 <div class="recap">
-  <div class="step">Что запомнить</div>
+  <div class="step">Remember</div>
   <ul>
-    <li>Металл состоит из атомов, уложенных ровными рядами. Их скрепляет общий «клей», а не связи с конкретными соседями.</li>
-    <li>Поэтому ряды могут съезжать, и металл меняет форму, оставаясь целым. Камень так не может и колется.</li>
-    <li>Ряды съезжают не целиком: по ним бежит складка (дислокация). Пока складки бегают свободно, металл мягкий.</li>
-    <li>От ударов складок становится много, они сцепляются и застревают. Металл твердеет (наклёп), а потом трескается.</li>
+    <li>Metal is made of atoms in regular rows. A shared “glue” holds them together, rather than bonds to particular neighbours.</li>
+    <li>The rows can slide while the metal stays in one piece. Stone cannot do this, so it splits.</li>
+    <li>A row does not move all at once. A fold, or dislocation, travels through it. While folds can move freely, the metal is soft.</li>
+    <li>Hammering creates many folds. They lock together and become trapped. The metal becomes harder through work hardening, then cracks.</li>
   </ul>
   <dl class="words">
-    <dt>Атом</dt><dd>мельчайший шарик вещества</dd>
-    <dt>Кристалл</dt><dd>атомы, уложенные ровными рядами</dd>
-    <dt>Металлическая связь</dt><dd>общий «клей» между всеми атомами металла</dd>
-    <dt>Дислокация</dt><dd>складка в рядах атомов, которая бежит по кристаллу</dd>
-    <dt>Наклёп</dt><dd>упрочнение металла ударами</dd>
-    <dt>Зерно</dt><dd>один кристаллик в куске металла; кусок состоит из множества зёрен</dd>
-    <dt>Cu</dt><dd>обозначение меди</dd>
+    <dt>Atom</dt><dd>a tiny ball of matter</dd>
+    <dt>Crystal</dt><dd>atoms arranged in regular rows</dd>
+    <dt>Metallic bonding</dt><dd>the shared “glue” between all the atoms in a metal</dd>
+    <dt>Dislocation</dt><dd>a fold in the rows of atoms that can travel through a crystal</dd>
+    <dt>Work hardening</dt><dd>making metal stronger by hammering it</dd>
+    <dt>Grain</dt><dd>one small crystal in a piece of metal; the piece contains many grains</dd>
+    <dt>Cu</dt><dd>the chemical symbol for copper</dd>
   </dl>
 </div>
 
 <div class="recap" id="quiz">
-  <div class="step">Проверь себя · 8 вопросов</div>
+  <div class="step">Check your understanding · 8 questions</div>
   <div id="quiz-box"></div>
 </div>
 
 <div class="next">
   <div><a href="ch2.html">
-    <small>Дальше · глава 2 →</small>
-    <h2>Огонь возвращает мягкость</h2>
-    <p>Затвердевшую, почти треснувшую заготовку подержали в огне и остудили, и она снова мнётся, как свежий самородок. Как это открыли, неизвестно, но следы нагрева есть уже в вещах из Чайоню. Что огонь делает со складками?</p>
+    <small>Next · chapter 2 →</small>
+    <h2>Fire makes copper soft again</h2>
+    <p>A piece of copper has become hard and is close to cracking. After a spell in the fire and time to cool, it can be shaped again, like a fresh nugget. We do not know how people discovered this. But even the objects from Çayönü show signs of heating. What does fire do to the folds?</p>
   </a></div>
 </div>
 
 <div class="recap" style="margin-top:0;padding-bottom:90px">
-  <div class="step">Источники</div>
-  <p style="font-size:16px;color:var(--muted)">Пометка «по аннотации» или «по выдержке» значит, что полный текст источника недоступен и факт взят из его аннотации или цитаты. Остальные источники сверены по полному тексту.</p>
+  <div class="step">Sources</div>
+  <p style="font-size:16px;color:var(--muted)">“Abstract only” or “excerpt only” means that the full text was unavailable. The fact comes from the abstract or a quoted passage. All other sources were checked in full.</p>
   <ol class="sources">
-    <li id="s-foll">Чайоню-Тепеси (число вещей, даты 8200–7500 до н. э., нагрев между проковками), Ашиклы-Хёюк: H. Föll, <a href="https://www.tf.uni-kiel.de/matwis/amat/iss/kap_a/advanced/ta_1_2c.html">Early Places With Metals</a>, Университет Киля, со ссылками на Yalçin 2008, Yalçin &amp; Pernicka 1999.</li>
-    <li id="s-copper">Подвеска из северного Ирака около 8700 до н. э., самородная медь, обозначение Cu от cuprum, расстояние между атомами (решётка 361,5 пм, радиус атома 128 пм): <a href="https://en.wikipedia.org/wiki/Copper">Wikipedia, Copper</a>.</li>
-    <li id="s-lakes">Великие озёра, даты 8500–3580 лет назад: Pompeani et al., <a href="https://doi.org/10.1017/RDC.2021.7">On the Timing of the Old Copper Complex in North America</a>, Radiocarbon 63(2), 2021 (по аннотации). Ковка и отжиг, спор о литье: <a href="https://en.wikipedia.org/wiki/Old_Copper_complex">Wikipedia, Old Copper complex</a>.</li>
-    <li id="s-tools">Каменные орудия 3,3 и 2,6 млн лет: <a href="https://www.sciencenews.org/article/earliest-known-stone-tools-unearthed-kenya">Science News</a> о работе Harmand et al., Nature, 2015; сама работа в <a href="https://doi.org/10.1038/nature14464">авторской версии</a>.</li>
-    <li id="s-uruk">Первые таблички Урука, 3350–3200 до н. э.: <a href="https://en.wikipedia.org/wiki/Proto-cuneiform">Wikipedia, Proto-cuneiform</a>. Раньше началом письма условно считали 3200 год, новые датировки сдвигают его к 3350–3300.</li>
-    <li id="s-flint">Кремень как скрытокристаллический кварц SiO<sub>2</sub>: <a href="https://en.wikipedia.org/wiki/Flint">Wikipedia, Flint</a>.</li>
-    <li id="s-ore">Руда как порода, где ценного минерала больше обычного и добыча оправдана: <a href="https://en.wikipedia.org/wiki/Ore">Wikipedia, Ore</a>.</li>
-    <li id="s-amorph">Кристаллические и аморфные твёрдые вещества, стекло как аморфное: <a href="https://openstax.org/books/chemistry-2e/pages/10-5-the-solid-state-of-matter">OpenStax, Chemistry 2e, §10.5</a>.</li>
-    <li id="s-workhard">Наклёп, закон «прочность растёт как корень из плотности дислокаций», разрушение при исчерпании пластичности, высокая прочность кристалла без дислокаций и низкая при умеренном их числе: <a href="https://en.wikipedia.org/wiki/Work_hardening">Wikipedia, Work hardening</a>.</li>
-    <li id="s-frank">Источник внутри кристалла выпускает расширяющиеся петли (источник Франка — Рида): <a href="https://en.wikipedia.org/wiki/Frank%E2%80%93Read_source">Wikipedia, Frank–Read source</a>; <a href="https://www.tf.uni-kiel.de/matwis/amat/def_en/kap_5/backbone/r5_3_2.html">H. Föll, Generation of Dislocations</a>, Университет Киля; <a href="https://eng.libretexts.org/Bookshelves/Materials_Science/TLP_Library_II/7%3A_Mechanisms_of_Plasticity/7.2%3A_Dislocation_Generation">DoITPoMS, Dislocation Generation</a> (копия на LibreTexts).</li>
-    <li id="s-disl">Складка как граница сдвинутой и несдвинутой части; старт от неровностей на границах зёрен в начале деформации; малая роль поверхности в металле из многих зёрен; рождение двух противоположных складок сдвигом на месте и его малая вероятность: <a href="https://en.wikipedia.org/wiki/Dislocation">Wikipedia, Dislocation</a>.</li>
-    <li id="s-opposite">Складки разных знаков под одной нагрузкой движутся в противоположные стороны: <a href="https://www.nature.com/articles/srep16892">Probing the character of ultra-fast dislocations</a>, Scientific Reports, 2015.</li>
-    <li id="s-glide">Опыт 4, сдвиг целым слоем и сдвиг складкой по шагам: <a href="https://www.doitpoms.ac.uk/tlplib/dislocations/dislocation_glide.php">DoITPoMS, Introduction to Dislocations, Dislocation glide</a>, Кембридж.</li>
-    <li id="s-loop">«Петля в плоском срезе выглядит как расходящаяся пара складок»: вывод автора учебника из пунктов про петли, границу сдвига и движение складок разного знака; готового описания нет.</li>
-    <li id="s-hirsch">Прямое наблюдение движущихся дислокаций: Hirsch, Horne, Whelan, <a href="https://scilit.com/publications/8644e5d9c96369b06684ea80bce6a4ad">Direct observations of the arrangement and motion of dislocations in aluminium</a>, Philosophical Magazine 1, 677–684, 1956 (по аннотации).</li>
-    <li id="s-crss">Сдвиговое усилие на наклонных плоскостях при сжатии: <a href="https://en.wikipedia.org/wiki/Critical_resolved_shear_stress">Wikipedia, Critical resolved shear stress</a>.</li>
-    <li id="s-grains">Зёрна и границы зёрен:<a href="https://fiskalloy.com/?p=714">Fisk Alloy, Grain Size</a>. Размеры зёрен 0,03–0,7 мм: <a href="https://onemine.org/documents/part-ii-papers-effect-of-grain-size-and-annealing-treatment-on-steady-state-creep-of-copper">исследование ползучести меди</a>, 1968 (по аннотации). Размеры 20–80 мкм: <a href="https://arxiv.org/abs/2403.03198">arXiv:2403.03198</a>.</li>
-    <li id="s-hard">Твёрдость древних вещей из самородной меди с Великих озёр: топор после холодной ковки 116 единиц по Виккерсу, наконечник копья с полностью обновлёнными зёрнами 59: <a href="http://www.scielo.br/j/mr/a/JmSCx5Vc4Nd4JdcBWghvXRf/?lang=en">History of the Recrystallisation of Metals</a>, Materials Research, 2020, подпись к рисунку 1. Это две разные вещи, а не один кусок до и после, поэтому в тексте стоит «примерно вдвое». Второе измерение, на современной чистой меди: 47±3 единиц после термообработки против 90–110 без неё: <a href="https://arxiv.org/abs/2403.03198">arXiv:2403.03198</a>.</li>
-    <li id="s-strength">Расчётная прочность на сдвиг порядка G/2π и реальные 0,5–10 МПа у металлов: <a href="https://www.princeton.edu/~maelabs/mae324/07/07mae_19.htm">конспект курса MAE 324, Принстон</a> (по выдержке). Модуль сдвига меди 48 ГПа взят из Wikipedia, Copper; число «несколько гигапаскалей» получено делением.</li>
+    <li id="s-foll">Çayönü Tepesi: number of objects, dates of 8200–7500 BCE, and heating between rounds of hammering. Also Aşıklı Höyük: H. Föll, <a href="https://www.tf.uni-kiel.de/matwis/amat/iss/kap_a/advanced/ta_1_2c.html">Early Places With Metals</a>, Kiel University, citing Yalçin 2008 and Yalçin &amp; Pernicka 1999.</li>
+    <li id="s-copper">The pendant from northern Iraq dated to about 8700 BCE; native copper; Cu from cuprum; distance between atoms, with a lattice parameter of 361.5 pm and an atomic radius of 128 pm: <a href="https://en.wikipedia.org/wiki/Copper">Wikipedia, Copper</a>.</li>
+    <li id="s-lakes">Great Lakes finds dated to 8500–3580 years ago: Pompeani et al., <a href="https://doi.org/10.1017/RDC.2021.7">On the Timing of the Old Copper Complex in North America</a>, Radiocarbon 63(2), 2021 (abstract only). Forging and annealing, and the debate over casting: <a href="https://en.wikipedia.org/wiki/Old_Copper_complex">Wikipedia, Old Copper complex</a>.</li>
+    <li id="s-tools">Stone tools from 3.3 and 2.6 million years ago: <a href="https://www.sciencenews.org/article/earliest-known-stone-tools-unearthed-kenya">Science News</a> on Harmand et al., Nature, 2015; the paper itself in the <a href="https://doi.org/10.1038/nature14464">author’s version</a>.</li>
+    <li id="s-uruk">The first Uruk tablets, 3350–3200 BCE: <a href="https://en.wikipedia.org/wiki/Proto-cuneiform">Wikipedia, Proto-cuneiform</a>. The conventional date for the start of writing used to be 3200. Newer dating places it at 3350–3300.</li>
+    <li id="s-flint">Flint as quartz with very small crystals, SiO<sub>2</sub>: <a href="https://en.wikipedia.org/wiki/Flint">Wikipedia, Flint</a>.</li>
+    <li id="s-ore">Ore as rock with an unusually high amount of a valuable mineral, enough to justify extraction: <a href="https://en.wikipedia.org/wiki/Ore">Wikipedia, Ore</a>.</li>
+    <li id="s-amorph">Crystalline and amorphous solids; glass as a solid without long-range atomic order: <a href="https://openstax.org/books/chemistry-2e/pages/10-5-the-solid-state-of-matter">OpenStax, Chemistry 2e, §10.5</a>.</li>
+    <li id="s-workhard">Work hardening; strength growing as the square root of dislocation density; failure when no more change of shape is possible; high strength with no dislocations and low strength with a moderate number: <a href="https://en.wikipedia.org/wiki/Work_hardening">Wikipedia, Work hardening</a>.</li>
+    <li id="s-frank">A source inside a crystal releases expanding loops, the Frank–Read source: <a href="https://en.wikipedia.org/wiki/Frank%E2%80%93Read_source">Wikipedia, Frank–Read source</a>; <a href="https://www.tf.uni-kiel.de/matwis/amat/def_en/kap_5/backbone/r5_3_2.html">H. Föll, Generation of Dislocations</a>, Kiel University; <a href="https://eng.libretexts.org/Bookshelves/Materials_Science/TLP_Library_II/7%3A_Mechanisms_of_Plasticity/7.2%3A_Dislocation_Generation">DoITPoMS, Dislocation Generation</a> (copy on LibreTexts).</li>
+    <li id="s-disl">A fold as the boundary between shifted and unshifted material; folds starting at uneven grain boundaries early in deformation; the small role of the outer surface in metal with many grains; the unlikely creation of two opposite folds by local sliding: <a href="https://en.wikipedia.org/wiki/Dislocation">Wikipedia, Dislocation</a>.</li>
+    <li id="s-opposite">Folds of opposite signs move in opposite directions under the same load: <a href="https://www.nature.com/articles/srep16892">Probing the character of ultra-fast dislocations</a>, Scientific Reports, 2015.</li>
+    <li id="s-glide">Experiment 4: moving a whole layer and moving it by a fold, step by step: <a href="https://www.doitpoms.ac.uk/tlplib/dislocations/dislocation_glide.php">DoITPoMS, Introduction to Dislocations, Dislocation glide</a>, Cambridge.</li>
+    <li id="s-loop">“A loop in a flat slice looks like a pair of folds moving apart” is the textbook author’s inference from the descriptions of loops, slip boundaries and the motion of folds of opposite signs. No source gives that description directly.</li>
+    <li id="s-hirsch">Direct observation of moving dislocations: Hirsch, Horne, Whelan, <a href="https://scilit.com/publications/8644e5d9c96369b06684ea80bce6a4ad">Direct observations of the arrangement and motion of dislocations in aluminium</a>, Philosophical Magazine 1, 677–684, 1956 (abstract only).</li>
+    <li id="s-crss">The force that causes sliding on angled planes under compression: <a href="https://en.wikipedia.org/wiki/Critical_resolved_shear_stress">Wikipedia, Critical resolved shear stress</a>.</li>
+    <li id="s-grains">Grains and grain boundaries: <a href="https://fiskalloy.com/?p=714">Fisk Alloy, Grain Size</a>. Grain sizes of 0.03–0.7 mm: <a href="https://onemine.org/documents/part-ii-papers-effect-of-grain-size-and-annealing-treatment-on-steady-state-creep-of-copper">study of copper creep</a>, 1968 (abstract only). Sizes of 20–80 μm: <a href="https://arxiv.org/abs/2403.03198">arXiv:2403.03198</a>.</li>
+    <li id="s-hard">Hardness of ancient native copper objects from the Great Lakes: a cold-forged axe, 116 Vickers units; a spearhead with fully renewed grains, 59: <a href="http://www.scielo.br/j/mr/a/JmSCx5Vc4Nd4JdcBWghvXRf/?lang=en">History of the Recrystallisation of Metals</a>, Materials Research, 2020, caption to figure 1. These are two different objects, not one piece before and after heating. That is why the text says “about twice”. Another measurement, on modern pure copper, gives 47±3 units after heat treatment and 90–110 without it: <a href="https://arxiv.org/abs/2403.03198">arXiv:2403.03198</a>.</li>
+    <li id="s-strength">Calculated shear strength of about G/2π, compared with real values of 0.5–10 MPa for metals: <a href="https://www.princeton.edu/~maelabs/mae324/07/07mae_19.htm">Princeton MAE 324 course notes</a> (excerpt only). The copper shear modulus of 48 GPa comes from Wikipedia, Copper. Dividing gives the “several gigapascals” in the text.</li>
   </ol>
 </div>
 
-<script src="assets/core.js?v=8"></script>
+<script src="assets/core.js?v=9"></script>
+<script src="assets/lang.js?v=9"></script>
 <script>
+window.T = {
+  hitStart: 'The two pieces look alike. Both are hard. Both are heavy.',
+  flint: ['Flint: a sharp flake breaks off. This is what you want for a knife or scraper.', 'Flint: another flake. Each blow takes something away.', 'The flint has split. Stone cannot change shape this way. It either stays whole or breaks.'],
+  copper: ['Copper: a dent. Nothing breaks off.', 'Copper: the piece is lower and wider.', 'Copper: wider again. There is just as much copper as before.', 'Copper: almost flat now.', 'Copper: a flat piece. The same copper has a new shape, with no fragments lost.'],
+  labelMetal: 'COPPER',
+  labelStone: 'STONE',
+  metalStill: 'Copper: the rows are in place.',
+  metalMoving: 'Copper: the layer slides. The shared glue holds the atoms in every position.',
+  metalDone: 'Copper: the layer is one step further along. The bonds are intact. The shape has changed.',
+  stoneStill: 'Stone: stiff bonds hold each atom to particular neighbours.',
+  stoneStretch: 'Stone: the bonds between layers stretch…',
+  stoneBroken: 'Stone: the bonds have broken. They do not join up again. This is a crack.',
+  fold: ['The crystal is whole. There is no fold yet.', 'A fold enters from the left. Above the coloured area, the top half has one more row of atoms than the bottom half.', 'The fold moves. To its left, the top has already shifted by one atom. To its right, it has not.', 'Another step. Only one line of bonds breaks and joins up again, so little force is needed.', 'Almost at the edge.', 'The fold comes out. The lattice is regular again, but the top has moved by one atom. Steps remain at the edges.'],
+  pushLabel: 'top pushed this way →',
+  whole: ['The layer is in place. Each line joins atoms facing each other across the slip plane.', 'The whole top layer moves. All bonds across the plane stretch at once.', 'Halfway. All bonds are stretched to their limit at once. Getting past this point takes an enormous force.', 'Each lower atom now faces the next neighbour above. The bonds shorten again.', 'The layer has moved by one atom. Steps remain at the edges.'],
+  stepIn: 'Only the leftmost column moves. It now sits between two lower atoms, with no partner below. This is the fold.',
+  stepMove: 'The fold moves to the next column. The lower atom to its right lets go of its neighbour and takes the atom without a partner. The other bonds stay as they were.',
+  stepOut: 'The fold comes out on the right. The layer has moved by one atom, just as in the left window. But only one bond was stretched at a time.',
+  lensStart: 'A fresh nugget. In this small window, the rows are regular and no folds are visible. Strike it. Watch how many folds pass through and how many get trapped.',
+  lensBlow: 'Blow {n}: three pairs of folds formed. Left the window: {passed}. Trapped: {stuck}.',
+  lensClean: 'The lattice is regular again. Outside, the piece is flatter.',
+  lensFull: 'Almost every path is blocked. The metal is hard and close to cracking.',
+  lensBlocked: 'Trapped folds block the path of the next ones.',
+  lensCrack: 'A crack. The folds had almost nowhere to move. The metal could not give way by changing shape, so it split where folds were most crowded.'
+};
 window.QUIZ = [
   {
-    q: 'По самородной меди ударили так же, как привыкли бить по кремню. Что произошло?',
-    options: ['От неё откололась острая пластина', 'На ней осталась вмятина, ничего не откололось', 'Она рассыпалась в порошок'],
+    q: 'Someone strikes native copper as they would strike flint. What happens?',
+    options: ['A sharp flake breaks off', 'A dent forms, and nothing breaks off', 'It turns to powder'],
     answer: 1,
-    why: 'Медь меняет форму и остаётся целой, камень так не умеет.',
-    where: 'Он не откололся. Он помялся'
+    why: 'Copper changes shape while staying whole. Stone cannot do that.',
+    where: 'A dent instead of a chip'
   },
   {
-    q: 'Почему медь под ударом мнётся, а кремень колется?',
-    options: [
-      'Атомы меди мягкие, а атомы камня твёрдые',
-      'В меди атомы лежат как попало, а в камне ровными рядами',
-      'В меди атомы скрепляет общий «клей», не привязанный к конкретным соседям, а в камне связи идут к конкретным соседям и после разрыва не срастаются'
-    ],
+    q: 'Why does copper dent while flint splits?',
+    options: ['Copper atoms are soft, while stone atoms are hard', 'Copper atoms are jumbled, while stone atoms form regular rows', 'Copper has shared glue between atoms, without ties to particular neighbours. Stone has bonds to particular neighbours that do not join up again once broken.'],
     answer: 2,
-    why: 'Дело в типе связи. Сами атомы не бывают мягкими или твёрдыми, а ровными рядами уложены и те и другие.',
-    where: 'Почему камень колется, а медь мнётся'
+    why: 'The difference is in the bonds. Atoms themselves are not soft or hard. Both materials have atoms in regular rows.',
+    where: 'Why stone splits and copper dents'
   },
   {
-    q: 'Что такое дислокация («складка»)?',
-    options: [
-      'Место в кристалле, где есть лишний полуряд атомов; оно может бежать по кристаллу',
-      'Трещина между слоями атомов',
-      'Чужой атом, застрявший в решётке'
-    ],
+    q: 'What is a dislocation, or fold?',
+    options: ['A place with an extra half-row of atoms that can travel through the crystal', 'A crack between layers of atoms', 'An atom of another substance trapped in the lattice'],
     answer: 0,
-    why: 'Это нарушение в укладке рядов, а не разрыв и не примесь. Связи вокруг неё целы.',
-    where: 'Слой едет не весь сразу'
+    why: 'It is a change in the arrangement of rows, not a break or an impurity. The bonds around it are intact.',
+    where: 'The layer moves a little at a time'
   },
   {
-    q: 'Расчёт для сдвига слоя атомов целиком даёт прочность примерно в тысячу раз выше, чем у настоящей чистой меди. Почему настоящая медь настолько мягче?',
-    options: [
-      'В настоящей меди много трещин',
-      'Слой сдвигается не целиком: по нему бежит складка, и в каждый момент рвётся только одна линия связей',
-      'Расчёт сделан с ошибкой'
-    ],
+    q: 'Moving a whole atomic layer at once would need about a thousand times the load that makes real, pure copper flow. Why is real copper so much softer?',
+    options: ['Real copper has many cracks', 'A fold moves through the layer, so only one line of bonds breaks at a time', 'The calculation is wrong'],
     answer: 1,
-    why: 'Это пример с ковром: гнать складку намного легче, чем тащить весь ковёр.',
-    where: 'Слой едет не весь сразу'
+    why: 'Think of the carpet. Pushing a fold is much easier than dragging the whole carpet.',
+    where: 'The layer moves a little at a time'
   },
   {
-    q: 'Складка прошла через весь кристалл и вышла наружу. Что изменилось?',
-    options: [
-      'Ничего, кристалл вернулся в исходное состояние',
-      'В кристалле осталась трещина по пути складки',
-      'Решётка снова идеальная, но одна часть кристалла сдвинута относительно другой на один атом, на краю ступенька'
-    ],
+    q: 'A fold passes through the crystal and comes out. What has changed?',
+    options: ['Nothing. The crystal is back to its starting state', 'A crack remains along the path of the fold', 'The lattice is regular again, but one part has moved by one atom relative to the other. A step remains at the edge.'],
     answer: 2,
-    why: 'Так металл меняет форму, не разрушаясь: каждая вышедшая складка даёт сдвиг на один атом.',
-    where: 'Слой едет не весь сразу'
+    why: 'This is how metal changes shape without breaking. Each fold that comes out leaves a shift of one atom.',
+    where: 'The layer moves a little at a time'
   },
   {
-    q: 'Почему от ударов медь становится твёрже?',
-    options: [
-      'Складок становится много, они мешают друг другу и застревают, и двигаться больше нечему',
-      'Атомы от ударов сжимаются и становятся плотнее',
-      'Удары выбивают из металла складки, и решётка становится идеальной'
-    ],
+    q: 'Why does hammering make copper harder?',
+    options: ['Many folds form, block each other and become trapped. Nothing is free to move.', 'The blows squeeze the atoms and make them denser', 'The blows knock folds out of the metal, leaving a perfect lattice'],
     answer: 0,
-    why: 'Удары складки плодят, а не выбивают. Мягкость дают подвижные складки, застрявшие её отнимают.',
-    where: 'Почему от ударов медь твердеет'
+    why: 'Blows create folds. They do not knock them out. Moving folds make metal soft; trapped folds take that softness away.',
+    where: 'Why hammering makes copper harder'
   },
   {
-    q: 'Складок в металле стало в четыре раза больше. Как изменилась прибавка прочности от наклёпа?',
-    options: ['Выросла в четыре раза', 'Выросла в два раза', 'Выросла в шестнадцать раз'],
+    q: 'The metal now has four times as many folds. What happens to the extra strength from work hardening?',
+    options: ['It becomes four times as large', 'It doubles', 'It becomes sixteen times as large'],
     answer: 1,
-    why: 'Прочность растёт как квадратный корень из плотности складок, а корень из четырёх равен двум.',
-    where: 'Почему от ударов медь твердеет'
+    why: 'Strength grows as the square root of fold density. The square root of four is two.',
+    where: 'Why hammering makes copper harder'
   },
   {
-    q: 'Что находки говорят о порядке «сначала только холодная ковка, потом нагрев»?',
-    options: [
-      'Он доказан: между ними прошли тысячи лет',
-      'Нагрев появился раньше ковки',
-      'Уже в ранних вещах из Чайоню есть следы нагрева между проковками, так что периода только холодной ковки в находках пока не видно'
-    ],
+    q: 'Do the finds prove that cold forging came first and heating came later?',
+    options: ['Yes. Thousands of years passed between them.', 'Heating came before forging.', 'Even early objects from Çayönü show heating between rounds of hammering. No period of cold forging alone is clear in the finds.'],
     answer: 2,
-    why: 'Холодная ковка разобрана отдельно потому, что это отдельное физическое явление, а не потому, что так шла хронология.',
-    where: 'Холодная ковка'
+    why: 'We study cold forging separately because it is a separate physical process, not because we know it came first.',
+    where: 'Cold forging'
   }
 ];
 </script>
-<script src="assets/quiz.js?v=8"></script>
-<script src="assets/ch1.js?v=8"></script>
-<script src="assets/feedback.js?v=8"></script>
+<script src="assets/quiz.js?v=9"></script>
+<script src="assets/ch1.js?v=9"></script>
+<script src="assets/feedback.js?v=9"></script>
 </body>
 </html>

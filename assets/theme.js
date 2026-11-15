@@ -1,6 +1,6 @@
 (function () {
   const KEY = 'metal-book-theme';
-  const MODES = [['light', 'Светлая'], ['dark', 'Тёмная'], ['system', 'Системная']];
+  const MODES = [['light', window.UI.themeLight], ['dark', window.UI.themeDark], ['system', window.UI.themeSystem]];
   const mq = window.matchMedia('(prefers-color-scheme: dark)');
   let mode = 'system';
   try {

@@ -1,5 +1,6 @@
 (function () {
-  const { el, renders, P, setupCanvas, mix, jolt, drawLattice } = window.MB;
+  const { el, renders, P, setupCanvas, mix, jolt, drawLattice, fmt } = window.MB;
+  const T = window.T;
 
   function experimentHit() {
     const pieces = Array.from(document.querySelectorAll('#flint .piece'));
@@ -15,20 +16,8 @@
         'translate(-12px,8px) rotate(22deg)'
       ]
     ];
-    const flintText = [
-      '',
-      'Кремень: откололась острая пластина. Именно это и нужно: так делают ножи и скребки.',
-      'Кремень: ещё один скол. Каждый удар что-то отнимает.',
-      'Кремень раскололся. Камень не умеет менять форму: он либо цел, либо разбит.'
-    ];
-    const copperText = [
-      '',
-      'Медь: вмятина. Ничего не откололось.',
-      'Медь: кусок стал ниже и шире.',
-      'Медь: ещё шире. Меди столько же, сколько было.',
-      'Медь: уже похоже на лепёшку.',
-      'Медь: лепёшка. Тот же кусок, другая форма, ни одного осколка.'
-    ];
+    const flintText = [''].concat(T.flint);
+    const copperText = [''].concat(T.copper);
     const blob = el('copper-blob');
     const caption = el('w1-caption');
     let f = 0;
@@ -56,7 +45,7 @@
       f = 0;
       c = 0;
       render();
-      caption.textContent = 'Два куска на вид похожи: оба твёрдые, оба тяжёлые.';
+      caption.textContent = T.hitStart;
     };
   }
 
@@ -158,20 +147,12 @@
       ctx.clearRect(0, 0, W, H);
       ctx.fillStyle = P.muted;
       ctx.font = '600 13px -apple-system, sans-serif';
-      ctx.fillText('МЕДЬ', 20, 26);
-      ctx.fillText('КАМЕНЬ', W / 2 + 20, 26);
+      ctx.fillText(T.labelMetal, 20, 26);
+      ctx.fillText(T.labelStone, W / 2 + 20, 26);
       drawMetal();
       drawStone();
-      el('w2-metal').textContent = s === 0
-        ? 'Медь: ряды на месте.'
-        : s >= 1
-          ? 'Медь: слой встал на шаг дальше. Все связи целы, форма изменилась.'
-          : 'Медь: слой съезжает. Общий «клей» держит атомы в любом положении.';
-      el('w2-stone').textContent = broken
-        ? 'Камень: связи порвались и обратно не срастаются. Это трещина.'
-        : s === 0
-          ? 'Камень: каждый атом держится за своих соседей жёсткими связями.'
-          : 'Камень: связи между слоями растягиваются…';
+      el('w2-metal').textContent = s === 0 ? T.metalStill : s >= 1 ? T.metalDone : T.metalMoving;
+      el('w2-stone').textContent = broken ? T.stoneBroken : s === 0 ? T.stoneStill : T.stoneStretch;
     }
 
     function settle() {
@@ -214,14 +195,7 @@
     const g = { w: 780, h: 240, a: 28, cols: 25, rows: 8, r: 11.5, left: 32, bottom: 212, bulk: false };
     const ctx = setupCanvas(el('w3-canvas'), g.w, g.h);
     const stops = [-14, 5, 10, 15, 20, 40].map((k) => g.left + k * g.a);
-    const texts = [
-      'Кристалл целый. Складки ещё нет.',
-      'Складка вошла слева. Над выделенным цветом местом в верхней половине на один ряд атомов больше, чем в нижней.',
-      'Складка сдвинулась. Слева от неё верх уже переехал на один атом, справа ещё нет.',
-      'Ещё шаг. Рвётся и заново смыкается только одна линия связей, поэтому усилие маленькое.',
-      'Почти у края.',
-      'Складка вышла наружу. Решётка снова идеальная, но верх сдвинут на один атом: на краях ступеньки.'
-    ];
+    const texts = T.fold;
     const d = { p: 3, x: stops[0], dir: 1, state: 'move' };
     let step = 0;
     let raf = 0;
@@ -369,7 +343,7 @@
         }
       };
       tick();
-      caption.textContent = 'Трещина. Складкам почти некуда двигаться, металл не смог уступить удару, сминаясь, и разошёлся в самом забитом месте.';
+      caption.textContent = T.lensCrack;
       el('lens-hit').disabled = true;
       meters();
     }
@@ -385,13 +359,13 @@
       }
       let tail = '';
       if (ds.length === 0) {
-        tail = ' Решётка снова ровная, а кусок снаружи стал площе.';
+        tail = ' ' + T.lensClean;
       } else if (ds.length > SMAX * 0.6) {
-        tail = ' Почти всё забито: металл твёрдый и вот-вот треснет.';
+        tail = ' ' + T.lensFull;
       } else if (stuckNew > 0) {
-        tail = ' Застрявшие складки загораживают дорогу следующим.';
+        tail = ' ' + T.lensBlocked;
       }
-      caption.textContent = 'Удар ' + blows + ': родилось три пары складок, ушло из окна ' + passed + ', застряло ' + Math.max(0, stuckNew) + '.' + tail;
+      caption.textContent = fmt(T.lensBlow, { n: blows, passed, stuck: Math.max(0, stuckNew) }) + tail;
     }
 
     function hit() {
@@ -441,7 +415,7 @@
       done = 0;
       crack = null;
       el('lens-hit').disabled = false;
-      caption.textContent = 'Свежий самородок: в этом маленьком окне ряды ровные, складок не видно. Бей и следи, сколько складок проходит насквозь, а сколько застревает.';
+      caption.textContent = T.lensStart;
       meters();
       render();
     };
@@ -563,7 +537,7 @@
         }
         ctx.fillStyle = P.muted;
         ctx.font = '600 13px -apple-system, sans-serif';
-        ctx.fillText('верх толкают сюда →', PAD, 22);
+        ctx.fillText(T.pushLabel, PAD, 22);
         el(key + '-now').textContent = tense;
         el(key + '-max').textContent = worst;
         el(key + '-cap').textContent = captions(Math.round(pos));
@@ -605,23 +579,11 @@
       render();
     }
 
-    panel('w5a', 4, (p) => p / 4, null, (i) => [
-      'Слой на месте. Линия показывает, какие два атома стоят друг напротив друга через плоскость сдвига.',
-      'Весь верхний слой поехал. Растянулись все связи через плоскость сразу.',
-      'Полшага. Все связи натянуты до предела одновременно. Чтобы пройти это место, нужна огромная сила.',
-      'Каждый нижний атом перехватил следующего соседа сверху. Связи снова укорачиваются.',
-      'Слой сдвинут на один атом. На краях остались ступеньки.'
-    ][i]);
+    panel('w5a', 4, (p) => p / 4, null, (i) => T.whole[i]);
 
     const core = (p) => (p <= 1 ? -2.5 + 2.5 * p : p <= N ? p - 1 : N - 1 + 2.5 * (p - N));
     panel('w5b', N + 1, (p, r, c) => smooth(0.5 - (c - core(p)) / (2 * (1.5 + 0.5 * (r - 1)))), core, (i) => (
-      i === 0
-        ? 'Слой на месте. Линия показывает, какие два атома стоят друг напротив друга через плоскость сдвига.'
-        : i === 1
-          ? 'Сдвинулся только крайний столбик слева. Он встал между двумя нижними атомами, пары снизу у него нет. Это и есть складка.'
-          : i <= N
-            ? 'Складка перешла на соседний столбик: нижний атом справа от неё отпустил своего соседа и взял того, кто был без пары. Остальные связи не тронуты.'
-            : 'Складка вышла справа. Слой сдвинут на один атом, как и в левом окне, но натянутой в каждый момент была одна связь.'
+      i === 0 ? T.whole[0] : i === 1 ? T.stepIn : i <= N ? T.stepMove : T.stepOut
     ));
   }
 
