@@ -934,6 +934,10 @@ ol.sources li:target { background: var(--panel-2); }
   .topbar { padding: 8px; gap: 4px; font-size: 13px; }
   .topbar > :first-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .back-mark { display: none; }
+  .words { grid-template-columns: minmax(0, 1fr); gap: 2px 0; }
+  .words dd { margin-bottom: 10px; }
+  .topbar { transition: transform 0.25s ease; }
+  .topbar.away { transform: translateY(-100%); }
   .chapter-nav { gap: 0; }
   .chapter-step { min-width: 28px; height: 40px; margin: -4px 0; }
   .theme-switch { padding: 2px; }

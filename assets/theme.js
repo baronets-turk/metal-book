@@ -45,6 +45,20 @@
       buttons.forEach((b, i) => b.classList.toggle('on', MODES[i][0] === mode));
     }
     mark();
-    (document.querySelector('.topbar') || document.body).append(box);
+    const bar = document.querySelector('.topbar');
+    (bar || document.body).append(box);
+    if (!bar) {
+      return;
+    }
+    const narrow = window.matchMedia('(max-width: 700px)');
+    let before = window.scrollY;
+    window.addEventListener('scroll', () => {
+      const now = window.scrollY;
+      if (Math.abs(now - before) < 8) {
+        return;
+      }
+      bar.classList.toggle('away', narrow.matches && now > before && now > bar.offsetHeight);
+      before = now;
+    }, { passive: true });
   });
 })();
