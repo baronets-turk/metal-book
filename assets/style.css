@@ -70,6 +70,8 @@
 
 .peek { outline: 1px dashed var(--copper); outline-offset: 6px; border-radius: 4px; }
 
+ul.peek li.peek, ol.peek li.peek { outline: none; }
+
 .peek-chip {
   position: absolute;
   z-index: 5;

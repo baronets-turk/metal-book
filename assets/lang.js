@@ -170,6 +170,11 @@
     window.MB.resay(widget);
   }
 
+  function swapList(list, page, on) {
+    blocks.filter((node) => list.contains(node)).forEach((node) => swapBlock(node, page, on));
+    list.classList.toggle('peek', on);
+  }
+
   function swapCard(card, page, on) {
     card.fill((on ? page.quiz : window.QUIZ)[card.index], on ? page.ui : UI);
     card.classList.toggle('peek', on);
@@ -182,6 +187,8 @@
         swapWidget(unit, page, on);
       } else if (unit.classList.contains('quiz-card')) {
         swapCard(unit, page, on);
+      } else if (unit.matches('ul, ol')) {
+        swapList(unit, page, on);
       } else {
         swapBlock(unit, page, on);
       }
@@ -202,7 +209,8 @@
       block = block.parentElement.closest(BLOCKS);
     }
     if (block && blocks.includes(block)) {
-      return block;
+      const list = block.matches('li') ? block.parentElement : null;
+      return list && !list.matches('.sources, .toc') && !list.closest('.widget') ? list : block;
     }
     const widget = node.closest('.widget');
     return widget && widget.id && window.MB ? widget : null;
