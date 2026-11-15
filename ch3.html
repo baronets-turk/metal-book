@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 3. Metal from stone</title>
+<link rel="stylesheet" href="assets/style.css?v=17">
+<script src="assets/ui.en.js?v=17"></script>
+<script src="assets/theme.js?v=17"></script>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="index.html">← Contents</a>
+  <span class="topbar-info">Chapter 3 of 10</span>
+</nav>
+
+
+<header class="hero">
+  <div class="eyebrow">Chapter 3 · about 5000 BCE · south-eastern Europe, Asia Minor</div>
+  <h1>Metal from stone</h1>
+  <p class="lead">A green stone goes into the fire. Small red beads of copper come out. Heat alone cannot do this. Something in the fire has to take the stone apart.</p>
+</header>
+
+<div class="core">
+  <p><b>The chapter in a few words.</b> A deep bed of burning charcoal gives both heat and a gas that takes oxygen away from copper. The freed copper can then melt. Pour it into a hollow of the right shape, and it becomes an object as it cools.</p>
+</div>
+
+<main>
+
+<section>
+  <div class="step">Step 1 · What people noticed</div>
+  <h2>Copper hidden in green stone</h2>
+  <p>Chapter two ended with a limit. An object could not be bigger than its nugget. Beside native copper in the ground lie coloured stones. The bright green one is called <span class="term">malachite</span>. The blue one is <span class="term">azurite</span>. Sometimes pieces of native copper are set in these stones.<a class="fn" href="#s-foll-first"></a></p>
+  <p>People already had uses for malachite. They made ornaments from it. They also used it as a green <span class="term">pigment</span>, a material that gives paint its colour.<a class="fn" href="#s-malachite"></a></p>
+  <p>Around 5000 BCE, people began to get copper out of such stones with fire. This happened somewhere in south-eastern Europe or Asia Minor. The oldest securely dated evidence comes from Belovode in Serbia. This settlement belonged to a group of people known as the Vinča culture. The date is about 5000 BCE.<a class="fn" href="#s-chalc"></a><a class="fn" href="#s-foll-first"></a></p>
+  <p>Copper made from stone has also been dated to about the same time at Yumuktepe. This is a mound in Mersin, a town in present-day Turkey. Which place was first is not settled.<a class="fn" href="#s-foll-first"></a></p>
+  <p>We do not know how people found the method. One common story starts with an accident in a potter’s <span class="term">kiln</span>, an oven for firing clay pots. But strong heat is not enough. The stone must also be in a part of the fire starved of air. And who would search the ashes for small red beads? The accident may have happened, but the story is not a known event. What is known is the date: about seven thousand years ago.<a class="fn" href="#s-foll-first"></a></p>
+  <p>A stone from which metal can be got is called <span class="term">ore</span>. Getting metal out of ore with heat and charcoal is called <span class="term">smelting</span>. <span class="term">Charcoal</span> is the black fuel made by heating wood with very little air. We will look at it more closely below.<a class="fn" href="#s-smelting"></a><a class="fn" href="#s-charcoal"></a></p>
+  <p><b>Smelting is not melting.</b> Melting only turns a solid into a liquid. Melted ore is still ore. Smelting takes the ore apart and leaves the metal.<a class="fn" href="#s-foll-first"></a><a class="fn" href="#s-smelting"></a></p>
+  <p>Melting copper and pouring it into a shape is called <span class="term">casting</span>. It appears in the finds at about the same time as smelting.<a class="fn" href="#s-foll-first"></a></p>
+</section>
+
+<section>
+  <div class="step">Step 2 · What people learned to do</div>
+  <h2>A hotter fire, a bowl, and a mould</h2>
+  <h3>Why a campfire is not enough</h3>
+  <p>A campfire is not hot enough to melt copper.<a class="fn" href="#s-smelting"></a> In chapter two, its flames and embers reached 600 °C and above.<a class="fn" href="#s-flame"></a> A single ember may be hotter. But the whole piece of copper must reach 1085 °C to melt.<a class="fn" href="#s-melt"></a></p>
+  <p>Three things help: different fuel, moving air and walls around the fire.</p>
+  <p><b>Fuel.</b> Use <span class="term">charcoal</span> instead of wood. To make it, heat wood with very little air. Water and everything that can leave as gas leave the wood. A light black material remains. It is mostly carbon, C, which we met in chapter two.<a class="fn" href="#s-charcoal"></a></p>
+  <p><b>Air.</b> Charcoal has many small holes. Moving air makes it burn strongly. Control the air stream, and you control the heat. Charcoal can burn above 1100 °C.<a class="fn" href="#s-charcoal"></a></p>
+  <p><b>Walls.</b> Keep the heat in. Without walls, too much heat escapes from the place where the copper sits.<a class="fn" href="#s-foll-second"></a> A bed of charcoal with air forced through it can reach 1200 to 1300 °C.<a class="fn" href="#s-foll-first"></a></p>
+  <p>The first tool for forcing air into charcoal was a <span class="term">blowpipe</span>. It was a hollow reed with a clay tip. A person blew through it into the charcoal.<a class="fn" href="#s-foll-first"></a> This gives little air. An Egyptian picture from about 2400 BCE shows six people blowing to keep one small clay bowl of metal hot.<a class="fn" href="#s-foll-second"></a></p>
+  <p>Later came <span class="term">bellows</span>, a device that pushes air when squeezed; one person using it could replace forty to eighty people with blowpipes.<a class="fn" href="#s-foll-second"></a></p>
+  <p>A glow alone does not mean copper can melt. It begins to glow at 525 °C, well before it reaches its melting temperature.<a class="fn" href="#s-glow"></a></p>
+  <div class="widget" id="w-fire">
+    <div class="widget-title"><strong>Experiment 1. Can copper melt here?</strong><span>a copper piece in the fire</span></div>
+    <canvas id="f-canvas"></canvas>
+    <div class="options">
+      <span>What burns</span>
+      <div class="seg" id="f-fuel"><button data-value="wood" class="on">Burn wood</button><button data-value="charcoal">Burn charcoal</button></div>
+      <span>Around the fire</span>
+      <div class="seg" id="f-walls"><button data-value="open" class="on">No walls</button><button data-value="pit">Pit with clay walls</button></div>
+      <span>Air supply</span>
+      <div class="seg" id="f-air"><button data-value="0" class="on">Without blowing</button><button data-value="1">One person blowing</button><button data-value="2">Four people blowing</button></div>
+    </div>
+    <div class="meter-head" style="margin-top:14px"><span>Copper temperature: <b id="f-temp"></b></span></div>
+    <div class="caption" id="f-caption"></div>
+    <div class="legend">
+      <span style="--c:var(--muted)">525 °C: first glow</span>
+      <span style="--c:var(--muted)">600 °C: ordinary campfire</span>
+      <span style="--c:var(--atom)">1085 °C: melting begins</span>
+      <span style="--c:var(--muted)">1200 °C: enough heat for smelting</span>
+    </div>
+    <div class="note"><b>What the model shows and leaves out.</b> Charcoal, walls and blowing each raise the temperature. A campfire reaches about 600 °C and above, as in chapter two. Charcoal with air forced through it can reach 1200 to 1300 °C.<a class="fn" href="#s-foll-first"></a> The glow colours follow chapter two. All temperatures between these examples were chosen by hand to show which changes make the fire hotter. The thermometer measures the copper piece. A real fire has hotter and cooler spots; single embers can be hotter than the piece as a whole. Four blowpipes were chosen for this picture. An Egyptian picture shows six people blowing to heat one small crucible.<a class="fn" href="#s-foll-second"></a> Sizes in the picture are not to scale.</div>
+  </div>
+  <h3>Smelting in a bowl</h3>
+  <p>The simplest smelting needs a clay bowl about the size of a salad bowl. This heat-resistant container is called a <span class="term">crucible</span>. Add crushed malachite, charcoal and a blowpipe.<a class="fn" href="#s-foll-first"></a><a class="fn" href="#s-foll-second"></a> The earliest crucibles come from eastern Europe and Iran, in the sixth or fifth millennium BCE. They are wide, shallow clay bowls. Blowpipes heated them from above.<a class="fn" href="#s-crucible"></a></p>
+  <p>Heap charcoal in the bowl. Light it and blow. Add ore. Keep blowing here and there. With luck, a spot stays hot enough for long enough to make a little copper. The result is some glassy waste and a few small metal beads. These beads are called <span class="term">prills</span>.<a class="fn" href="#s-foll-second"></a></p>
+  <p>The glassy waste is <span class="term">slag</span>. It comes from melted stone that was mixed with the ore, ash and bits of the bowl. Very early smelting on this small scale may have left very little slag.<a class="fn" href="#s-foll-first"></a></p>
+  <p>Much of the copper was lost. Slag from the earliest smelting sites still holds a lot of it. At the same sites in Roman times, slag contains less than 1 % copper. It took several thousand years to reach that result.<a class="fn" href="#s-foll-second"></a> Even people who try the early method today usually fail on their first and second attempts.<a class="fn" href="#s-foll-first"></a></p>
+  <h3>Pouring copper into a shape</h3>
+  <p>Casting needs a smaller crucible. It must be small enough to lift while it is hotter than 1085 °C. You need a way to hold very hot things. You also need a <span class="term">mould</span>, a hollow with the shape of the object. Melt the copper and pour it into that hollow. The object made this way is also called a casting.<a class="fn" href="#s-foll-first"></a></p>
+  <p>A modern experiment tried casting with the means of the <span class="term">Copper Age</span>, the time when people began to use copper from ore. The <span class="term">furnace</span>, a place built to hold a very hot fire, was a hole in the ground lined with clay. Charcoal covered the crucible. Leather bag bellows supplied air. Melting took from two to three and a half hours.<a class="fn" href="#s-axes"></a></p>
+  <p>A split branch served as <span class="term">tongs</span>, a tool for gripping the hot crucible. A green willow shoot was pushed into the copper. By feel, it showed whether solid lumps were left. The moulds were made from clay and sand, two parts clay to one part sand.<a class="fn" href="#s-axes"></a></p>
+  <p>Not one mould for the early copper axes of south-eastern Europe has been found. One possible reason is that the moulds were made of sand. Sand falls apart and leaves nothing to find.<a class="fn" href="#s-axes"></a></p>
+  <p>There is another way to make a mould. Shape the object in wax. Cover it with clay. Heat it so that the wax runs out. Pour metal into the hollow left behind. This is <span class="term">lost-wax casting</span>. Its oldest known examples are gold objects from the Varna cemetery in Bulgaria, dated to 4550–4450 BCE. A copper <span class="term">amulet</span>, a small object worn for protection, from Mehrgarh in present-day Pakistan dates to about 4000 BCE.<a class="fn" href="#s-lostwax"></a></p>
+</section>
+
+<section>
+  <div class="step">Step 3 · How people explained it</div>
+  <h2>Did metals grow in the earth?</h2>
+  <p>The first smelters left no writing. Working metal began long before writing did. We do not know what those people thought about ores and metals.<a class="fn" href="#s-ideas"></a></p>
+  <p>Written ideas come much later. Until about 1700, educated Europeans counted four <span class="term">elements</span>: earth, water, fire and air. By this word they meant the basic things from which everything was made. They thought metals were a mixture of earth and water.<a class="fn" href="#s-ideas"></a></p>
+  <p>Aristotle taught that the sun’s rays enter the earth and make metals there. This idea lasted until about 1500. <span class="term">Alchemists</span>, people who tried to change substances and turn one metal into another, added another idea. Metals slowly “ripen” in the earth. An unripe metal could become a mature one. This led to the long, useless effort to turn lead into gold.<a class="fn" href="#s-ideas"></a></p>
+  <p>None of this explains why a green stone needs charcoal. The answer had to wait until people understood burning. The French scientist Antoine Lavoisier found the role of oxygen in burning. He was executed in 1794.<a class="fn" href="#s-openstax"></a> Chapter eight tells that story. Here we use what he found.</p>
+</section>
+
+<section>
+  <div class="step">Step 4 · A look inside</div>
+  <h2>Free the copper, then melt it</h2>
+  <h3>What is in the green stone?</h3>
+  <p>In ore, copper atoms are not joined to each other as they are in metal. Atoms of other kinds hold them. That is why the ore behaves like stone. It does not shine or bend. It breaks. We met the same difference in chapter two: copper oxide is not copper metal.</p>
+  <p>Malachite is written Cu<sub>2</sub>CO<sub>3</sub>(OH)<sub>2</sub>. There is one new letter here: <span class="term">hydrogen</span>, H, is one of the two kinds of atom in water, H<sub>2</sub>O. For every two copper atoms in malachite, there are one carbon atom, five oxygen atoms and two hydrogen atoms.<a class="fn" href="#s-malachite"></a></p>
+  <p>Heat alone does part of the work. Malachite gives off carbon dioxide and water as gases. The green stone turns black. What remains is copper oxide, CuO. It is the same substance as the black coating on annealed copper. The equation is <b>Cu<sub>2</sub>CO<sub>3</sub>(OH)<sub>2</sub> → 2CuO + CO<sub>2</sub> + H<sub>2</sub>O</b>.<a class="fn" href="#s-malachite"></a></p>
+  <p>But heat alone will not take the remaining oxygen off the copper. Something has to pull it away.</p>
+  <h3>What charcoal does</h3>
+  <p>Chapter two gave a short equation: <b>2CuO + C → 2Cu + CO<sub>2</sub></b>. It said that carbon takes the oxygen. Now we can look at the gas that does the work between the charcoal and the ore.<a class="fn" href="#s-oxide"></a></p>
+  <p><b>First, the charcoal burns.</b> Where air comes in, carbon joins with oxygen: <b>C + O<sub>2</sub> → CO<sub>2</sub></b>. This gives off heat. After air passes through a few layers of burning charcoal, all its oxygen has been used up.<a class="fn" href="#s-foll-first"></a><a class="fn" href="#s-foll-second"></a></p>
+  <p><b>Then a new gas forms.</b> Deeper in the charcoal, no free oxygen is left. Here carbon dioxide meets hot carbon: <b>CO<sub>2</sub> + C → 2CO</b>. The new gas is <span class="term">carbon monoxide</span>, CO. Each molecule has one carbon atom and one oxygen atom. The charcoal here needs to be at least about 800 °C, and about 1000 °C for this to work well. This step uses heat, so it cools the fire a little.<a class="fn" href="#s-foll-first"></a><a class="fn" href="#s-foll-second"></a></p>
+  <p><b>The gas takes oxygen from the ore.</b> A carbon monoxide molecule can hold one more oxygen atom. It takes that atom from copper oxide: <b>CuO + CO → Cu + CO<sub>2</sub></b>. Taking oxygen away in this way is called <span class="term">reduction</span>. The ore is reduced to metal.<a class="fn" href="#s-oxide"></a> This can begin at temperatures as low as 400 °C.<a class="fn" href="#s-foll-first"></a></p>
+  <p>So the fire must meet two opposite needs. It needs plenty of air to be hot. But the ore must sit where there is no free oxygen. Deep charcoal does both jobs. Air feeds burning at the edge. Inside, carbon monoxide surrounds the ore. This is why an open fire can fail even when it is hot.<a class="fn" href="#s-foll-first"></a><a class="fn" href="#s-foll-second"></a></p>
+  <p>The new copper is solid at first. Small particles of metal with tiny holes form on the ore while nothing is liquid. You cannot melt a metal before you have it. Freed copper atoms move along the surface. They meet a copper crystal and join its rows, or start a new crystal.<a class="fn" href="#s-foll-second"></a> If the spot is hotter than 1085 °C, the particles melt and run together into a bead.<a class="fn" href="#s-melt"></a></p>
+  <p><b>Carbon monoxide is a deadly gas for people.</b><a class="fn" href="#s-foll-second"></a></p>
+  <p>Most air is <span class="term">nitrogen</span>, a gas that takes no part in these reactions and only carries heat. Air contains 78 % nitrogen and 21 % oxygen.<a class="fn" href="#s-foll-first"></a></p>
+  <div class="widget" id="w-smelt">
+    <div class="widget-title"><strong>Experiment 2. How the fire frees copper</strong><span id="s-count"></span></div>
+    <canvas id="s-canvas"></canvas>
+    <div class="legend">
+      <span style="--c:var(--atom)">Cu: copper</span>
+      <span style="--c:var(--oxygen)">O: oxygen</span>
+      <span style="--c:var(--carbon)">C: carbon</span>
+      <span style="--c:var(--hydrogen)">small balls: hydrogen, H</span>
+      <span class="wide-only" style="--c:var(--fold-move)">ring: where this step happens</span>
+    </div>
+    <div class="equation" id="s-eq"></div>
+    <div class="controls">
+      <button class="ghost" id="s-back">Previous step</button>
+      <button id="s-next">Next step</button>
+      <button class="ghost" id="s-again">Replay step</button>
+    </div>
+    <div class="caption" id="s-caption"></div>
+    <div class="note"><b>What the model shows and leaves out.</b> The steps follow the real order, and each keeps the correct number of atoms of every kind. Copper forms as a solid and melts only above 1085 °C. The ball sizes and colours were chosen for the drawing. Their positions do not show the real arrangement inside malachite, copper oxide or charcoal. Even the neat carbon rows are just a way to draw it. Nitrogen, 78 % of the air, is left out. Real molecules move much faster and in all directions. Only a handful of atoms is shown. A real smelt takes far longer than these few seconds. The bowl is not drawn to scale.</div>
+  </div>
+  <h3>Where the grains come from</h3>
+  <p>At 1085 °C, the atoms in copper shake so much that the regular rows break up. That was melting in chapter two. In the liquid, atoms stay close together but have no fixed places.<a class="fn" href="#s-melt"></a> What happens when the liquid cools?</p>
+  <p><span class="term">Freezing</span> means turning from liquid to solid. It happens in two steps. First, small groups of atoms line up in regular rows at many places in the liquid. Each small starting group is a <span class="term">nucleus</span>. Then each grows. Atoms from the liquid take places on its surface. Growth continues until no liquid is left.<a class="fn" href="#s-casting"></a><a class="fn" href="#s-freezing"></a></p>
+  <p>Each starting group has its rows pointing in its own direction. When two growing crystals meet, their rows do not match. Each crystal is a grain. The place where they meet is a <span class="term">grain boundary</span>. This is where the grains of chapter one come from.<a class="fn" href="#s-casting"></a></p>
+  <p>Copper that cools quickly ends up with many small grains. Slow cooling gives fewer, larger grains.<a class="fn" href="#s-casting"></a></p>
+  <p>Something strange happens to the temperature while the metal freezes. Liquid and solid are both present, and heat keeps leaving. Yet the temperature stays at 1085 °C for copper. The freezing itself gives off heat as atoms settle into rows. Only after the last liquid is gone does the temperature fall again.<a class="fn" href="#s-freezing"></a><a class="fn" href="#s-openstax"></a></p>
+  <div class="widget" id="w-freeze">
+    <div class="widget-title"><strong>Lens. How grains grow</strong><span>atoms and temperature as copper cools</span></div>
+    <div class="freeze-grid">
+      <canvas id="z-canvas"></canvas>
+      <canvas id="z-graph"></canvas>
+    </div>
+    <div class="legend">
+      <span style="--c:var(--atom)">atom in solid copper</span>
+      <span style="--c:var(--liquid)">liquid atom / fast cooling curve</span>
+      <span style="--c:var(--air)">slow cooling curve</span>
+      <span style="--c:var(--muted)">shades help tell grains apart</span>
+    </div>
+    <div class="meter-head" style="margin-top:14px"><span>Copper temperature: <b id="z-temp"></b></span><span>Grain count: <b id="z-grains"></b></span></div>
+    <div class="controls">
+      <button id="z-melt">Heat to melt</button>
+      <button id="z-slow">Slow cooling</button>
+      <button id="z-fast">Fast cooling</button>
+      <button class="ghost" id="z-reset">Start over</button>
+    </div>
+    <div class="caption" id="z-caption"></div>
+    <div class="note"><b>What the model shows and leaves out.</b> Melting breaks up the rows. As copper freezes, crystals start at separate points and grow. Each has its own row direction and becomes a grain. Quick cooling gives more, smaller grains.<a class="fn" href="#s-casting"></a> While liquid and solid are both present, the temperature stays at 1085 °C.<a class="fn" href="#s-freezing"></a> The model uses 3 starting points for slow cooling and 8 for quick cooling. These numbers were chosen by hand. All appear at once and grow as circles at one speed. Real metal first cools a little below its freezing temperature, then warms back up as crystals start. That dip is missing from the graph.<a class="fn" href="#s-casting"></a> Shrinking is not shown: the liquid takes up as little space as the solid. The starting piece is a single crystal; a real piece has many grains. Folds in the rows are left out. The speeds were chosen to fit the process into seconds. The time axis has no units.</div>
+  </div>
+  <p>Most metals take up less space as a solid than as a liquid. So they shrink as they freeze.<a class="fn" href="#s-casting"></a> There is another problem. Liquid metal can hold much gas <span class="term">dissolved</span> in it, spread through the liquid rather than gathered in bubbles. Solid metal cannot hold as much. As it freezes, the gas comes out as bubbles. They remain as holes in the casting.<a class="fn" href="#s-defects"></a></p>
+</section>
+
+<section>
+  <div class="step">The craft</div>
+  <h2>How to smelt and cast well</h2>
+  <p>The rules now have reasons. Some keep the ore in the right gas. Others help liquid copper fill a mould and become solid without holes.</p>
+  <h3>Getting copper from ore</h3>
+  <ul class="craft">
+  <li><b>Crush the ore small.</b> The gas reaches only the surface of each piece. Smaller pieces expose more of the ore to it.<a class="fn" href="#s-foll-second"></a></li>
+  <li><b>Keep the ore buried in deep charcoal.</b> Blow into the charcoal, not onto the ore. The ore needs carbon monoxide around it, without fresh oxygen.<a class="fn" href="#s-foll-first"></a><a class="fn" href="#s-foll-second"></a> Simply melting copper is different. Then blow straight onto the surface, because carbon monoxide is not needed.<a class="fn" href="#s-foll-second"></a></li>
+  <li><b>Choose charcoal pieces of about the same size.</b> Small pieces have more surface to burn. But dust blocks the air. Very large pieces let air pass without using up its oxygen.<a class="fn" href="#s-foll-second"></a></li>
+  <li><b>Blow steadily.</b> In the casting experiment, the first hour went on learning to keep the air even.<a class="fn" href="#s-axes"></a> While the smelting fire runs, the air supply is the smelter’s only control.<a class="fn" href="#s-foll-second"></a></li>
+  <li><b>Keep earth out of the charcoal.</b> Earth melts into glass. This cools the fire and leaves patches where nothing burns.<a class="fn" href="#s-axes"></a></li>
+  </ul>
+  <h3>Making a sound casting</h3>
+  <ul class="craft">
+  <li><b>Dry the mould.</b> Moisture reacts with hot metal and makes hydrogen. It dissolves in the liquid and leaves holes when the metal freezes.<a class="fn" href="#s-defects"></a></li>
+  <li><b>Do not heat the liquid more than needed.</b> Hotter metal holds more gas. But it also flows further before it freezes. The caster has to find a middle point.<a class="fn" href="#s-defects"></a></li>
+  <li><b>Warm the mould.</b> In a cold mould, metal can freeze before it fills the shape. This fault is called a <span class="term">misrun</span>.<a class="fn" href="#s-defects"></a> In the experiment, the mould was warmed beside the furnace for the second pour.<a class="fn" href="#s-axes"></a></li>
+  <li><b>Pour in one smooth stream.</b> Splashing mixes air into the metal.<a class="fn" href="#s-defects"></a></li>
+  <li><b>Hold back charcoal and dirt.</b> In the experiment, a second stick kept charcoal away from the crucible’s lip. When a heavy crucible needed both hands, charcoal blocked the pour.<a class="fn" href="#s-axes"></a> Slag or dirt caught in the metal makes weak spots.<a class="fn" href="#s-defects"></a></li>
+  <li><b>Leave a pocket of extra liquid metal above the object.</b> This pocket is a <span class="term">reservoir</span>. Pure metal freezes from the mould walls inward. Shrinking leaves a hollow where the last liquid was. The reservoir must freeze last. It feeds liquid into the shrinking object, so the hollow ends up in the reservoir. Cut that part off afterwards and melt it again.<a class="fn" href="#s-casting"></a></li>
+  <li><b>Match the crucible to the fire.</b> The fire must heat all the copper. In the experiment, a crucible that was too wide still had a ring of solid copper around its wall after three hours.<a class="fn" href="#s-axes"></a></li>
+  </ul>
+  <p><b>What good work looks like.</b> Metal fills every corner of the shape. The surface is dense, not full of holes like a sponge. In the experiment, the first castings were spongy. The last was the most solid.<a class="fn" href="#s-axes"></a> The object itself has no hollow left by shrinking.<a class="fn" href="#s-casting"></a></p>
+  <div class="widget" id="w-cast">
+    <div class="widget-title"><strong>Experiment 3. Cast without holes</strong><span>inside an axe mould</span></div>
+    <canvas id="k-canvas"></canvas>
+    <div class="options">
+      <span>Is the mould dry?</span>
+      <div class="seg" id="k-damp"><button data-value="yes" class="on">Still damp</button><button data-value="no">Fully dry</button></div>
+      <span>Is the mould warm?</span>
+      <div class="seg" id="k-warm"><button data-value="no" class="on">Not warmed</button><button data-value="yes">Warmed first</button></div>
+      <span>How hot is the copper?</span>
+      <div class="seg" id="k-hot"><button data-value="no" class="on">Only just liquid</button><button data-value="yes">Heated much further</button></div>
+      <span>Extra metal above</span>
+      <div class="seg" id="k-riser"><button data-value="no" class="on">Without reservoir</button><button data-value="yes">With reservoir</button></div>
+    </div>
+    <div class="controls">
+      <button id="k-pour">Pour copper</button>
+    </div>
+    <div class="caption" id="k-caption"></div>
+    <div class="note"><b>What the model shows and leaves out.</b> The causes of the faults are real: a cold mould can stop the flow too soon, moisture and excess heat can leave gas holes, and shrinking metal needs extra liquid from a reservoir.<a class="fn" href="#s-defects"></a><a class="fn" href="#s-casting"></a> Metal freezes from the mould walls inward. The hollow forms where the last liquid was. A reservoir works only if it freezes last. Here each switch offers just two choices; real conditions vary by degree. The number, size and position of holes and the shape of the hollow were chosen by hand. Hotter metal always fills a cold mould in this model; that is not a rule for every casting. The mould is shown as one block cut through. Freezing is shortened to seconds.</div>
+  </div>
+</section>
+
+<section>
+  <div class="step">Step 5 · What it made possible, and what stood in the way</div>
+  <h2>More copper, but still soft</h2>
+  <p>The limit of chapter two is gone. Metal can come from stone. There is far more green stone than native copper. Copper is mainly found joined with other kinds of atoms in stones. Only occasionally is it found as native metal.<a class="fn" href="#s-smelting"></a></p>
+  <p>Small pieces can be melted together into a large one. A broken object need not be lost. Chapter two’s annealing cannot heal a crack. Melting and casting again give the copper another use, just as scraps cut off a casting can be melted again.<a class="fn" href="#s-casting"></a> A shape can be made in a mould and repeated.</p>
+  <p>New skills join the smith’s work. Someone must find ore, make charcoal, and make crucibles and moulds. Working metal now depends on several other crafts.<a class="fn" href="#s-axes"></a></p>
+  <p>Yet for a long time, little changed. Before about 4500 BCE, there was little activity even in the leading regions. The first copper tools were worse than good tools made of <span class="term">flint</span>, a stone used for tools.<a class="fn" href="#s-foll-first"></a> Large-scale smelting came around 3500 BCE, about 1500 years after the first small attempts. It used <span class="term">shaft furnaces</span>, tall hollow furnaces filled with ore and charcoal.<a class="fn" href="#s-foll-second"></a></p>
+  <p>Cast copper is as soft as annealed copper. To harden it, people still need the hammer from chapter one. And gas holes make pure copper hard to cast cleanly.<a class="fn" href="#s-defects"></a><a class="fn" href="#s-axes"></a> In chapter four, people mix copper with a second metal. The mixture turns out harder than either metal alone.</p>
+</section>
+
+</main>
+
+<div class="recap">
+  <div class="step">Remember</div>
+  <ul>
+  <li>Smelting gets metal out of ore. Melting only turns a solid into a liquid. Melted ore is still ore.</li>
+  <li>Charcoal, moving air and walls make a fire hotter. The ore must stay deep in charcoal, away from fresh oxygen.</li>
+  <li>Heat turns malachite into black copper oxide. Carbon monoxide takes oxygen from the oxide. Solid copper particles form first. They can then melt above 1085 °C.</li>
+  <li>As liquid copper freezes, crystals grow and meet to form grains. Fast cooling gives small grains. The temperature stays at 1085 °C while freezing gives off heat.</li>
+  <li>A dry, warm mould helps avoid holes and an unfinished shape. Extra liquid in a reservoir fills the space left by shrinking metal.</li>
+  <li>Metal from ore removes the limit set by the size of a nugget. Small pieces and broken objects can be melted again. But cast copper is still soft.</li>
+  </ul>
+  <dl class="words">
+    <dt>Ore</dt><dd>stone from which metal can be got</dd>
+    <dt>Smelting</dt><dd>getting metal out of ore with heat and charcoal</dd>
+    <dt>Charcoal</dt><dd>light black fuel made by heating wood with very little air; mostly carbon</dd>
+    <dt>Crucible</dt><dd>a container that holds ore or metal during strong heating</dd>
+    <dt>Slag</dt><dd>glassy waste from stone, ash and parts of the crucible</dd>
+    <dt>Mould</dt><dd>a hollow with the shape of the object to be cast</dd>
+    <dt>Casting</dt><dd>pouring liquid metal into a mould; also the object made this way</dd>
+    <dt>Reduction</dt><dd>here, taking oxygen from copper oxide to leave copper metal</dd>
+    <dt>CO, carbon monoxide</dt><dd>a deadly gas that takes oxygen from copper oxide</dd>
+    <dt>H, hydrogen</dt><dd>one of the two kinds of atom in water</dd>
+    <dt>Malachite</dt><dd>a bright green stone from which copper can be got</dd>
+    <dt>Azurite</dt><dd>a blue stone found beside native copper</dd>
+    <dt>Pigment</dt><dd>a material that gives paint its colour</dd>
+    <dt>Kiln</dt><dd>an oven for firing clay pots</dd>
+    <dt>Blowpipe</dt><dd>a hollow reed with a clay tip for blowing air into charcoal</dd>
+    <dt>Bellows</dt><dd>a device that pushes air when squeezed</dd>
+    <dt>Prills</dt><dd>small beads of metal left by smelting</dd>
+    <dt>Copper Age</dt><dd>the time when people began to use copper from ore</dd>
+    <dt>Furnace</dt><dd>a place built to hold a very hot fire</dd>
+    <dt>Tongs</dt><dd>a tool for gripping hot things</dd>
+    <dt>Lost-wax casting</dt><dd>making a clay mould around wax, melting the wax out, then filling the hollow with metal</dd>
+    <dt>Elements, in the old explanation</dt><dd>earth, water, fire and air, once thought to make up everything</dd>
+    <dt>Alchemists</dt><dd>people who tried to change substances and turn one metal into another</dd>
+    <dt>Nitrogen</dt><dd>the gas that makes up most of the air; here it only carries heat</dd>
+    <dt>Freezing</dt><dd>turning from liquid to solid</dd>
+    <dt>Nucleus</dt><dd>a small starting group of atoms in regular rows, which grows into a crystal</dd>
+    <dt>Grain boundary</dt><dd>the place where grains with different row directions meet</dd>
+    <dt>Dissolved gas</dt><dd>gas spread through liquid metal rather than gathered in bubbles</dd>
+    <dt>Misrun</dt><dd>a casting that froze before the metal filled the mould</dd>
+    <dt>Reservoir</dt><dd>an extra pocket of liquid metal that feeds a casting as it shrinks</dd>
+    <dt>Shaft furnace</dt><dd>a tall hollow furnace filled with ore and charcoal</dd>
+    <dt>Amulet</dt><dd>a small object worn for protection</dd>
+    <dt>Flint</dt><dd>a stone used for tools</dd>
+  </dl>
+</div>
+
+<div class="recap" id="quiz">
+  <div class="step">Check your understanding · 8 questions</div>
+  <div id="quiz-box"></div>
+</div>
+
+<div class="next">
+  <div>
+    <small>Next · chapter 4 · coming soon</small>
+  <h2>Bronze</h2>
+  <p>Bronze is a mixture of metals. Why can mixing two soft metals give something harder than either one?</p>
+  </div>
+</div>
+
+<div class="recap" style="margin-top:0;padding-bottom:90px">
+  <div class="step">Sources</div>
+  <ol class="sources">
+    <li id="s-foll-first">Green and blue stones beside native copper; the first smelting and casting; Belovode and Yumuktepe; the uncertain discovery; small crucibles; heat, gases and solid copper before melting; little early slag; slow adoption: <a href="https://www.tf.uni-kiel.de/matwis/amat/iss/kap_a/backbone/ra_1_3.html">H. Föll, Iron, Steel and Swords, Smelting Copper – The First</a>.</li>
+    <li id="s-foll-second">Keeping heat in; charcoal size and air supply; blowpipes and bellows; bowl smelting; carbon monoxide and reduction at the ore surface; copper atoms gathering into crystals; copper left in slag; shaft furnaces: <a href="https://www.tf.uni-kiel.de/matwis/amat/iss/kap_a/backbone/ra_1_4.html">H. Föll, Iron, Steel and Swords, Smelting Copper – The Second</a>.</li>
+    <li id="s-ideas">No writing from the first smelters; the four elements; Aristotle and metals “ripening” in the earth; attempts to turn lead into gold: <a href="https://www.tf.uni-kiel.de/matwis/amat/iss/kap_a/illustr/sa_1_1.html">H. Föll, Iron, Steel and Swords, The Seven Metals of Antiquity</a>.</li>
+    <li id="s-axes">Casting copper axes with Copper Age means: the clay-lined pit, bag bellows, melting times, wooden tongs and willow shoot, clay and sand moulds, missing ancient moulds, practical failures and improvements, and the many crafts involved: <a href="https://www.tf.uni-kiel.de/matwis/amat/iss/kap_a/articles/copper_axes_cast_experiment.pdf">Report on actualistic casting pre-experiments, Historical Metallurgy Society</a>.</li>
+    <li id="s-smelting">Smelting and melting; the heat a campfire lacks; copper mainly occurring in minerals rather than as native metal: <a href="https://en.wikipedia.org/wiki/Smelting">Wikipedia, Smelting</a>.</li>
+    <li id="s-malachite">The green stone, its uses and formula; heating it to black copper oxide: <a href="https://en.wikipedia.org/wiki/Malachite">Wikipedia, Malachite</a>. The water in the equation follows from the formula of malachite. The article names only carbon dioxide and copper oxide. Including water is the textbook author’s inference.</li>
+    <li id="s-chalc">The oldest securely dated evidence of copper smelting at Belovode, about 5000 BCE: <a href="https://en.wikipedia.org/wiki/Chalcolithic">Wikipedia, Chalcolithic</a>.</li>
+    <li id="s-charcoal">Making charcoal with little air; its carbon content, pores, response to air flow and burning above 1100 °C: <a href="https://en.wikipedia.org/wiki/Charcoal">Wikipedia, Charcoal</a>.</li>
+    <li id="s-crucible">Early wide, shallow clay crucibles in eastern Europe and Iran; heating from above with blowpipes: <a href="https://en.wikipedia.org/wiki/Crucible">Wikipedia, Crucible</a>.</li>
+    <li id="s-lostwax">Lost-wax casting; gold objects from Varna, 4550–4450 BCE, and the copper amulet from Mehrgarh, about 4000 BCE: <a href="https://en.wikipedia.org/wiki/Lost-wax_casting">Wikipedia, Lost-wax casting</a>.</li>
+    <li id="s-casting">Crystal starts and growth; cooling speed and grain size; shrinkage, reservoirs and remelting scraps: <a href="https://en.wikipedia.org/wiki/Casting_(metalworking)">Wikipedia, Casting (metalworking)</a>. Linking each growing crystal to the grains of chapter one is the textbook author’s inference. The use of remelting to recover a cracked object, unlike annealing in chapter two, is also the textbook author’s inference from the reuse of casting scraps. That cast copper is as soft as annealed copper is the textbook author’s inference from chapters one and two: hardness comes from the folds in the atom rows made by hammering.</li>
+    <li id="s-defects">Gas dissolved in liquid metal and holes after freezing; moisture and hydrogen; metal and mould temperatures; incomplete filling; splashing and trapped dirt: <a href="https://en.wikipedia.org/wiki/Casting_defect">Wikipedia, Casting defect</a>.</li>
+    <li id="s-freezing">Freezing in two steps; heat released and a steady temperature while liquid and solid coexist: <a href="https://en.wikipedia.org/wiki/Freezing">Wikipedia, Freezing</a>.</li>
+    <li id="s-oxide">Reduction of copper oxide by carbon and carbon monoxide; the equations: <a href="https://en.wikipedia.org/wiki/Copper(II)_oxide">Wikipedia, Copper(II) oxide</a>.</li>
+    <li id="s-openstax">Lavoisier’s work on oxygen and burning, and his execution in 1794; heat and temperature during freezing: <a href="https://openstax.org/details/books/chemistry-2e">OpenStax, Chemistry 2e</a>.</li>
+    <li id="s-melt">Movement of atoms increasing with temperature; melting at 0.15–0.3 of the distance between atoms, the Lindemann criterion: <a href="https://en.wikipedia.org/wiki/Melting_point">Wikipedia, Melting point</a>. Copper’s melting temperature of 1084.62 °C: <a href="https://en.wikipedia.org/wiki/Copper">Wikipedia, Copper</a>.</li>
+    <li id="s-flame">Flame and ember temperatures: <a href="https://en.wikipedia.org/wiki/Flame">Wikipedia, Flame</a>. It gives 600–850 °C for red flames in a house fire, 1027 °C as the limit for wood flames, and 750–1200 °C for charcoal.</li>
+    <li id="s-glow">The start of glowing at 525 °C: <a href="https://en.wikipedia.org/wiki/Draper_point">Wikipedia, Draper point</a>. Glow colours: <a href="https://en.wikipedia.org/wiki/Red_heat">Wikipedia, Red heat</a>, Stirling’s table from 1905.</li>
+  </ol>
+</div>
+
+<script src="assets/core.js?v=17"></script>
+<script src="assets/lang.js?v=17"></script>
+<script>
+window.T = {
+  fireCamp: "An ordinary campfire. The copper glows, but it is still far too cool to melt.",
+  fireWood: "Walls or blowing make the wood fire hotter. In this model, wood still cannot bring the copper to its melting temperature.",
+  fireNoAir: "Without blowing, the charcoal burns quietly. The air supply controls how much heat it gives.",
+  fireOpen: "Blowing makes the charcoal hotter. Without walls, heat escapes in every direction.",
+  fireCharcoalOne: "The copper reaches about 1000 °C. It is close to melting, but one person cannot supply enough air.",
+  fireDone: "Charcoal, clay walls and four blowpipes bring the copper above 1085 °C. It melts into a drop.",
+  smelt: [
+    "Heat breaks down the green malachite. Each of the two portions gives off carbon dioxide, CO₂, and water, H₂O. Black copper oxide, CuO, stays behind. The small balls without letters are hydrogen atoms.",
+    "Oxygen, O₂, reaches the charcoal beside the blowpipe. Each molecule picks up one carbon atom and leaves as carbon dioxide, CO₂. Burning gives off heat; the flash marks it.",
+    "Deeper in the charcoal, no free oxygen remains. Each CO₂ molecule takes another carbon atom from the hot charcoal and becomes two CO molecules. The two CO₂ molecules shown give four CO molecules.",
+    "Four CO molecules each take one oxygen atom from the copper oxide and leave as CO₂. Four copper atoms remain and move together. Taking away oxygen is reduction.",
+    "The freed copper atoms join the rows of a small copper crystal. The copper is still solid. Above 1085 °C, the rows break up and the crystal melts into a bead."
+  ],
+  freezeAxisTime: "Time",
+  freezeAxisTemp: "Temperature, °C",
+  freezeStart: "Solid copper at room temperature, 20 °C. All rows point the same way. Press “Heat to melt”.",
+  freezeHeating: "The copper heats up. Its atoms shake more and more.",
+  freezeMelting: "At 1085 °C and just above, the rows break up. The copper melts.",
+  freezeLiquid: "Liquid copper at 1200 °C. The atoms stay close together but have no fixed places. Choose slow or fast cooling.",
+  freezeCooling: "The liquid loses heat. Its temperature falls toward 1085 °C.",
+  freezeGrowing: "Crystals grow from separate starting points until they meet. Their rows point in different directions. The temperature holds at 1085 °C.",
+  freezeCooled: "All the copper is solid. Its temperature falls again, toward 600 °C.",
+  freezeDoneSlow: "Slow cooling leaves three large grains. The long flat stretch marks freezing at 1085 °C. The run ends at 600 °C. Melt the copper again to compare the two curves.",
+  freezeDoneFast: "Fast cooling leaves eight small grains. The flat stretch at 1085 °C is short. The run ends at 600 °C. Melt the copper again to compare the two curves.",
+  castStart: "Choose the mould and metal conditions, then press “Pour copper”.",
+  castPouring: "Liquid copper fills the mould and freezes from the walls inward.",
+  castMisrun: "The copper froze before reaching the thin edge, leaving the shape unfinished.",
+  castGasDamp: "Moisture in the mould made hydrogen, which left holes as the copper froze.",
+  castGasHot: "The overheated copper held more gas, which left holes as it froze.",
+  castPipe: "Without extra liquid to feed it, the shrinking copper left a hollow in the thick part of the axe.",
+  castPipeSafe: "The hollow formed in the reservoir, which is cut off and melted again.",
+  castGood: "The copper filled the whole shape, and the axe has no holes.",
+  castLabelMisrun: "Unfilled edge",
+  castLabelGas: "Trapped gas holes",
+  castLabelPipe: "Hollow from shrinking",
+  castLabelPipeSafe: "Reservoir hollow"
+};
+window.QUIZ = [
+  {
+    q: "Why does simply melting ore not give copper metal?",
+    options: ["Copper atoms are still held by atoms of other kinds.", "Liquid stone has no atoms.", "Copper can only exist as a solid."],
+    answer: 0,
+    why: "Melting changes solid to liquid. Smelting frees the copper from the other kinds of atoms.",
+    where: "Copper hidden in green stone"
+  },
+  {
+    q: "Ore sits on top of an open charcoal fire. Why might blowing harder still fail to make copper?",
+    options: ["Moving air always cools charcoal.", "The ore needs fresh oxygen all around it.", "Heat alone is not enough. The ore needs carbon monoxide away from fresh oxygen."],
+    answer: 2,
+    why: "A deep bed uses up oxygen near the air supply. Inside it, carbon monoxide forms and takes oxygen from the ore.",
+    where: "What charcoal does"
+  },
+  {
+    q: "Copper has begun to form on the ore below 1085 °C. What is it like?",
+    options: ["Liquid drops, because all new metal is liquid.", "Small solid particles that can melt if heated further.", "It must still be green stone."],
+    answer: 1,
+    why: "Reduction can free copper before the temperature is high enough to melt it.",
+    where: "What charcoal does"
+  },
+  {
+    q: "A casting keeps losing heat, but its temperature stays at 1085 °C. Why?",
+    options: ["It has stopped losing heat.", "All the copper is already solid.", "Copper is freezing, and atoms settling into rows give off heat."],
+    answer: 2,
+    why: "Liquid and solid are both present. The temperature falls again after the last liquid has frozen.",
+    where: "Where the grains come from"
+  },
+  {
+    q: "Quick cooling gives many growing crystals. Why are the final grains small?",
+    options: ["The metal is shared among many crystals, each ending where it meets its neighbours.", "Cooling removes copper atoms from the casting.", "The atoms themselves become smaller."],
+    answer: 0,
+    why: "Each growing crystal becomes a grain. Many crystals meeting divide the copper into many small grains.",
+    where: "Where the grains come from"
+  },
+  {
+    q: "Why can a damp mould leave holes even when metal fills the whole shape?",
+    options: ["Water turns the copper back into malachite.", "Moisture can make hydrogen, which enters the liquid and comes out as bubbles during freezing.", "Damp clay prevents crystals from forming."],
+    answer: 1,
+    why: "The solid cannot hold as much gas as the liquid. Bubbles leave holes in the casting.",
+    where: "Making a sound casting"
+  },
+  {
+    q: "A reservoir feeds liquid into a shrinking casting and freezes last. Where does the hollow end up?",
+    options: ["In the middle of the object.", "In the reservoir, which is cut off afterwards.", "Nowhere, because the metal no longer shrinks."],
+    answer: 1,
+    why: "The extra liquid fills the space in the object. The last liquid, and then the hollow, is in the reservoir.",
+    where: "Making a sound casting"
+  },
+  {
+    q: "Why not make the liquid copper much hotter to help it fill every corner?",
+    options: ["Hotter copper will not flow.", "Hotter copper cannot freeze.", "It flows further, but it can also hold more gas and leave more holes."],
+    answer: 2,
+    why: "The caster needs enough heat to fill the mould without taking in more gas than necessary. Warming the mould also helps prevent early freezing.",
+    where: "Making a sound casting"
+  }
+];
+</script>
+<script src="assets/quiz.js?v=17"></script>
+<script src="assets/ch3.js?v=17"></script>
+<script src="assets/feedback.js?v=17"></script>
+</body>
+</html>

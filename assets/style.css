@@ -17,6 +17,15 @@
   --stone-a: #8d949c;
   --stone-b: #d8d2c4;
   --bond: #6b6258;
+  --oxygen: #e8705a;
+  --carbon: #8f949c;
+  --hydrogen: #a9c8e6;
+  --ore: #4fae7a;
+  --oxide: #6a6058;
+  --clay: #7a5a44;
+  --wood: #9a7650;
+  --liquid: #ffb45e;
+  --air: #9fc4e8;
   color-scheme: dark;
   --serif: "Iowan Old Style", "Charter", "PT Serif", Georgia, serif;
   --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
@@ -41,6 +50,15 @@
   --stone-a: #7d8690;
   --stone-b: #b3aa98;
   --bond: #8a7f70;
+  --oxygen: #c2452d;
+  --carbon: #4a4640;
+  --hydrogen: #5f8fb8;
+  --ore: #2f8f5e;
+  --oxide: #3a332c;
+  --clay: #cbb596;
+  --wood: #8f6a44;
+  --liquid: #e8862a;
+  --air: #6f9cc8;
   color-scheme: light;
 }
 
@@ -387,6 +405,50 @@ input[type="range"] {
   min-width: 200px;
   accent-color: var(--copper);
 }
+
+.options {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 8px 14px;
+  align-items: center;
+  margin-top: 14px;
+}
+
+.options > span { color: var(--muted); font-size: 14px; }
+
+.seg {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-self: start;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  overflow: hidden;
+}
+
+.seg button {
+  background: transparent;
+  color: var(--text);
+  border-radius: 0;
+  padding: 8px 12px;
+  font-weight: 500;
+}
+
+.seg button.on { background: var(--copper); color: var(--on-accent); }
+
+.equation {
+  margin-top: 12px;
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.freeze-grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 16px;
+}
+
+.freeze-grid > canvas { min-width: 0; }
 
 .lens-side {
   display: grid;
@@ -748,7 +810,8 @@ ol.sources li:target { background: var(--panel-2); }
   .topbar { padding: 8px 10px; gap: 6px; font-size: 13px; }
   .theme-switch { padding: 2px; }
   .theme-switch button { padding: 5px 6px; font-size: 11px; }
-  .duo, .lens-side, .steps-duo { grid-template-columns: 1fr; }
+  .duo, .lens-side, .steps-duo, .freeze-grid, .options { grid-template-columns: 1fr; }
+  .wide-only { display: none !important; }
   .steps-duo .caption { min-height: 0; }
   .toc li { grid-template-columns: 40px 1fr; }
   .toc .era { grid-column: 2; }
