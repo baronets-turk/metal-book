@@ -333,6 +333,27 @@ main section, .prose {
 
 main section { padding-top: 56px; }
 
+figure.photo { margin: 28px 0; }
+
+figure.photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+}
+
+figure.photo figcaption p {
+  margin: 10px 0 0;
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+figure.photo figcaption p.credit { margin-top: 4px; font-size: 12px; }
+
 .step {
   font-family: var(--sans);
   font-size: 13px;
