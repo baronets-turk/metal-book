@@ -187,7 +187,7 @@
         swapWidget(unit, page, on);
       } else if (unit.classList.contains('quiz-card')) {
         swapCard(unit, page, on);
-      } else if (unit.matches('ul, ol')) {
+      } else if (unit.matches('ul, ol, dl')) {
         swapList(unit, page, on);
       } else {
         swapBlock(unit, page, on);
@@ -209,7 +209,7 @@
       block = block.parentElement.closest(BLOCKS);
     }
     if (block && blocks.includes(block)) {
-      const list = block.matches('li') ? block.parentElement : null;
+      const list = block.matches('li, dt, dd') ? block.parentElement : null;
       return list && !list.matches('.sources, .toc') && !list.closest('.widget') ? list : block;
     }
     const widget = node.closest('.widget');
