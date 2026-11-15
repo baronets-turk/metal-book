@@ -125,7 +125,7 @@
     return loading;
   }
 
-  const touch = window.matchMedia('(hover: none)').matches;
+  const tapQuery = window.matchMedia('(hover: none), (pointer: coarse), (max-width: 700px)');
   const kept = new Map();
 
   function swapBlock(node, page, on) {
@@ -215,7 +215,8 @@
   let target = null;
 
   function place(unit) {
-    if (touch) {
+    if (tapQuery.matches) {
+      chip.style.display = 'none';
       return;
     }
     target = unit;
@@ -235,22 +236,19 @@
     }
   };
 
-  if (touch) {
-    document.addEventListener('click', (e) => {
-      if (e.target.closest(CONTROLS)) {
-        return;
-      }
-      const unit = unitOf(e.target);
-      if (unit && String(window.getSelection()) === '') {
-        toggle(unit);
-      }
-    });
-  } else {
-    document.addEventListener('mouseover', (e) => {
-      const unit = unitOf(e.target);
-      if (unit) {
-        place(unit);
-      }
-    });
-  }
+  document.addEventListener('click', (e) => {
+    if (!tapQuery.matches || e.target.closest(CONTROLS)) {
+      return;
+    }
+    const unit = unitOf(e.target);
+    if (unit && String(window.getSelection()) === '') {
+      toggle(unit);
+    }
+  });
+  document.addEventListener('mouseover', (e) => {
+    const unit = unitOf(e.target);
+    if (unit) {
+      place(unit);
+    }
+  });
 })();

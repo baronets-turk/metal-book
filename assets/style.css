@@ -68,7 +68,7 @@
   background: var(--copper);
 }
 
-.peek { box-shadow: -10px 0 0 var(--bg), -13px 0 0 var(--copper); }
+.peek { outline: 1px dashed var(--copper); outline-offset: 6px; border-radius: 4px; }
 
 .peek-chip {
   position: absolute;
