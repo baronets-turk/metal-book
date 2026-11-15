@@ -333,12 +333,7 @@ main section, .prose {
 
 main section { padding-top: 56px; }
 
-p.history {
-  margin-left: -16px;
-  padding-left: 14px;
-  border-left: 2px solid var(--line);
-  color: var(--muted);
-}
+span.history { color: var(--muted); }
 
 figure.photo { margin: 28px 0; }
 
