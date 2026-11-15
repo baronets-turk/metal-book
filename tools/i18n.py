@@ -2,7 +2,8 @@
 """Compare the English pages (repo root) with the Russian ones (ru/).
 
 Usage: python3 -I tools/i18n.py
-Exit code 1 when a page pair differs in structure.
+Exit code 1 when a page pair differs in structure or a page writes a
+temperature difference with the °C sign.
 """
 import re
 import sys
@@ -65,11 +66,18 @@ class Page(HTMLParser):
             self.blocks[-1][1] += data
 
 
+DIFFERENCE = re.compile(
+    r'\b(?:by|на)\s+(?:about |around |roughly |примерно |около )?\d[\d–.,]*\s*°C'
+    r'|\d\s*°C\s+(?:hotter|colder|warmer|cooler|higher|lower|more|less|выше|ниже|горячее|холоднее|больше|меньше)\b'
+)
+
+
 def load(path):
     page = Page()
     text = path.read_text(encoding='utf-8')
     page.feed(text)
     page.keys = re.findall(r'^  (\w+): ', text, re.M)
+    page.differences = DIFFERENCE.findall(text.replace(' ', ' '))
     return page
 
 
@@ -96,6 +104,9 @@ def compare(name):
     for label, a, b in (('ids', en.ids, ru.ids), ('footnotes', en.footnotes, ru.footnotes), ('links', en.sources, ru.sources), ('string keys', en.keys, ru.keys)):
         if a != b:
             problems.append('%s differ: only en %s, only ru %s' % (label, sorted(set(map(str, a)) - set(map(str, b))), sorted(set(map(str, b)) - set(map(str, a)))))
+    for lang, page in (('en', en), ('ru', ru)):
+        for found in page.differences:
+            problems.append('%s: temperature difference written with °C (the Fahrenheit tooltip would be wrong, use words): "%s"' % (lang, found))
     print('%s: %d blocks, %s' % (name, len(en.blocks), 'OK' if not problems else 'PROBLEMS'))
     for p in problems:
         print('  ' + p)
