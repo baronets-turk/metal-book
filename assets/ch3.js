@@ -396,7 +396,10 @@
         ctx.fill();
       }
       [[152, 206], [170, 240], [118, 262], [196, 226]].forEach((p, i) => {
-        ctx.fillStyle = i === 1 && step >= 3 ? K.oxide : i === 0 && step >= 1 ? K.oxide : K.ore;
+        if (i === 1 && step === 4) {
+          return;
+        }
+        ctx.fillStyle = i <= 1 && step >= 1 ? K.oxide : K.ore;
         ctx.beginPath();
         ctx.roundRect(p[0] - 7, p[1] - 5, 14, 10, 3);
         ctx.fill();
@@ -719,8 +722,8 @@
     function solidShare() {
       let n = 0;
       let all = 0;
-      for (let x = 10; x < W; x += 30) {
-        for (let y = 10; y < H; y += 30) {
+      for (let x = 0; x <= W; x += 20) {
+        for (let y = 0; y <= H; y += 20) {
           all++;
           if (owner(x, y) >= 0) {
             n++;
@@ -867,7 +870,7 @@
         solid: doneMode ? (doneMode === 'slow' ? 'freezeDoneSlow' : 'freezeDoneFast') : 'freezeStart',
         heating: 'freezeHeating',
         melting: 'freezeMelting',
-        superheat: 'freezeMelting',
+        superheat: 'freezeSuperheat',
         liquid: 'freezeLiquid',
         cooling: 'freezeCooling',
         growing: 'freezeGrowing',
@@ -1013,9 +1016,9 @@
     function cavity() {
       const wide = riser() === 'yes';
       const path = new Path2D();
-      path.moveTo(wide ? 236 : 262, 86);
-      path.lineTo(wide ? 344 : 298, 86);
-      path.lineTo(wide ? 330 : 298, 176);
+      path.moveTo(wide ? 226 : 262, 86);
+      path.lineTo(wide ? 354 : 298, 86);
+      path.lineTo(wide ? 340 : 298, 176);
       path.lineTo(430, 180);
       path.lineTo(700, 214);
       path.lineTo(700, 226);
@@ -1024,7 +1027,7 @@
       path.quadraticCurveTo(196, 262, 196, 244);
       path.lineTo(196, 196);
       path.quadraticCurveTo(196, 178, 214, 178);
-      path.lineTo(wide ? 250 : 262, 176);
+      path.lineTo(wide ? 240 : 262, 176);
       path.closePath();
       return path;
     }
@@ -1101,13 +1104,31 @@
           ctx.fill();
         }
         if (set > 0) {
+          const fed = riser() === 'yes';
           ctx.strokeStyle = css(P.atom);
-          ctx.lineWidth = set * 96;
+          ctx.fillStyle = css(P.atom);
           ctx.lineJoin = 'round';
+          ctx.save();
+          ctx.beginPath();
+          ctx.rect(0, fed ? 176 : 0, W, H);
+          ctx.clip();
+          ctx.lineWidth = set * 96;
           ctx.stroke(path);
           if (set >= 1) {
-            ctx.fillStyle = css(P.atom);
             ctx.fill(path);
+          }
+          ctx.restore();
+          if (fed) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.rect(0, 0, W, 176);
+            ctx.clip();
+            ctx.lineWidth = set * 52 + end * 90;
+            ctx.stroke(path);
+            if (end >= 1) {
+              ctx.fill(path);
+            }
+            ctx.restore();
           }
           if (f.misrun) {
             ctx.fillStyle = K.well;
