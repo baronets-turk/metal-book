@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Глава 1. Камень, который не колется</title>
-<link rel="stylesheet" href="assets/style.css?v=4">
-<script src="assets/theme.js?v=4"></script>
+<link rel="stylesheet" href="assets/style.css?v=5">
+<script src="assets/theme.js?v=5"></script>
 </head>
 <body>
 
@@ -131,6 +131,39 @@
     </div>
     <div class="caption" id="w3-caption"></div>
     <div class="note"><b>Что здесь верно, а что упрощено.</b> Верно: устройство складки (лишний полуряд атомов сверху), то, что она сдвигает кристалл ровно на один атом, и ступенька на краю после её выхода. Упрощено: это плоский срез. В объёмном кристалле складка представляет собой линию, уходящую вглубь экрана. Смещения атомов рядом с ней нарисованы по плавной кривой, а не рассчитаны по силам между атомами.</div>
+  </div>
+
+  <p>Теперь то же самое по шагам и с линиями между атомами. Линия соединяет два атома, которые сейчас стоят друг напротив друга через плоскость сдвига. Чем сильнее линия растянута, тем она краснее. В обоих окнах верхний слой в итоге сдвигается на один атом. Смотри, сколько линий натянуто в каждый момент.</p>
+
+  <div class="widget" id="w5">
+    <div class="widget-title"><strong>Опыт 4. Два способа сдвинуть слой, по шагам</strong><span>нажимай «Шаг» в каждом окне</span></div>
+    <div class="steps-duo">
+      <div>
+        <h4>Весь слой разом</h4>
+        <canvas id="w5a-canvas"></canvas>
+        <div class="controls">
+          <button class="ghost" id="w5a-back">Назад</button>
+          <button id="w5a-step">Шаг</button>
+          <button class="ghost" id="w5a-play">Играть</button>
+        </div>
+        <div class="meter-head" style="margin-top:12px"><span>Натянуто связей сейчас</span><b id="w5a-now"></b></div>
+        <div class="meter-head"><span>Больше всего за раз</span><b id="w5a-max"></b></div>
+        <div class="caption" id="w5a-cap"></div>
+      </div>
+      <div>
+        <h4>Складкой</h4>
+        <canvas id="w5b-canvas"></canvas>
+        <div class="controls">
+          <button class="ghost" id="w5b-back">Назад</button>
+          <button id="w5b-step">Шаг</button>
+          <button class="ghost" id="w5b-play">Играть</button>
+        </div>
+        <div class="meter-head" style="margin-top:12px"><span>Натянуто связей сейчас</span><b id="w5b-now"></b></div>
+        <div class="meter-head"><span>Больше всего за раз</span><b id="w5b-max"></b></div>
+        <div class="caption" id="w5b-cap"></div>
+      </div>
+    </div>
+    <div class="note"><b>Что здесь верно, а что упрощено.</b> Верно: при сдвиге слоя целиком все связи через плоскость сдвига растягиваются одновременно, а при проходе складки в каждый момент переключается одна; итоговый сдвиг в обоих случаях один и тот же, на один атом. Это прямо показано в учебном курсе Кембриджа, с которого взята идея опыта. Упрощено: решётка нарисована квадратной и плоской, у меди она объёмная и уложена плотнее. Линии условны: в металле атом не держится за конкретного соседа отдельной связью (вспомни общий «клей»), линия лишь отмечает ближайшего соседа напротив. Счётчик считает линию натянутой, когда она отклонилась больше чем на 15% расстояния между атомами; это мой порог для наглядности, а не измеренная величина. Смещения атомов рядом со складкой нарисованы по плавной кривой, а не рассчитаны по силам.</div>
   </div>
 
   <h3>Почему от ударов медь твердеет</h3>
@@ -277,6 +310,7 @@
     <li>Источник внутри кристалла выпускает расширяющиеся петли (источник Франка — Рида): <a href="https://en.wikipedia.org/wiki/Frank%E2%80%93Read_source">Wikipedia, Frank–Read source</a>; <a href="https://www.tf.uni-kiel.de/matwis/amat/def_en/kap_5/backbone/r5_3_2.html">H. Föll, Generation of Dislocations</a>, Университет Киля; <a href="https://eng.libretexts.org/Bookshelves/Materials_Science/TLP_Library_II/7%3A_Mechanisms_of_Plasticity/7.2%3A_Dislocation_Generation">DoITPoMS, Dislocation Generation</a> (копия на LibreTexts). Прочитаны.</li>
     <li>Складка как граница сдвинутой и несдвинутой части; старт от неровностей на границах зёрен в начале деформации; малая роль поверхности в металле из многих зёрен; рождение двух противоположных складок сдвигом на месте и его малая вероятность: <a href="https://en.wikipedia.org/wiki/Dislocation">Wikipedia, Dislocation</a>. Прочитан. В прежней версии главы стояло «чаще всего от границ зёрен и от поверхности»; про поверхность это верно для одиночного кристалла, а не для обычного металла, исправлено.</li>
     <li>Складки разных знаков под одной нагрузкой движутся в противоположные стороны: <a href="https://www.nature.com/articles/srep16892">Probing the character of ultra-fast dislocations</a>, Scientific Reports, 2015. Прочитан, там это сказано прямо: положительная дислокация под тем же сдвигом движется в сторону, противоположную отрицательной. Ещё два источника известны по выдержке: <a href="https://arxiv.org/abs/1803.05951">arXiv:1803.05951</a> (текст прочитан, прямой фразы в нём не нашлось) и <a href="https://ph2.uni-koeln.de/fileadmin/Lehre/PraktikumB/Dislocations_in_Lithium_Fluoride.pdf">Dislocations in Lithium Fluoride</a>, Кёльнский университет (сайт не отвечал).</li>
+    <li>Опыт 4, сдвиг целым слоем и сдвиг складкой по шагам: <a href="https://www.doitpoms.ac.uk/tlplib/dislocations/dislocation_glide.php">DoITPoMS, Introduction to Dislocations, Dislocation glide</a>, Кембридж. Прочитан, обе анимации просмотрены по кадрам. Опыт повторяет их идею своим рисунком.</li>
     <li>«Петля в плоском срезе выглядит как расходящаяся пара складок»: вывод из трёх предыдущих пунктов, прямой цитаты нет. В той же статье Scientific Reports противоположные стороны петли другого вида (призматической) описаны как краевые дислокации с противоположным направлением линии, которые расходятся в разные стороны.</li>
     <li>Прямое наблюдение движущихся дислокаций: Hirsch, Horne, Whelan, <a href="https://scilit.com/publications/8644e5d9c96369b06684ea80bce6a4ad">Direct observations of the arrangement and motion of dislocations in aluminium</a>, Philosophical Magazine 1, 677–684, 1956. По выдержке (аннотация): статья платная, открытой копии нет.</li>
     <li>Сдвиговое усилие на наклонных плоскостях при сжатии: <a href="https://en.wikipedia.org/wiki/Critical_resolved_shear_stress">Wikipedia, Critical resolved shear stress</a>. Прочитан.</li>
@@ -286,7 +320,7 @@
   </ul>
 </div>
 
-<script src="assets/core.js?v=4"></script>
+<script src="assets/core.js?v=5"></script>
 <script>
 window.QUIZ = [
   {
@@ -371,8 +405,8 @@ window.QUIZ = [
   }
 ];
 </script>
-<script src="assets/quiz.js?v=4"></script>
-<script src="assets/ch1.js?v=4"></script>
-<script src="assets/feedback.js?v=4"></script>
+<script src="assets/quiz.js?v=5"></script>
+<script src="assets/ch1.js?v=5"></script>
+<script src="assets/feedback.js?v=5"></script>
 </body>
 </html>

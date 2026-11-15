@@ -450,8 +450,184 @@
     render();
   }
 
+  function experimentSteps() {
+    const N = 7;
+    const A = 38;
+    const R = 10;
+    const UP = 3;
+    const DOWN = 2;
+    const PAD = 22;
+    const TOP = 42;
+    const W = PAD * 2 + (N + 1) * A;
+    const H = TOP + (UP + DOWN - 1) * A + 28;
+    const smooth = (t) => {
+      const k = Math.max(0, Math.min(1, t));
+      return k * k * (3 - 2 * k);
+    };
+
+    function panel(key, last, shift, core, captions) {
+      const ctx = setupCanvas(el(key + '-canvas'), W, H);
+      let pos = 0;
+      let target = 0;
+      let speed = 2;
+      let worst = 0;
+      let raf = 0;
+      let prev = 0;
+
+      const upX = (r, c) => PAD + A / 2 + (c + shift(pos, r, c)) * A;
+      const upY = (r) => TOP + (UP - r) * A;
+      const lowX = (c) => PAD + A / 2 + c * A;
+      const lowY = (q) => TOP + (UP + q - 1) * A;
+
+      function line(x1, y1, x2, y2, color) {
+        ctx.strokeStyle = color;
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+      }
+
+      function render() {
+        ctx.clearRect(0, 0, W, H);
+        ctx.lineCap = 'round';
+        ctx.lineWidth = 2.5;
+        const calm = mix(P.bond, P.bond, 0);
+        for (let q = 1; q <= DOWN; q++) {
+          for (let c = 0; c < N; c++) {
+            if (c < N - 1) {
+              line(lowX(c), lowY(q), lowX(c + 1), lowY(q), calm);
+            }
+            if (q < DOWN) {
+              line(lowX(c), lowY(q), lowX(c), lowY(q + 1), calm);
+            }
+          }
+        }
+        for (let r = 1; r <= UP; r++) {
+          for (let c = 0; c < N; c++) {
+            if (c < N - 1) {
+              line(upX(r, c), upY(r), upX(r, c + 1), upY(r), calm);
+            }
+            if (r < UP) {
+              line(upX(r, c), upY(r), upX(r + 1, c), upY(r + 1), calm);
+            }
+          }
+        }
+        let tense = 0;
+        for (let c = 0; c < N; c++) {
+          const near = [];
+          for (let i = 0; i < N; i++) {
+            near.push([Math.abs(upX(1, i) - lowX(c)), i]);
+          }
+          near.sort((p, q) => p[0] - q[0]);
+          const best = near[0];
+          if (best[0] > 0.51 * A) {
+            continue;
+          }
+          const color = mix(P.bond, P.danger, Math.min(1, best[0] / (0.4 * A)));
+          line(lowX(c), lowY(1), upX(1, best[1]), upY(1), color);
+          if (near[1][0] - best[0] < 0.04 * A) {
+            line(lowX(c), lowY(1), upX(1, near[1][1]), upY(1), color);
+          }
+          if (best[0] > 0.15 * A) {
+            tense++;
+          }
+        }
+        if (pos === 0) {
+          worst = 0;
+        }
+        worst = Math.max(worst, tense);
+        const xd = core ? core(pos) : null;
+        for (let q = 1; q <= DOWN; q++) {
+          for (let c = 0; c < N; c++) {
+            ctx.beginPath();
+            ctx.arc(lowX(c), lowY(q), R, 0, Math.PI * 2);
+            ctx.fillStyle = mix(P.atom, P.hot, 0);
+            ctx.fill();
+          }
+        }
+        for (let r = 1; r <= UP; r++) {
+          for (let c = 0; c < N; c++) {
+            const k = xd === null ? 0 : Math.max(0, 1 - Math.abs(c - xd));
+            ctx.beginPath();
+            ctx.arc(upX(r, c), upY(r), R, 0, Math.PI * 2);
+            ctx.fillStyle = mix(P.atom, P.hot, k);
+            ctx.fill();
+          }
+        }
+        if (xd !== null && xd > -0.5 && xd < N - 0.5) {
+          const x = PAD + A / 2 + (xd + 0.5) * A;
+          const y = (upY(1) + lowY(1)) / 2 + 4;
+          ctx.lineWidth = 3;
+          line(x - 9, y, x + 9, y, P.move);
+          line(x, y, x, y - 11, P.move);
+        }
+        ctx.fillStyle = P.muted;
+        ctx.font = '600 13px -apple-system, sans-serif';
+        ctx.fillText('верх толкают сюда →', PAD, 22);
+        el(key + '-now').textContent = tense;
+        el(key + '-max').textContent = worst;
+        el(key + '-cap').textContent = captions(Math.round(pos));
+        el(key + '-back').disabled = target === 0 && pos === 0;
+        el(key + '-step').disabled = target === last;
+      }
+
+      function tick(now) {
+        const dt = Math.min(0.05, (now - prev) / 1000);
+        prev = now;
+        const dir = Math.sign(target - pos);
+        pos += dir * speed * dt;
+        if ((target - pos) * dir <= 0) {
+          pos = target;
+        }
+        raf = pos === target ? 0 : requestAnimationFrame(tick);
+        render();
+      }
+
+      function go(to, v) {
+        target = Math.max(0, Math.min(last, to));
+        speed = v;
+        if (!raf && target !== pos) {
+          prev = performance.now();
+          raf = requestAnimationFrame(tick);
+        }
+        render();
+      }
+
+      el(key + '-step').onclick = () => go(Math.floor(pos + 1e-6) + 1, 2);
+      el(key + '-back').onclick = () => go(Math.ceil(pos - 1e-6) - 1, 2);
+      el(key + '-play').onclick = () => {
+        if (pos >= last) {
+          pos = 0;
+        }
+        go(last, 0.8);
+      };
+      renders.push(render);
+      render();
+    }
+
+    panel('w5a', 4, (p) => p / 4, null, (i) => [
+      'Слой на месте. Линия показывает, какие два атома стоят друг напротив друга через плоскость сдвига.',
+      'Весь верхний слой поехал. Растянулись все связи через плоскость сразу.',
+      'Полшага. Все связи натянуты до предела одновременно. Чтобы пройти это место, нужна огромная сила.',
+      'Каждый нижний атом перехватил следующего соседа сверху. Связи снова укорачиваются.',
+      'Слой сдвинут на один атом. На краях остались ступеньки.'
+    ][i]);
+
+    const core = (p) => (p <= 1 ? -2.5 + 2.5 * p : p <= N ? p - 1 : N - 1 + 2.5 * (p - N));
+    panel('w5b', N + 1, (p, r, c) => smooth(0.5 - (c - core(p)) / (2 * (1.5 + 0.5 * (r - 1)))), core, (i) => (
+      i === 0
+        ? 'Слой на месте. Линия показывает, какие два атома стоят друг напротив друга через плоскость сдвига.'
+        : i === 1
+          ? 'Сдвинулся только крайний столбик слева. Он встал между двумя нижними атомами, пары снизу у него нет. Это и есть складка.'
+          : i <= N
+            ? 'Складка перешла на соседний столбик: нижний атом справа от неё отпустил своего соседа и взял того, кто был без пары. Остальные связи не тронуты.'
+            : 'Складка вышла справа. Слой сдвинут на один атом, как и в левом окне, но натянутой в каждый момент была одна связь.'
+    ));
+  }
+
   experimentHit();
   experimentShift();
   experimentFold();
+  experimentSteps();
   lens();
 })();

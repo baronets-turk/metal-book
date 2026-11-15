@@ -650,11 +650,27 @@ button.quiz-opt.wrong {
 
 .fb-list { margin-top: 10px; }
 
+.steps-duo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.steps-duo > div { min-width: 0; }
+
+.steps-duo h4 {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.steps-duo .caption { min-height: 96px; }
+
 @media (max-width: 700px) {
   body { font-size: 17px; }
   .fb, .widget-title .fb-mini, .topbar-info { display: none !important; }
   .topbar { padding: 8px 16px; }
-  .duo, .lens-side { grid-template-columns: 1fr; }
+  .duo, .lens-side, .steps-duo { grid-template-columns: 1fr; }
+  .steps-duo .caption { min-height: 0; }
   .toc li { grid-template-columns: 40px 1fr; }
   .toc .era { grid-column: 2; }
   .toc li > div { grid-column: 2; }
