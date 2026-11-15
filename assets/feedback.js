@@ -1,4 +1,7 @@
 (function () {
+  if (!['127.0.0.1', 'localhost'].includes(location.hostname)) {
+    return;
+  }
   const KEY = 'metal-book-feedback';
   const TAGS = ['Непонятно', 'Похоже на ошибку', 'Хочу подробнее', 'Другое'];
   const page = location.pathname.split('/').pop() || 'index.html';
@@ -207,7 +210,7 @@
       items = [];
       save();
       refreshFab();
-      openDrawer();
+      drawer.style.display = 'none';
     };
     close.onclick = () => {
       drawer.style.display = 'none';
