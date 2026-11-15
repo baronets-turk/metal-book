@@ -140,11 +140,69 @@ window.MB = (function () {
     root.querySelectorAll('a.fn').forEach((a) => {
       const n = items.findIndex((li) => '#' + li.id === a.getAttribute('href')) + 1;
       a.textContent = n ? '[' + n + ']' : '[?]';
-      a.title = fmt(window.UI.footnote, { n });
+      a.setAttribute('aria-label', fmt(window.UI.footnote, { n }));
     });
   }
 
   footnotes(document);
+
+  const pop = document.createElement('div');
+  pop.className = 'fn-pop';
+  pop.hidden = true;
+  document.body.append(pop);
+  const touch = window.matchMedia('(hover: none)');
+  let popFor = null;
+  let popTimer = 0;
+
+  function hideNote() {
+    pop.hidden = true;
+    popFor = null;
+  }
+
+  function showNote(a) {
+    clearTimeout(popTimer);
+    const item = document.getElementById(a.getAttribute('href').slice(1));
+    if (!item || popFor === a) {
+      return;
+    }
+    popFor = a;
+    pop.innerHTML = item.innerHTML;
+    pop.hidden = false;
+    const rect = a.getBoundingClientRect();
+    const left = Math.max(12, Math.min(window.innerWidth - pop.offsetWidth - 12, rect.left - 24));
+    const above = rect.top > pop.offsetHeight + 70;
+    pop.style.left = left + window.scrollX + 'px';
+    pop.style.top = (above ? rect.top - pop.offsetHeight - 6 : rect.bottom + 6) + window.scrollY + 'px';
+  }
+
+  function noteLink(e) {
+    const a = e.target.closest ? e.target.closest('a.fn') : null;
+    return a && !pop.contains(a) ? a : null;
+  }
+
+  document.addEventListener('mouseover', (e) => {
+    const a = noteLink(e);
+    if (a) {
+      showNote(a);
+    } else if (pop.contains(e.target)) {
+      clearTimeout(popTimer);
+    }
+  });
+  document.addEventListener('mouseout', (e) => {
+    if (noteLink(e) || pop.contains(e.target)) {
+      clearTimeout(popTimer);
+      popTimer = setTimeout(hideNote, 300);
+    }
+  });
+  document.addEventListener('click', (e) => {
+    const a = noteLink(e);
+    if (a && touch.matches) {
+      e.preventDefault();
+      showNote(a);
+    } else if (!pop.contains(e.target)) {
+      hideNote();
+    }
+  });
 
   const NUM = /[−-]?\d+(?:[.,]\d+)?/g;
   const CELSIUS = /([−-]?\d+(?:[.,]\d+)?(?:(?:–|,? (?:to|and|до|и) |, )[−-]?\d+(?:[.,]\d+)?)*)\s*°C/g;
