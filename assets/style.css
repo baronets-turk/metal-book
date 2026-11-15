@@ -9,8 +9,8 @@
   --copper-soft: #c97b4a;
   --patina: #5fbf9f;
   --danger: #e2604a;
-  --well: var(--well);
-  --on-accent: var(--on-accent);
+  --well: #100d0a;
+  --on-accent: #1a130c;
   --atom: #c97b4a;
   --atom-hot: #ffe2aa;
   --fold-move: #f4f0e6;
@@ -85,6 +85,23 @@
 }
 
 .peek-chip:hover, .peek-chip.on { opacity: 1; color: var(--on-accent); background: var(--copper); }
+
+.deg-tip {
+  position: fixed;
+  z-index: 20;
+  transform: translate(-50%, calc(-100% - 6px));
+  padding: 3px 9px;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--on-accent);
+  background: var(--copper);
+  border-radius: 7px;
+  pointer-events: none;
+}
+
+.deg-tip[hidden] { display: none; }
 
 * { box-sizing: border-box; }
 

@@ -146,5 +146,69 @@ window.MB = (function () {
 
   footnotes(document);
 
+  const NUM = /[−-]?\d+(?:[.,]\d+)?/g;
+  const CELSIUS = /([−-]?\d+(?:[.,]\d+)?(?:(?:–|,? (?:to|and|до|и) |, )[−-]?\d+(?:[.,]\d+)?)*)\s*°C/g;
+
+  function fahrenheit(text) {
+    return text.replace(NUM, (n) => {
+      const mark = /[.,]/.exec(n);
+      const digits = mark ? n.length - mark.index - 1 : 0;
+      const f = parseFloat(n.replace('−', '-').replace(',', '.')) * 1.8 + 32;
+      return f.toFixed(digits).replace('-', '−').replace('.', mark ? mark[0] : '.');
+    }) + ' °F';
+  }
+
+  function caretAt(x, y) {
+    if (document.caretPositionFromPoint) {
+      const pos = document.caretPositionFromPoint(x, y);
+      return pos && { node: pos.offsetNode, offset: pos.offset };
+    }
+    if (document.caretRangeFromPoint) {
+      const range = document.caretRangeFromPoint(x, y);
+      return range && { node: range.startContainer, offset: range.startOffset };
+    }
+    return null;
+  }
+
+  function celsiusAt(x, y) {
+    const caret = caretAt(x, y);
+    if (!caret || caret.node.nodeType !== 3) {
+      return null;
+    }
+    for (const m of caret.node.nodeValue.matchAll(CELSIUS)) {
+      if (caret.offset < m.index || caret.offset > m.index + m[0].length) {
+        continue;
+      }
+      const range = document.createRange();
+      range.setStart(caret.node, m.index);
+      range.setEnd(caret.node, m.index + m[0].length);
+      const rect = Array.from(range.getClientRects()).find((r) => x >= r.left && x <= r.right && y >= r.top && y <= r.bottom);
+      if (rect) {
+        return { rect, text: fahrenheit(m[1]) };
+      }
+    }
+    return null;
+  }
+
+  const tip = document.createElement('div');
+  tip.className = 'deg-tip';
+  tip.hidden = true;
+  document.body.append(tip);
+
+  document.addEventListener('mousemove', (e) => {
+    const hit = celsiusAt(e.clientX, e.clientY);
+    tip.hidden = !hit;
+    if (hit) {
+      tip.textContent = hit.text;
+      const half = tip.offsetWidth / 2;
+      const x = Math.max(half + 4, Math.min(window.innerWidth - half - 4, e.clientX));
+      tip.style.left = x + 'px';
+      tip.style.top = hit.rect.top + 'px';
+    }
+  });
+  document.addEventListener('scroll', () => {
+    tip.hidden = true;
+  }, { passive: true });
+
   return { el, renders, P, setupCanvas, mix, jolt, drawLattice, fmt, footnotes, tr, say, resay };
 })();
