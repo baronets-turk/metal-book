@@ -132,7 +132,59 @@ window.MB = (function () {
     renders.forEach((f) => f());
   }
 
+  const SKIP = '.old-name, .fn-pop, script, style, canvas, button, a, nav, ol.sources, .credit, .quiz, #quiz-box';
+  let placeAny = null;
+  let placeEach = [];
+  try {
+    const list = window.PLACES || [];
+    placeAny = list.length ? new RegExp('(?<![\\p{L}])(?:' + list.map((p) => p[0]).join('|') + ')(?![\\p{L}])', 'gu') : null;
+    placeEach = list.map((p) => [new RegExp('^(?:' + p[0] + ')$', 'u'), p[1]]);
+  } catch (e) {
+    placeAny = null;
+  }
+
+  function places(root) {
+    if (!placeAny) {
+      return;
+    }
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walker.nextNode()) {
+      const node = walker.currentNode;
+      if (node.parentElement && !node.parentElement.closest(SKIP)) {
+        nodes.push(node);
+      }
+    }
+    for (const node of nodes) {
+      const text = node.nodeValue;
+      placeAny.lastIndex = 0;
+      let at = 0;
+      let m = placeAny.exec(text);
+      if (!m) {
+        continue;
+      }
+      const parts = document.createDocumentFragment();
+      while (m) {
+        const entry = placeEach.find((p) => p[0].test(m[0]));
+        if (entry) {
+          parts.append(text.slice(at, m.index));
+          const span = document.createElement('span');
+          span.className = 'old-name';
+          span.tabIndex = 0;
+          span.dataset.now = entry[1];
+          span.textContent = m[0];
+          parts.append(span);
+          at = m.index + m[0].length;
+        }
+        m = placeAny.exec(text);
+      }
+      parts.append(text.slice(at));
+      node.replaceWith(parts);
+    }
+  }
+
   function footnotes(root) {
+    places(root.body || root);
     const items = Array.from(document.querySelectorAll('ol.sources > li'));
     root.querySelectorAll('ol.sources a').forEach((a) => {
       a.target = '_blank';
