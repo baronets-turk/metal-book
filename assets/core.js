@@ -256,11 +256,7 @@ window.MB = (function () {
     const a = noteLink(e);
     if (a && a.dataset.now) {
       e.stopImmediatePropagation();
-      if (popFor === a && touch.matches) {
-        hideNote();
-      } else {
-        showNote(a);
-      }
+      showNote(a);
     } else if (a && touch.matches) {
       e.preventDefault();
       showNote(a);
