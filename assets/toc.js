@@ -54,7 +54,10 @@
     return link;
   });
   nav.append(pct, list);
-  bar.after(nav);
+  const line = document.createElement('div');
+  line.className = 'read-line';
+  line.setAttribute('aria-hidden', 'true');
+  bar.after(line, nav);
 
   let current = -2;
   let shown = '';
@@ -72,15 +75,17 @@
 
   function update() {
     queued = false;
-    if (!wide.matches) {
-      return;
-    }
     const doc = document.documentElement;
     const y = window.scrollY;
     const view = window.innerHeight;
-    const top = bar.offsetHeight;
     const height = doc.scrollHeight;
     const max = height - view;
+    const part = max > 0 ? Math.min(1, Math.max(0, y / max)) : 1;
+    line.style.transform = 'scaleX(' + part + ')';
+    if (!wide.matches) {
+      return;
+    }
+    const top = bar.offsetHeight;
     const rest = Math.max(0, max - y);
     const ref = y + top + (view - top) * Math.min(1, Math.max(0.3, 1 - rest / (view - top)));
     const starts = heads.map((head) => head.mark.getBoundingClientRect().top + y);
@@ -117,7 +122,7 @@
     }
     fill.style.height = reach + 'px';
 
-    const text = Math.round(max > 0 ? Math.min(1, y / max) * 100 : 100) + ' %';
+    const text = Math.round(part * 100) + ' %';
     if (text !== shown) {
       shown = text;
       pct.textContent = text;
