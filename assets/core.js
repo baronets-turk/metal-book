@@ -252,16 +252,34 @@ window.MB = (function () {
       popTimer = setTimeout(hideNote, 300);
     }
   });
+  let openAtDown = false;
+  document.addEventListener('pointerdown', () => {
+    openAtDown = !pop.hidden || !tip.hidden;
+  }, true);
   document.addEventListener('click', (e) => {
     const a = noteLink(e);
+    const wasOpen = openAtDown || !pop.hidden;
+    openAtDown = false;
     if (a && a.dataset.now) {
       e.stopImmediatePropagation();
+      tip.hidden = true;
       showNote(a);
-    } else if (a && touch.matches) {
+      return;
+    }
+    if (a && touch.matches) {
       e.preventDefault();
+      tip.hidden = true;
       showNote(a);
-    } else if (!pop.contains(e.target) && !pop.hidden) {
+      return;
+    }
+    const hit = touch.matches && !a && !pop.contains(e.target) ? celsiusAt(e.clientX, e.clientY) : null;
+    if (hit) {
       hideNote();
+      showTip(hit, e.clientX);
+      e.stopImmediatePropagation();
+    } else if (!pop.contains(e.target) && (wasOpen || (touch.matches && !tip.hidden))) {
+      hideNote();
+      tip.hidden = true;
       e.stopImmediatePropagation();
     }
   });
@@ -315,15 +333,20 @@ window.MB = (function () {
   tip.hidden = true;
   document.body.append(tip);
 
+  function showTip(hit, at) {
+    tip.hidden = false;
+    tip.textContent = hit.text;
+    const half = tip.offsetWidth / 2;
+    const x = Math.max(half + 4, Math.min(window.innerWidth - half - 4, at));
+    tip.style.left = x + 'px';
+    tip.style.top = hit.rect.top + 'px';
+  }
+
   document.addEventListener('mousemove', (e) => {
     const hit = celsiusAt(e.clientX, e.clientY);
     tip.hidden = !hit;
     if (hit) {
-      tip.textContent = hit.text;
-      const half = tip.offsetWidth / 2;
-      const x = Math.max(half + 4, Math.min(window.innerWidth - half - 4, e.clientX));
-      tip.style.left = x + 'px';
-      tip.style.top = hit.rect.top + 'px';
+      showTip(hit, e.clientX);
     }
   });
   document.addEventListener('scroll', () => {
