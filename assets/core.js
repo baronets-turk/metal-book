@@ -199,8 +199,9 @@ window.MB = (function () {
     if (a && touch.matches) {
       e.preventDefault();
       showNote(a);
-    } else if (!pop.contains(e.target)) {
+    } else if (!pop.contains(e.target) && !pop.hidden) {
       hideNote();
+      e.stopImmediatePropagation();
     }
   });
 
