@@ -26,6 +26,10 @@
   --wood: #9a7650;
   --liquid: #ffb45e;
   --air: #9fc4e8;
+  --tin: #c3ccd6;
+  --tin-rich: #e6d9a8;
+  --delta: #8fb4cf;
+  --bronze: #d6a05f;
   color-scheme: dark;
   --serif: "Iowan Old Style", "Charter", "PT Serif", Georgia, serif;
   --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
@@ -59,6 +63,10 @@
   --wood: #8f6a44;
   --liquid: #e8862a;
   --air: #6f9cc8;
+  --tin: #5f6b78;
+  --tin-rich: #e0c56a;
+  --delta: #5f8fb0;
+  --bronze: #c2893f;
   color-scheme: light;
 }
 
@@ -580,6 +588,12 @@ input[type="range"] {
   font-size: 19px;
   font-weight: 600;
   letter-spacing: 0.02em;
+}
+
+.mix-swatch {
+  height: 64px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
 }
 
 .freeze-grid {

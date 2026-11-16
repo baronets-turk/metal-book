@@ -85,9 +85,10 @@ window.MB = (function () {
           x += j[0];
           y += j[1];
         }
+        const kind = o.kind ? o.kind(r, c) : null;
         ctx.beginPath();
-        ctx.arc(x, y, g.r, 0, Math.PI * 2);
-        ctx.fillStyle = mix(base, P.hot, Math.min(1, heat * 0.9));
+        ctx.arc(x, y, kind ? g.r * kind.scale : g.r, 0, Math.PI * 2);
+        ctx.fillStyle = kind ? kind.fill : mix(base, P.hot, Math.min(1, heat * 0.9));
         ctx.fill();
       }
     }
