@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Chapter 4. Bronze</title>
-<link rel="stylesheet" href="assets/style.css?v=30">
-<script src="assets/ui.en.js?v=30"></script>
-<script src="assets/theme.js?v=30"></script>
+<link rel="stylesheet" href="assets/style.css?v=31">
+<script src="assets/ui.en.js?v=31"></script>
+<script src="assets/theme.js?v=31"></script>
 </head>
 <body>
 
@@ -71,27 +71,17 @@
   <h3>Melting the two metals</h3>
   <p>A charcoal fire, bellows and a crucible do the work. Copper can be melted first, with tin added shortly before the pour. Both metals can also be melted together. A cover of charcoal keeps air away from the liquid.<a class="fn" href="#s-zimmerman"></a><a class="fn" href="#s-fregni"></a><a class="fn" href="#s-oudbashi"></a></p>
   <p><span class="history">Most British Bronze Age swords analysed so far contain 7 to 14 parts tin.</span> <span class="history">At one Late Bronze Age site in Austria, axes and chisels contain 7.5 to 10 parts, and knives 9 to 15.</span> <span class="history">This was not one exact recipe followed by every smith.</span><a class="fn" href="#s-hermann"></a><a class="fn" href="#s-modlinger"></a> Bronze with about 10 parts tin is liquid at about 1000 °C, while copper needs 1085 °C.<a class="fn" href="#s-copper"></a> Tin also takes oxygen out of the liquid and helps it flow into the mould.<a class="fn" href="#s-cda"></a><a class="fn" href="#s-oudbashi"></a></p>
-  <p>In the model below, add tin a little at a time. Watch the colour and the freezing temperatures, then compare what the hammer can do to each mixture.</p>
+  <p>The picture below shows copper with more and more tin. Look at how the colour changes, where freezing starts and ends, and which mixtures were used for what.</p>
   <div class="widget" id="w-mix">
-    <div class="widget-title"><strong>Experiment 1. Add tin to copper</strong><span>colour, freezing and hardness</span></div>
-    <div class="mix-swatch" id="x-swatch"></div>
-    <div class="controls">
-      <span>Tin</span>
-      <input type="range" id="x-slider" min="0" max="30" value="0" step="1">
-      <b id="x-tin"></b>
-    </div>
-    <div class="meter-head" style="margin-top:14px"><span>Freezing starts: <b id="x-liq"></b></span><span>Fully solid: <b id="x-sol"></b></span></div>
-    <div class="meter-head"><span>Hardness with 1 to 8 parts tin: <b id="x-hard"></b></span></div>
+    <div class="widget-title"><strong>Picture. Copper with more and more tin</strong><span>colour, freezing and use</span></div>
     <canvas id="x-chart"></canvas>
     <div class="legend">
-      <span style="--c:var(--copper)">Hammered to half thickness</span>
-      <span style="--c:var(--patina)">Annealed</span>
-      <span style="--c:var(--text)">Mixture chosen with the slider</span>
-      <span style="--c:var(--danger)">17 to 19 parts tin: cannot be hammered hot or cold</span>
-      <span style="--c:var(--delta)">Above 19 parts tin: can be worked hot</span>
+      <span style="--c:var(--patina)">7–15: most Bronze Age blades and tools</span>
+      <span style="--c:var(--danger)">17–19: cannot be hammered hot or cold</span>
+      <span style="--c:var(--delta)">20–25: ancient bells and mirrors, cast</span>
     </div>
-    <div class="caption" id="x-caption"></div>
-    <div class="note"><b>What the model shows and leaves out.</b> The colours come from measurements of polished cast copper and tin mixtures. Between measured samples, the colour changes evenly. A screen gives only a rough match.<a class="fn" href="#s-colour"></a> The freezing temperatures come from data sheets for modern standard bronzes with about 5, 10, 16 and 19 parts tin. These also contain a little <span class="term">phosphorus</span>, another substance added to the metal, so the figures are not exactly those of a pure copper and tin mixture. Between these four mixtures, the model joins the values with straight lines. Above 19 parts tin, no temperatures are given. Pure copper uses the book’s value of 1085 °C.<a class="fn" href="#s-copper"></a><a class="fn" href="#s-cda"></a> Hardness is on the <span class="term">Brinell scale</span>, a hardness scale where a larger number means harder metal. The figures come from one table for 1 to 8 parts tin, after annealing and after cold rolling. For the latter, the metal was squeezed between rollers to half its thickness. Here those figures stand for hammering it that thin. The table ends at 8 parts tin, so the model gives no hardness figures beyond that.<a class="fn" href="#s-scott"></a> The coloured bands and the text below the chart show the ranges in which bronze can be worked.<a class="fn" href="#s-scott"></a></div>
+    <div class="caption">The strip runs from pure copper on the left to 30 parts tin in a hundred on the right. The numbers above it are temperatures in °C: where freezing starts and where the last liquid is gone. Pure copper has one number because it freezes at one temperature. With more tin the metal gets paler, and freezing starts lower.</div>
+    <div class="note"><b>What the model shows and leaves out.</b> The colours come from measurements of polished cast copper and tin mixtures. Between measured samples, the colour changes evenly. A screen gives only a rough match.<a class="fn" href="#s-colour"></a> The freezing temperatures come from data sheets for modern standard bronzes with about 5, 10, 16 and 19 parts tin. These also contain a little <span class="term">phosphorus</span>, another substance added to the metal, so the figures are not exactly those of a pure copper and tin mixture. Pure copper uses the book’s value of 1085 °C.<a class="fn" href="#s-copper"></a><a class="fn" href="#s-cda"></a> The three coloured bars mark ranges of tin. Most British Bronze Age swords analysed so far, and the tools from one Austrian site, hold 7 to 15 parts.<a class="fn" href="#s-hermann"></a><a class="fn" href="#s-modlinger"></a> Bronze with 17 to 19 parts can be worked neither hot nor cold. Ancient bells and mirrors often held 20 to 25 parts and were cast.<a class="fn" href="#s-scott"></a> The picture does not show hardness. Those numbers are in the text below.</div>
   </div>
 </section>
 
@@ -151,7 +141,7 @@
   </div>
   <h3>Hard before the first hammer blow</h3>
   <p>Bronze already has extra hardness before any hammering. Tin in the rows already makes moving folds harder. Hammering then adds work hardening: more folds form and hinder each other, as in chapter one.<a class="fn" href="#s-solute"></a><a class="fn" href="#s-scott"></a></p>
-  <p>The Brinell scale is a way to measure hardness; larger numbers mean harder metal. After annealing, bronze with 1 part tin measures 50, and bronze with 8 parts measures 82. After working each to half its thickness, the values are 110 and 195. Tin raises both the starting hardness and the hardness reached by working.<a class="fn" href="#s-scott"></a></p>
+  <p>The <span class="term">Brinell scale</span> is a way to measure hardness; larger numbers mean harder metal. After annealing, bronze with 1 part tin measures 50, and bronze with 8 parts measures 82. After working each to half its thickness, the values are 110 and 195. Tin raises both the starting hardness and the hardness reached by working.<a class="fn" href="#s-scott"></a></p>
   <p>The <span class="term">Vickers scale</span> is another hardness scale. Its numbers are roughly similar to Brinell numbers, but not exactly the same. On this scale, cast copper measures 40–50, and cold-worked copper 100–120. Fully worked bronze with 12 parts tin reaches 220. Tin itself measures only 6–10. Comparing results across the two scales is difficult.<a class="fn" href="#s-scott"></a></p>
   <p>Arsenic also helps hammered copper become harder. But above about 3 parts arsenic, adding more makes little difference to this hardening. More tin keeps adding hardness over the measured range.<a class="fn" href="#s-scott"></a></p>
   <h3>When the rows cannot hold it all</h3>
@@ -163,7 +153,7 @@
   <p>The last liquid fills the gaps between branches. As the casting cools further, this tin-rich filling becomes a mixture containing the hard, brittle compound. It commonly remains even in bronze with only 10 parts tin. Proper annealing of bronze with up to about 14 parts tin lets the tin spread through the grains and removes this brittle filling.<a class="fn" href="#s-scott"></a></p>
   <p>Follow the casting below as it cools. Compare its falling temperature with copper's flat stretch, then anneal it and watch the tin spread out.</p>
   <div class="widget" id="w-cored">
-    <div class="widget-title"><strong>Experiment 2. How bronze freezes</strong><span id="c-count"></span></div>
+    <div class="widget-title"><strong>Experiment 1. How bronze freezes</strong><span id="c-count"></span></div>
     <div class="freeze-grid">
       <canvas id="c-canvas"></canvas>
       <canvas id="c-graph"></canvas>
@@ -235,7 +225,7 @@
   <p><span class="history">In one study of Late Bronze Age tools from eastern Austria, dated to about 1080–800 BCE, the edges of axes, chisels and a pickaxe measured 215–300 on the Vickers scale.</span> <span class="history">A knife annealed as its last treatment measured 145 or less.</span> <span class="history">Belt clips, which needed to bend, were left annealed.<a class="fn" href="#s-modlinger"></a></span> For a modern sheet of bronze with 12 parts tin, the values were 139 as cast, 137 after annealing and 164 after cold working. The mixture alone does not set the final hardness.<a class="fn" href="#s-hermann"></a></p>
   <p>In the model below, hammer the axe's edge and watch where it hardens. Try annealing between rounds of hammering, then choose which treatment should come last.</p>
   <div class="widget" id="w-edge">
-    <div class="widget-title"><strong>Experiment 3. Finish the blade</strong><span id="e-count"></span></div>
+    <div class="widget-title"><strong>Experiment 2. Finish the blade</strong><span id="e-count"></span></div>
     <canvas id="e-canvas"></canvas>
     <div class="legend">
       <span style="--c:var(--bronze)">Bronze as cast or annealed</span>
@@ -399,9 +389,9 @@
   </ol>
 </div>
 
-<script src="assets/places.js?v=30"></script>
-<script src="assets/core.js?v=30"></script>
-<script src="assets/lang.js?v=30"></script>
+<script src="assets/places.js?v=31"></script>
+<script src="assets/core.js?v=31"></script>
+<script src="assets/lang.js?v=31"></script>
 <script>
 window.T = {
   mixParts: "{n} parts in 100",
@@ -500,9 +490,9 @@ window.QUIZ = [
   }
 ];
 </script>
-<script src="assets/quiz.js?v=30"></script>
-<script src="assets/ch4.js?v=30"></script>
-<script src="assets/feedback.js?v=30"></script>
-<script src="assets/toc.js?v=30"></script>
+<script src="assets/quiz.js?v=31"></script>
+<script src="assets/ch4.js?v=31"></script>
+<script src="assets/feedback.js?v=31"></script>
+<script src="assets/toc.js?v=31"></script>
 </body>
 </html>

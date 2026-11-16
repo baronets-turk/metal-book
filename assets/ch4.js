@@ -70,117 +70,59 @@
       [26.1, 222, 207, 189], [31.5, 218, 209, 199]
     ];
     const FREEZE = [[0, 1085, 1085], [5, 1049, 954], [10, 999, 843], [16, 950, 818], [19, 889, 818]];
-    const SOFT = [50, 52, 54, 59, 62, 72, 80, 82];
-    const HARD = [110, 115, 130, 140, 160, 178, 190, 195];
-    const BANDS = [[0, 17, null], [17, 19, 'danger'], [19, 30, 'delta']];
+    const ZONES = [[7, 15, 'patina'], [17, 19, 'danger'], [20, 25, 'delta']];
     const W = NARROW ? 360 : 760;
-    const H = NARROW ? 250 : 260;
-    const M = { l: 40, r: 14, t: 14, b: 30 };
-    const canvas = el('x-chart');
-    const ctx = setupCanvas(canvas, W, H);
-    const slider = el('x-slider');
-    const xOf = (tin) => M.l + (W - M.l - M.r) * tin / 30;
-    const yOf = (hb) => H - M.b - (H - M.t - M.b) * hb / 220;
+    const H = 150;
+    const M = NARROW ? 26 : 34;
+    const TOP = 44;
+    const BAR = 54;
+    const ctx = setupCanvas(el('x-chart'), W, H);
+    const xOf = (tin) => M + (W - 2 * M) * tin / 30;
 
     function render() {
-      const tin = +slider.value;
       ctx.clearRect(0, 0, W, H);
-      for (const [from, to, colour] of BANDS) {
-        if (colour) {
-          ctx.globalAlpha = 0.22;
-          ctx.fillStyle = K[colour];
-          ctx.fillRect(xOf(from), M.t, xOf(to) - xOf(from), H - M.t - M.b);
-          ctx.globalAlpha = 1;
+      const paint = ctx.createLinearGradient(xOf(0), 0, xOf(30), 0);
+      paint.addColorStop(0, 'rgb(' + COLOUR[0].slice(1).join(',') + ')');
+      for (const row of COLOUR) {
+        if (row[0] <= 30) {
+          paint.addColorStop(row[0] / 30, 'rgb(' + row.slice(1).join(',') + ')');
         }
       }
-      ctx.strokeStyle = K.line;
-      ctx.lineWidth = 1;
-      ctx.fillStyle = K.muted;
+      paint.addColorStop(1, 'rgb(' + along(COLOUR, 30).map(Math.round).join(',') + ')');
+      ctx.fillStyle = paint;
+      ctx.fillRect(xOf(0), TOP, xOf(30) - xOf(0), BAR);
       ctx.font = '12px ' + K.sans;
-      ctx.textAlign = 'right';
-      ctx.textBaseline = 'middle';
-      for (let hb = 0; hb <= 200; hb += 50) {
-        ctx.beginPath();
-        ctx.moveTo(M.l, yOf(hb));
-        ctx.lineTo(W - M.r, yOf(hb));
-        ctx.stroke();
-        ctx.fillText(hb, M.l - 6, yOf(hb));
-      }
       ctx.textAlign = 'center';
-      ctx.textBaseline = 'top';
-      for (let t = 0; t <= 30; t += 5) {
-        ctx.fillText(t, xOf(t), H - M.b + 8);
-      }
-      [[SOFT, K.patina], [HARD, K.copper]].forEach(([series, colour]) => {
-        ctx.strokeStyle = colour;
-        ctx.fillStyle = colour;
-        ctx.lineWidth = 2;
+      ctx.textBaseline = 'middle';
+      ctx.lineWidth = 1;
+      FREEZE.forEach(([tin, starts, ends], i) => {
+        const y = i % 2 ? 26 : 10;
+        ctx.strokeStyle = K.muted;
         ctx.beginPath();
-        series.forEach((hb, i) => {
-          ctx[i ? 'lineTo' : 'moveTo'](xOf(i + 1), yOf(hb));
-        });
+        ctx.moveTo(xOf(tin), y + 8);
+        ctx.lineTo(xOf(tin), TOP);
         ctx.stroke();
-        series.forEach((hb, i) => {
-          ctx.beginPath();
-          ctx.arc(xOf(i + 1), yOf(hb), 3.5, 0, TAU);
-          ctx.fill();
-        });
+        ctx.fillStyle = K.text;
+        ctx.fillText(starts === ends ? starts : starts + '–' + ends, xOf(tin), y);
       });
-      ctx.strokeStyle = K.text;
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(xOf(tin), M.t);
-      ctx.lineTo(xOf(tin), H - M.b);
-      ctx.stroke();
+      ctx.fillStyle = K.muted;
+      ctx.textBaseline = 'top';
+      for (let tin = 0; tin <= 30; tin += 5) {
+        ctx.fillText(tin, xOf(tin), TOP + BAR + 6);
+      }
+      ctx.lineWidth = 6;
+      ctx.lineCap = 'round';
+      for (const [from, to, colour] of ZONES) {
+        ctx.strokeStyle = K[colour];
+        ctx.beginPath();
+        ctx.moveTo(xOf(from) + 3, TOP + BAR + 34);
+        ctx.lineTo(xOf(to) - 3, TOP + BAR + 34);
+        ctx.stroke();
+      }
     }
 
-    function band(tin) {
-      if (tin === 0) {
-        return 'mix0';
-      }
-      if (tin < 5) {
-        return 'mixLow';
-      }
-      if (tin <= 14) {
-        return 'mixTool';
-      }
-      if (tin < 17) {
-        return 'mixLimit';
-      }
-      if (tin <= 19) {
-        return 'mixDead';
-      }
-      if (tin <= 25) {
-        return 'mixBell';
-      }
-      return 'mixWhite';
-    }
-
-    function update() {
-      const tin = +slider.value;
-      const rgb = along(COLOUR, tin).map(Math.round);
-      el('x-swatch').style.background = 'rgb(' + rgb.join(',') + ')';
-      say(el('x-tin'), ['mixParts', { n: tin }]);
-      const range = along(FREEZE, tin);
-      if (range) {
-        el('x-liq').textContent = Math.round(range[0]) + ' °C';
-        el('x-sol').textContent = Math.round(range[1]) + ' °C';
-      } else {
-        say(el('x-liq'), 'mixNoData');
-        say(el('x-sol'), 'mixNoData');
-      }
-      if (tin >= 1 && tin <= 8) {
-        say(el('x-hard'), ['mixHard', { soft: SOFT[tin - 1], hard: HARD[tin - 1] }]);
-      } else {
-        say(el('x-hard'), 'mixNoData');
-      }
-      say(el('x-caption'), band(tin));
-      render();
-    }
-
-    slider.oninput = update;
     renders.push(render);
-    update();
+    render();
   }
 
   function lensTin() {
