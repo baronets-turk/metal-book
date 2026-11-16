@@ -162,12 +162,17 @@ window.MB = (function () {
 
   function showNote(a) {
     clearTimeout(popTimer);
-    const item = document.getElementById(a.getAttribute('href').slice(1));
-    if (!item || popFor === a) {
+    const now = a.dataset.now;
+    const item = now ? null : document.getElementById(a.getAttribute('href').slice(1));
+    if ((!item && !now) || popFor === a) {
       return;
     }
     popFor = a;
-    pop.innerHTML = item.innerHTML;
+    if (now) {
+      pop.textContent = now;
+    } else {
+      pop.innerHTML = item.innerHTML;
+    }
     pop.hidden = false;
     const rect = a.getBoundingClientRect();
     const left = Math.max(12, Math.min(window.innerWidth - pop.offsetWidth - 12, rect.left - 24));
@@ -177,7 +182,7 @@ window.MB = (function () {
   }
 
   function noteLink(e) {
-    const a = e.target.closest ? e.target.closest('a.fn') : null;
+    const a = e.target.closest ? e.target.closest('a.fn, .old-name') : null;
     return a && !pop.contains(a) ? a : null;
   }
 
@@ -197,7 +202,14 @@ window.MB = (function () {
   });
   document.addEventListener('click', (e) => {
     const a = noteLink(e);
-    if (a && touch.matches) {
+    if (a && a.dataset.now) {
+      e.stopImmediatePropagation();
+      if (popFor === a && touch.matches) {
+        hideNote();
+      } else {
+        showNote(a);
+      }
+    } else if (a && touch.matches) {
       e.preventDefault();
       showNote(a);
     } else if (!pop.contains(e.target) && !pop.hidden) {

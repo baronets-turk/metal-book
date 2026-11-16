@@ -590,6 +590,12 @@ input[type="range"] {
   letter-spacing: 0.02em;
 }
 
+.old-name {
+  text-decoration: underline dotted var(--muted);
+  text-underline-offset: 4px;
+  cursor: help;
+}
+
 .mix-swatch {
   height: 64px;
   border-radius: 10px;
