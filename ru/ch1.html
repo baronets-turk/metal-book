@@ -14,9 +14,9 @@
 <meta property="og:description" content="Больше двух с половиной миллионов лет люди и их предки били камнем по камню. Но однажды под удар попал кусок, который повёл себя совсем иначе.">
 <meta property="og:url" content="https://baronets-turk.github.io/metal-book/ru/ch1.html">
 <meta property="og:image" content="https://baronets-turk.github.io/metal-book/assets/img/native-copper.jpg">
-<link rel="stylesheet" href="../assets/style.css?v=39">
-<script src="../assets/ui.ru.js?v=39"></script>
-<script src="../assets/theme.js?v=39"></script>
+<link rel="stylesheet" href="../assets/style.css?v=40">
+<script src="../assets/ui.ru.js?v=40"></script>
+<script src="../assets/theme.js?v=40"></script>
 </head>
 <body>
 
@@ -253,6 +253,23 @@
 
   <p>Линза ниже показывает маленький участок внутри одного зерна. Её шкалы показывают твёрдость и <span class="term">пластичность</span>, способность менять форму без трещин. Границы зёрен тоже преграждают путь складкам. В соседнем зерне ряды направлены иначе, поэтому складка не может просто идти дальше. Подробнее рассмотрим зёрна в главах 2 и 9.</p>
 
+  <div class="widget" id="w-wall">
+    <div class="widget-title"><strong>Пример по шагам. Складка у границы зерна</strong><span id="b-count"></span></div>
+    <canvas id="b-canvas"></canvas>
+    <div class="legend">
+      <span style="--c:var(--atom)">атом меди</span>
+      <span style="--c:var(--atom-hot)">искажённая решётка</span>
+      <span style="--c:var(--fold-move)">движущаяся складка</span>
+      <span style="--c:var(--patina)">остановленная складка</span>
+    </div>
+    <div class="controls">
+      <button class="ghost" id="b-back">Назад</button>
+      <button id="b-next">Далее</button>
+    </div>
+    <div class="caption" id="b-caption"></div>
+    <div class="note"><b>Что здесь верно, а что упрощено.</b> Граница зерна служит преградой для складок. Складки на одной плоскости останавливаются у неё одна за другой.<a class="fn" href="#s-pileup"></a> Упрощено: граница нарисована прямым промежутком, а наклон второго зерна выбран вручную. Настоящая граница неровная и шириной в несколько атомов. Когда складок соберётся достаточно, их напор может начать новый сдвиг в соседнем зерне. Это не показано. Скорость складок задана вручную.</div>
+  </div>
+
   <div class="widget" id="w4">
     <div class="widget-title"><strong>Линза. Наклёп</strong><span>вид внутри куска меди</span></div>
     <canvas id="lens-canvas"></canvas>
@@ -373,6 +390,7 @@
     <li id="s-loop">«Петля в плоском срезе выглядит как пара расходящихся складок» представляет собой вывод автора учебника из описаний петель, границы сдвига и движения складок разных знаков. Прямого описания в источниках нет.</li>
     <li id="s-hirsch">Непосредственное наблюдение движения дислокаций: Hirsch, Horne, Whelan, <a href="https://scilit.com/publications/8644e5d9c96369b06684ea80bce6a4ad">Direct observations of the arrangement and motion of dislocations in aluminium</a>, Philosophical Magazine 1, 677–684, 1956 (по аннотации).</li>
     <li id="s-crss">Усилие, вызывающее сдвиг на наклонных плоскостях при сжатии: <a href="https://en.wikipedia.org/wiki/Critical_resolved_shear_stress">Wikipedia, Critical resolved shear stress</a>.</li>
+    <li id="s-pileup">Граница зерна как преграда для складок и скопление складок у неё на одной плоскости: <a href="https://www.doitpoms.ac.uk/tlplib/work_harden/HTML5/gbhardening.html">DoITPoMS, Grain boundary hardening in a poly-crystal</a>.</li>
     <li id="s-grains">Зёрна и их границы: <a href="https://fiskalloy.com/?p=714">Fisk Alloy, Grain Size</a>. Размеры зёрен 0,03–0,7 мм: <a href="https://onemine.org/documents/part-ii-papers-effect-of-grain-size-and-annealing-treatment-on-steady-state-creep-of-copper">исследование ползучести меди</a>, 1968 (по аннотации). Размеры 20–80 мкм: <a href="https://arxiv.org/abs/2403.03198">arXiv:2403.03198</a>.</li>
     <li id="s-hard">Твёрдость древних вещей из самородной меди с Великих озёр: топор после холодной ковки, 116 единиц Виккерса; наконечник копья с полностью обновлёнными зёрнами, 59: <a href="http://www.scielo.br/j/mr/a/JmSCx5Vc4Nd4JdcBWghvXRf/?lang=en">History of the Recrystallisation of Metals</a>, Materials Research, 2020, подпись к рисунку 1. Это разные вещи, а не один кусок до и после нагрева. Поэтому в тексте сказано «примерно вдвое». Другое измерение, на современной чистой меди: 47±3 единиц после термообработки и 90–110 без неё: <a href="https://arxiv.org/abs/2403.03198">arXiv:2403.03198</a>.</li>
     <li id="s-strength">Расчётная прочность на сдвиг около G/2π в сравнении с реальными значениями 0,5–10 МПа для металлов: <a href="https://www.princeton.edu/~maelabs/mae324/07/07mae_19.htm">конспект курса MAE 324, Принстон</a> (по выдержке). Модуль сдвига меди 48 ГПа взят из Wikipedia, Copper. Деление даёт упомянутые в тексте «несколько гигапаскалей».</li>
@@ -386,12 +404,18 @@
   </ol>
 </div>
 
-<script src="../assets/places.js?v=39"></script>
-<script src="../assets/core.js?v=39"></script>
-<script src="../assets/lang.js?v=39"></script>
+<script src="../assets/places.js?v=40"></script>
+<script src="../assets/core.js?v=40"></script>
+<script src="../assets/lang.js?v=40"></script>
 <script>
 window.T = {
   stepCount: 'Шаг {n} из {total}',
+  wall: [
+    'Два зерна рядом. В каждом атомы стоят рядами, но ряды правого зерна направлены иначе. Место, где зёрна встречаются, это граница зёрен.',
+    'Удар приводит в движение складку в левом зерне. Она идёт вдоль рядов к границе.',
+    'Складка дошла до границы и остановилась. В соседнем зерне ряды направлены иначе, и ряда, по которому она могла бы идти дальше, нет.',
+    'По тем же рядам приходят новые складки и останавливаются за первой. У границы собирается очередь остановленных складок. В металле с мелкими зёрнами складка встречает границу после короткого пути.'
+  ],
   source: [
     'Удар сжимает весь кусок сверху и снизу. Внутри него две половины по разные стороны наклонной плоскости стремятся скользить друг по другу. Линза смотрит вдоль такой плоскости, поэтому на следующих шагах плоскость нарисована горизонтально.',
     'Ряды атомов меди вдоль такой плоскости. Сила толкает ряды над пунктиром вправо, а ряды под ним влево. Один столбик атомов помечен, чтобы сдвиг было легко увидеть.',
@@ -482,9 +506,9 @@ window.QUIZ = [
   }
 ];
 </script>
-<script src="../assets/quiz.js?v=39"></script>
-<script src="../assets/ch1.js?v=39"></script>
-<script src="../assets/feedback.js?v=39"></script>
-<script src="../assets/toc.js?v=39"></script>
+<script src="../assets/quiz.js?v=40"></script>
+<script src="../assets/ch1.js?v=40"></script>
+<script src="../assets/feedback.js?v=40"></script>
+<script src="../assets/toc.js?v=40"></script>
 </body>
 </html>

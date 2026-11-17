@@ -758,8 +758,95 @@
     render();
   }
 
+  function wall() {
+    const NARROW = window.matchMedia('(max-width: 700px)').matches;
+    const g = NARROW
+      ? { w: 360, h: 170, a: 20, cols: 18, rows: 8, r: 9.2, left: 10, bottom: 154, bulk: true }
+      : { w: 760, h: 260, a: 26, cols: 29, rows: 10, r: 12, left: 13, bottom: 240, bulk: true };
+    const PLANE = g.rows / 2 - 1;
+    const EDGE = g.w * 0.66;
+    const TILT = 0.42;
+    const FAR = -(EDGE / g.a) - 3;
+    const STEPS = NARROW
+      ? [[], [-8], [-1.6], [-1.6, -4.4, -7.4]]
+      : [[], [-15], [-1.6], [-1.6, -4.6, -8]];
+    const ctx = setupCanvas(el('b-canvas'), g.w, g.h);
+    let step = 0;
+    let at = [];
+    let from = [];
+    let started = 0;
+    let running = false;
+
+    function render() {
+      const folds = at.map((x) => ({ x: EDGE + x * g.a, p: PLANE, dir: 1, state: step >= 2 ? 'stuck' : 'moving' }));
+      drawLattice(ctx, g, folds, null, { skip: (x) => x > EDGE - g.r * 0.7 });
+      ctx.fillStyle = mix(P.atom, P.atom, 0);
+      const rh = g.a * 0.866;
+      const cos = Math.cos(TILT);
+      const sin = Math.sin(TILT);
+      for (let r = -22; r < 22; r++) {
+        for (let c = -22; c < 22; c++) {
+          const u = c * g.a + (r % 2 ? g.a / 2 : 0);
+          const v = r * rh;
+          const x = EDGE + g.a * 0.8 + u * cos - v * sin;
+          const y = g.h / 2 + u * sin + v * cos;
+          if (x > EDGE + g.r * 0.7 && x < g.w + g.r && y > g.bottom - (g.rows - 1) * rh - 2 && y < g.bottom + 2) {
+            ctx.beginPath();
+            ctx.arc(x, y, g.r, 0, 6.2832);
+            ctx.fill();
+          }
+        }
+      }
+    }
+
+    function labels() {
+      say(el('b-count'), ['stepCount', { n: step + 1, total: STEPS.length }]);
+      say(el('b-caption'), 'wall.' + step);
+      el('b-back').disabled = step === 0;
+      el('b-next').disabled = step === STEPS.length - 1;
+    }
+
+    function frame(t) {
+      const k = Math.max(0, Math.min(1, (t - started) / 1100));
+      const e = k * k * (3 - 2 * k);
+      at = STEPS[step].map((to, i) => from[i] + (to - from[i]) * e);
+      render();
+      if (k < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        running = false;
+      }
+    }
+
+    function go(to) {
+      const forward = to > step;
+      step = Math.max(0, Math.min(STEPS.length - 1, to));
+      labels();
+      if (!forward) {
+        at = STEPS[step].slice();
+        render();
+        return;
+      }
+      from = STEPS[step].map((_, i) => (i < at.length ? at[i] : FAR - i * 3));
+      started = performance.now();
+      if (!running) {
+        running = true;
+        requestAnimationFrame(frame);
+      }
+    }
+
+    el('b-back').onclick = () => go(step - 1);
+    el('b-next').onclick = () => go(step + 1);
+    renders.push(render);
+    labels();
+    render();
+  }
+
   if (el('w-pair')) {
     source();
+  }
+  if (el('w-wall')) {
+    wall();
   }
   experimentHit();
   experimentShift();
