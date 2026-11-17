@@ -14,9 +14,9 @@
 <meta property="og:description" content="Copper is soft. Tin is another metal, softer still. Yet melt them together, and the mixture can be harder than either one. How can the softer metal help?">
 <meta property="og:url" content="https://baronets-turk.github.io/metal-book/ch4.html">
 <meta property="og:image" content="https://baronets-turk.github.io/metal-book/assets/img/bronze-pour.jpg">
-<link rel="stylesheet" href="assets/style.css?v=31">
-<script src="assets/ui.en.js?v=31"></script>
-<script src="assets/theme.js?v=31"></script>
+<link rel="stylesheet" href="assets/style.css?v=35">
+<script src="assets/ui.en.js?v=35"></script>
+<script src="assets/theme.js?v=35"></script>
 </head>
 <body>
 
@@ -101,9 +101,47 @@
   <h3>A few different atoms in the rows</h3>
   <p>In low-tin bronze, tin atoms take the places of some copper atoms. They share the same crystal rows. This is a <span class="term">solid solution</span>: atoms of a second kind are scattered among those of the first. Think of sugar spread through tea, but with the mixture now solid and its atoms sitting in rows.<a class="fn" href="#s-strengthening"></a><a class="fn" href="#s-scott"></a></p>
   <p>Ten parts tin by weight does not mean one tin atom in ten. A tin atom is heavier than a copper atom. With 10 parts tin by weight, about 1 atom in 18 is tin; with 5 parts, about 1 in 36.<a class="fn" href="#s-inference"></a> Each tin atom is a little bigger than a copper atom. One common measure gives sizes of 145 against 135 on the same scale, about seven hundredths larger. This measure is accurate only to about 5 units, so the difference of 10 is rough. Other ways of measuring give different sizes.<a class="fn" href="#s-radii"></a></p>
+  <div class="widget" id="w-atoms">
+    <div class="widget-title"><strong>Example. Tin by weight and by count</strong><span>how much heavier, how much bigger</span></div>
+    <canvas id="a-canvas"></canvas>
+    <div class="legend">
+      <span style="--c:var(--atom)">Copper atom</span>
+      <span style="--c:var(--tin)">Tin atom</span>
+    </div>
+    <div class="options">
+      <span>Tin by weight, parts in a hundred</span>
+      <div class="seg" id="a-amount">
+        <button data-value="2">2</button>
+        <button data-value="5">5</button>
+        <button data-value="10" class="on">10</button>
+        <button data-value="13">13</button>
+      </div>
+    </div>
+    <div class="meter-head" style="margin-top:14px"><span>By weight: <b id="a-weight"></b></span><span>By count: <b id="a-count"></b></span></div>
+    <div class="caption">Choose how much tin the bronze holds by weight. The block shows 108 atoms of such bronze, and the grey ones are tin. The bar under the block shows how the weight of these atoms is split between copper and tin. A tin atom weighs almost twice as much as a copper atom, so a few tin atoms make up a large share of the weight. On the right, one atom of each kind is drawn to the same scale. The rim around each atom shows how precisely its size is known.</div>
+    <div class="note"><b>What the model shows and leaves out.</b> The number of tin atoms is calculated from the weights of copper and tin atoms and rounded to whole atoms.<a class="fn" href="#s-inference"></a> The sizes 135 and 145 come from one set of measurements, accurate to about 5. Other ways of measuring give other numbers.<a class="fn" href="#s-radii"></a> The places of the tin atoms were chosen by hand. In real bronze they sit at random places. The atoms in the block are drawn in flat rows with gaps, and smaller than the two atoms on the right. A real atom is not a ball with a sharp edge.</div>
+  </div>
   <p>The larger atom squeezes the rows around it, pressing them closer together.<a class="fn" href="#s-solute"></a> There is a limit to how well different atoms fit: a size difference greater than about 15 in a hundred usually makes it hard for many of them to share the same rows.<a class="fn" href="#s-hume"></a></p>
   <p>Recall the folds from chapter one. A fold has squeezed rows on one side and stretched rows on the other. On the stretched side there is more room, so a larger atom fits with less squeezing. The atom and fold sit comfortably together. A fold that reaches such a place tends to stay there. Pulling it away needs more force than moving it through plain copper.<a class="fn" href="#s-solute"></a></p>
   <p>The tin atom attracts the fold to a comfortable position. It is not a wall across its path. Smaller atoms can hold folds too, on the squeezed side.<a class="fn" href="#s-solute"></a><a class="fn" href="#s-strengthening"></a> The foreign atom also differs from copper in <span class="term">stiffness</span>, how strongly a material resists being deformed. This adds to the effect. More added atoms mean more hardening, up to the limit of what the rows can hold.<a class="fn" href="#s-strengthening"></a></p>
+  <div class="widget" id="w-hold">
+    <div class="widget-title"><strong>Example, step by step. A tin atom and a fold</strong><span id="h-count"></span></div>
+    <canvas id="h-canvas"></canvas>
+    <div class="legend">
+      <span style="--c:var(--atom)">Copper atom</span>
+      <span style="--c:var(--tin)">Tin atom</span>
+      <span style="--c:var(--squeeze)">Squeezed rows</span>
+      <span style="--c:var(--stretch)">Stretched rows</span>
+      <span style="--c:var(--fold-move)">Free fold</span>
+      <span style="--c:var(--patina)">Held fold</span>
+    </div>
+    <div class="controls">
+      <button class="ghost" id="h-back">Back</button>
+      <button id="h-next">Next</button>
+    </div>
+    <div class="caption" id="h-caption"></div>
+    <div class="note"><b>What the model shows and leaves out.</b> A larger atom squeezes the rows around it. A fold has a squeezed side and a stretched side. The larger atom fits better on the stretched side, and pulling the fold away from it takes extra force.<a class="fn" href="#s-solute"></a><a class="fn" href="#s-strengthening"></a> The sizes of the two atoms are drawn in their measured proportion, 145 to 135.<a class="fn" href="#s-radii"></a> Set by hand: how far the neighbours are pushed, which is drawn larger than in a real crystal so that it can be seen, how strong the colours are, and how hard each blow is. One tin atom holds a fold only weakly. Bronze is harder because a fold meets a great many of them. A real crystal has depth, and a fold is a line running through it, not a point.</div>
+  </div>
   <p>Below, try a light blow on pure copper, then on copper with tin atoms. Watch which folds pass through and which stay held; then try a harder blow.</p>
   <div class="widget" id="w-tin">
     <div class="widget-title"><strong>Lens. Tin atoms in copper’s rows</strong><span>what holds a fold in place</span></div>
@@ -392,9 +430,9 @@
   </ol>
 </div>
 
-<script src="assets/places.js?v=31"></script>
-<script src="assets/core.js?v=31"></script>
-<script src="assets/lang.js?v=31"></script>
+<script src="assets/places.js?v=35"></script>
+<script src="assets/core.js?v=35"></script>
+<script src="assets/lang.js?v=35"></script>
 <script>
 window.T = {
   mixParts: "{n} parts in 100",
@@ -416,6 +454,17 @@ window.T = {
   tinHardFreed: "The harder blow also pulled held folds loose, so they moved on. Shaping this metal takes more force.",
   tinFull: "The metal is fully work-hardened. In this model, another blow would crack it, as in chapter one. Start over, or recall how annealing helped in chapter two.",
   stepCount: "Step {n} of {total}",
+  atomsWeight: "{n} in 100",
+  atomsCount: "{k} of {total} atoms",
+  hold: [
+    "Rows of copper atoms. All the atoms are the same size, so the rows are even.",
+    "A tin atom has taken the place of one copper atom. It is a little bigger and pushes its neighbours apart. The rows around it are squeezed.",
+    "Now copper alone, with one fold in it. The rows above the fold hold one atom more than the rows below, so they are squeezed. The rows below are stretched: there is more room in them.",
+    "Copper with one tin atom, and a fold to the left of it. A light blow will push the fold along the rows towards the tin atom.",
+    "The fold has reached the tin atom. The large atom is now on the stretched side, where there is more room, and it squeezes its neighbours much less. The atom and the fold fit together comfortably.",
+    "Another light blow. The fold shifts a little and comes back. To go on, it would have to leave this comfortable place, and a light blow is not enough for that.",
+    "A harder blow pulls the fold away and it moves on. The tin atom squeezes its neighbours again. Every tin atom on the way asks for extra force like this, so bronze is harder than copper."
+  ],
   coredHeat: "500–800 °C",
   cored: [
     "At 1100 °C, the bronze is all liquid. Copper and tin atoms are evenly mixed.",
@@ -493,9 +542,9 @@ window.QUIZ = [
   }
 ];
 </script>
-<script src="assets/quiz.js?v=31"></script>
-<script src="assets/ch4.js?v=31"></script>
-<script src="assets/feedback.js?v=31"></script>
-<script src="assets/toc.js?v=31"></script>
+<script src="assets/quiz.js?v=35"></script>
+<script src="assets/ch4.js?v=35"></script>
+<script src="assets/feedback.js?v=35"></script>
+<script src="assets/toc.js?v=35"></script>
 </body>
 </html>

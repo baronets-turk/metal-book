@@ -6,7 +6,7 @@
 
   function readColours() {
     const css = getComputedStyle(document.documentElement);
-    ['tin', 'tin-rich', 'delta', 'bronze', 'liquid', 'well', 'text', 'line', 'muted', 'patina', 'danger', 'copper', 'sans'].forEach((name) => {
+    ['tin', 'tin-rich', 'delta', 'bronze', 'liquid', 'well', 'text', 'line', 'muted', 'patina', 'danger', 'copper', 'squeeze', 'stretch', 'sans'].forEach((name) => {
       K[name] = css.getPropertyValue('--' + name).trim();
     });
   }
@@ -122,6 +122,234 @@
     }
 
     renders.push(render);
+    render();
+  }
+
+  function atoms() {
+    const MASS = { cu: 63.546, sn: 118.71 };
+    const SIZE = { cu: 135, sn: 145, error: 5 };
+    const COUNT = 108;
+    const COLS = 18;
+    const ORDER = [40, 85, 12, 62, 28, 99, 51, 2];
+    const W = NARROW ? 360 : 760;
+    const H = NARROW ? 366 : 222;
+    const M = NARROW ? 26 : 34;
+    const GW = NARROW ? W - 2 * M : 400;
+    const PITCH = GW / COLS;
+    const R = PITCH * 0.4;
+    const TOP = 12;
+    const BAR = TOP + (COUNT / COLS) * PITCH + 18;
+    const BH = 22;
+    const SCALE = NARROW ? 0.42 : 0.4;
+    const GAP = 22;
+    const PAIR = 2 * (SIZE.cu + SIZE.sn) * SCALE + GAP;
+    const PX = NARROW ? (W - PAIR) / 2 : M + GW + (W - 2 * M - GW - PAIR) / 2 + 10;
+    const BASE = NARROW ? H - 28 : 176;
+    const ctx = setupCanvas(el('a-canvas'), W, H);
+    const fillOf = (tin) => tin ? K.tin : 'rgb(' + P.atom.join(',') + ')';
+    let tin = [];
+    const isTin = (i) => tin.includes(i);
+    const amount = choice('a-amount', () => {
+      pick();
+      render();
+    });
+
+    function pick() {
+      const parts = Number(amount());
+      const share = (parts / MASS.sn) / (parts / MASS.sn + (100 - parts) / MASS.cu);
+      tin = ORDER.slice(0, Math.round(share * COUNT));
+      say(el('a-weight'), ['atomsWeight', { n: parts }]);
+      say(el('a-count'), ['atomsCount', { k: tin.length, total: COUNT }]);
+    }
+
+    function disc(x, y, r, fill, alpha) {
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = fill;
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, TAU);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+
+    function sized(x, size, fill) {
+      const y = BASE - size * SCALE;
+      disc(x, y, (size + SIZE.error) * SCALE, fill, 0.35);
+      disc(x, y, (size - SIZE.error) * SCALE, fill, 1);
+      ctx.fillStyle = K.text;
+      ctx.fillText(size, x, BASE + 16);
+    }
+
+    function render() {
+      ctx.clearRect(0, 0, W, H);
+      ctx.font = '12px ' + K.sans;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      for (let i = 0; i < COUNT; i++) {
+        const x = M + (i % COLS + 0.5) * PITCH;
+        const y = TOP + (Math.floor(i / COLS) + 0.5) * PITCH;
+        disc(x, y, isTin(i) ? R * SIZE.sn / SIZE.cu : R, fillOf(isTin(i)), 1);
+      }
+      const heavy = tin.length * MASS.sn;
+      const share = heavy / (heavy + (COUNT - tin.length) * MASS.cu);
+      const split = M + GW * (1 - share);
+      ctx.fillStyle = fillOf(false);
+      ctx.fillRect(M, BAR, split - M - 1, BH);
+      for (let i = 0; i < tin.length; i++) {
+        const w = (M + GW - split) / tin.length;
+        ctx.fillStyle = fillOf(true);
+        ctx.fillRect(split + i * w, BAR, w - 1, BH);
+      }
+      ctx.fillStyle = K.text;
+      ctx.fillText(Math.round(100 * (1 - share)), (M + split) / 2, BAR + BH + 12);
+      ctx.fillText(Math.round(100 * share), Math.min((split + M + GW) / 2, M + GW - 6), BAR + BH + 12);
+      const cx = PX + SIZE.cu * SCALE;
+      const sx = PX + 2 * SIZE.cu * SCALE + GAP + SIZE.sn * SCALE;
+      sized(cx, SIZE.cu, fillOf(false));
+      sized(sx, SIZE.sn, fillOf(true));
+      ctx.strokeStyle = K.muted;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.moveTo(PX - 6, BASE - 2 * SIZE.cu * SCALE);
+      ctx.lineTo(PX + PAIR + 6, BASE - 2 * SIZE.cu * SCALE);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    renders.push(render);
+    pick();
+    render();
+  }
+
+  function hold() {
+    const g = NARROW
+      ? { w: 360, h: 170, a: 20, cols: 18, rows: 9, r: 9.2, left: 10, bottom: 158, bulk: true }
+      : { w: 760, h: 276, a: 26, cols: 29, rows: 11, r: 12, left: 13, bottom: 258, bulk: true };
+    const PLANE = NARROW ? 4 : 5;
+    const TIN = { r: PLANE, c: NARROW ? 11 : 18 };
+    const SIZE = 145 / 135;
+    const PUSH = 0.07;
+    const EASE = 0.3;
+    const STEPS = [
+      { tin: false, at: null },
+      { tin: true, at: null },
+      { tin: false, at: 0.5 },
+      { tin: true, at: 0.18 },
+      { tin: true, at: 'tin' },
+      { tin: true, at: 'tin', shake: true },
+      { tin: true, at: 0.86 }
+    ];
+    const ctx = setupCanvas(el('h-canvas'), g.w, g.h);
+    const rh = g.a * 0.866;
+    const home = (r, c) => g.left + c * g.a + (r % 2 ? g.a / 2 : 0);
+    const tinX = home(TIN.r, TIN.c);
+    const tinY = g.bottom - TIN.r * rh;
+    const place = (at) => at === 'tin' ? tinX : at * g.w;
+    let step = 0;
+    let x = null;
+    let from = null;
+    let started = 0;
+    let running = false;
+
+    function shifted(r, c) {
+      const x0 = home(r, c);
+      const dy = r - PLANE - 0.5;
+      if (x === null || dy < 0) {
+        return x0;
+      }
+      const hw = 2 + 0.9 * (dy - 0.5);
+      const t = clamp(0.5 - (x0 - x) / g.a / (2 * hw));
+      return x0 + t * t * (3 - 2 * t) * g.a;
+    }
+
+    function ease() {
+      return x !== null && STEPS[step].tin ? lerp(1, EASE, clamp(1 - Math.abs(x - tinX) / (2 * g.a))) : 1;
+    }
+
+    function near(r, c) {
+      const dx = (shifted(r, c) - tinX) / g.a;
+      const dy = (g.bottom - r * rh - tinY) / g.a;
+      return { dx, dy, k: Math.exp(-(dx * dx + dy * dy) / 1.4) };
+    }
+
+    function jig(r, c) {
+      if (!STEPS[step].tin || (r === TIN.r && c === TIN.c)) {
+        return [0, 0];
+      }
+      const n = near(r, c);
+      const d = Math.hypot(n.dx, n.dy) || 1;
+      const push = PUSH * g.a * n.k * ease();
+      return [push * n.dx / d, push * n.dy / d];
+    }
+
+    function kind(r, c) {
+      if (STEPS[step].tin && r === TIN.r && c === TIN.c) {
+        return { scale: SIZE, fill: K.tin };
+      }
+      let squeeze = STEPS[step].tin ? near(r, c).k * ease() : 0;
+      let stretch = 0;
+      if (x !== null) {
+        const dx = (shifted(r, c) - x) / g.a;
+        const dy = r - PLANE - 0.5;
+        const k = Math.exp(-(dx * dx * 0.3 + dy * dy * 0.45));
+        if (dy > 0) {
+          squeeze = Math.max(squeeze, k);
+        } else {
+          stretch = k;
+        }
+      }
+      const side = squeeze >= stretch ? 'squeeze' : 'stretch';
+      return { scale: 1, fill: mix(P.atom, rgbOf(K[side]), clamp(Math.max(squeeze, stretch) * 1.15)) };
+    }
+
+    function render() {
+      const held = x !== null && STEPS[step].tin && Math.abs(x - tinX) < g.a;
+      drawLattice(ctx, g, x === null ? [] : [{ x, p: PLANE, dir: 1, state: held ? 'stuck' : 'moving' }], null, { kind, jig });
+    }
+
+    function labels() {
+      say(el('h-count'), ['stepCount', { n: step + 1, total: STEPS.length }]);
+      say(el('h-caption'), 'hold.' + step);
+      el('h-back').disabled = step === 0;
+      el('h-next').disabled = step === STEPS.length - 1;
+    }
+
+    function frame(t) {
+      const k = clamp((t - started) / 900);
+      const to = place(STEPS[step].at);
+      x = STEPS[step].shake ? to - Math.sin(k * 3.1416) * g.a * 0.45 : lerp(from, to, k * k * (3 - 2 * k));
+      render();
+      if (k < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        running = false;
+      }
+    }
+
+    function go(to) {
+      const forward = to === step + 1;
+      step = Math.max(0, Math.min(STEPS.length - 1, to));
+      labels();
+      const s = STEPS[step];
+      if (s.at === null) {
+        x = null;
+      } else if (forward && x !== null && STEPS[step - 1].tin === s.tin) {
+        from = x;
+        started = performance.now();
+        if (!running) {
+          running = true;
+          requestAnimationFrame(frame);
+        }
+        return;
+      } else {
+        x = place(s.at);
+      }
+      render();
+    }
+
+    el('h-back').onclick = () => go(step - 1);
+    el('h-next').onclick = () => go(step + 1);
+    renders.push(render);
+    labels();
     render();
   }
 
@@ -636,7 +864,7 @@
 
   readColours();
   renders.unshift(readColours);
-  [['w-mix', mixture], ['w-tin', lensTin], ['w-cored', cored], ['w-edge', edge]].forEach(([id, start]) => {
+  [['w-mix', mixture], ['w-atoms', atoms], ['w-hold', hold], ['w-tin', lensTin], ['w-cored', cored], ['w-edge', edge]].forEach(([id, start]) => {
     if (el(id)) {
       start();
     }
