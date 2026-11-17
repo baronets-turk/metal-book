@@ -220,6 +220,72 @@
     render();
   }
 
+  function delta() {
+    const W = NARROW ? 320 : 440;
+    const H = NARROW ? 170 : 210;
+    const A = NARROW ? 19 : 22;
+    const R = A * 0.43;
+    const SIZE = 145 / 135;
+    const BAND = A * 4.2;
+    const B = A * 0.9;
+
+    function ball(ctx, x, y, tin) {
+      ctx.fillStyle = tin ? K.tin : 'rgb(' + P.atom.join(',') + ')';
+      ctx.beginPath();
+      ctx.arc(x, y, tin ? R * SIZE : R, 0, TAU);
+      ctx.fill();
+    }
+
+    function panel(id, share, split) {
+      const ctx = setupCanvas(el(id), W, H);
+      const rh = A * 0.866;
+      const mid = W / 2;
+      return () => {
+        ctx.clearRect(0, 0, W, H);
+        for (let r = -1; r * rh < H + A; r++) {
+          for (let c = -1; c * A < W + A; c++) {
+            const x = c * A + (r % 2 ? A / 2 : 0);
+            if (!split || Math.abs(x - mid) > BAND / 2 + R) {
+              ball(ctx, x, r * rh + 4, hash(r + 3, c + 9) < share);
+            }
+          }
+        }
+        if (!split) {
+          return;
+        }
+        ctx.fillStyle = K.delta;
+        ctx.globalAlpha = 0.28;
+        ctx.fillRect(mid - BAND / 2 - R - 4, 0, BAND + 2 * R + 8, H);
+        ctx.globalAlpha = 1;
+        const n = Math.floor(BAND / B);
+        for (let j = -1; j * B < H + B; j++) {
+          for (let i = 0; i < n; i++) {
+            ball(ctx, mid - ((n - 1) * B) / 2 + i * B, j * B + 6, (i + 2 * j + 50) % 5 === 0);
+          }
+        }
+        ctx.strokeStyle = K.well;
+        ctx.lineWidth = 7;
+        ctx.lineJoin = 'round';
+        const path = () => {
+          ctx.beginPath();
+          for (let k = 0; k <= 8; k++) {
+            ctx[k ? 'lineTo' : 'moveTo'](mid + (hash(k, 5) - 0.5) * BAND * 0.5, (H * k) / 8);
+          }
+          ctx.stroke();
+        };
+        path();
+        ctx.strokeStyle = K.danger;
+        ctx.lineWidth = 2;
+        path();
+      };
+    }
+
+    [panel('d-low', 1 / 18, false), panel('d-high', 1 / 12, true)].forEach((render) => {
+      renders.push(render);
+      render();
+    });
+  }
+
   function hold() {
     const g = NARROW
       ? { w: 360, h: 170, a: 20, cols: 18, rows: 9, r: 9.2, left: 10, bottom: 158, bulk: true }
@@ -864,7 +930,7 @@
 
   readColours();
   renders.unshift(readColours);
-  [['w-mix', mixture], ['w-atoms', atoms], ['w-hold', hold], ['w-tin', lensTin], ['w-cored', cored], ['w-edge', edge]].forEach(([id, start]) => {
+  [['w-mix', mixture], ['w-atoms', atoms], ['w-hold', hold], ['w-delta', delta],['w-tin', lensTin], ['w-cored', cored], ['w-edge', edge]].forEach(([id, start]) => {
     if (el(id)) {
       start();
     }
