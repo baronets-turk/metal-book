@@ -14,9 +14,9 @@
 <meta property="og:description" content="A green stone goes into the fire. Small red beads of copper come out. Heat alone cannot do this. Something in the fire has to take the stone apart.">
 <meta property="og:url" content="https://baronets-turk.github.io/metal-book/ch3.html">
 <meta property="og:image" content="https://baronets-turk.github.io/metal-book/assets/img/malachite.jpg">
-<link rel="stylesheet" href="assets/style.css?v=37">
-<script src="assets/ui.en.js?v=37"></script>
-<script src="assets/theme.js?v=37"></script>
+<link rel="stylesheet" href="assets/style.css?v=38">
+<script src="assets/ui.en.js?v=38"></script>
+<script src="assets/theme.js?v=38"></script>
 </head>
 <body>
 
@@ -209,6 +209,22 @@
     <div class="note"><b>What the model shows and leaves out.</b> The picture shows a view deep inside the metal. In a real casting, most crystals start at the mould wall. Melting breaks up the rows. As copper freezes, crystals start at separate points and grow. Each has its own row direction and becomes a grain. Quick cooling gives more, smaller grains.<a class="fn" href="#s-casting"></a> While liquid and solid are both present, the temperature stays at 1085 °C.<a class="fn" href="#s-freezing"></a> The model uses 3 starting points for slow cooling and 8 for quick cooling. These numbers were chosen by hand. The starting points were placed by hand at random. All appear at once and grow as circles at one speed. Real metal first cools a little below its freezing temperature, then warms back up as crystals start. That dip is missing from the graph.<a class="fn" href="#s-casting"></a> Shrinking is not shown: the liquid takes up as little space as the solid. The starting piece is a single crystal; a real piece has many grains. Folds in the rows are left out. The speeds were chosen to fit the process into seconds. The time axis has no units.</div>
   </div>
   <p>Most metals take up less space as a solid than as a liquid. So they shrink as they freeze.<a class="fn" href="#s-casting"></a> There is another problem. Liquid metal can hold much gas <span class="term">dissolved</span> in it, spread through the liquid rather than gathered in bubbles. Solid metal cannot hold as much. As it freezes, the gas comes out as bubbles. They remain as holes in the casting.<a class="fn" href="#s-defects"></a> Oxygen taken up from the air adds to the problem. In liquid copper it meets hydrogen and forms steam, which also leaves holes.<a class="fn" href="#s-ueno"></a></p>
+  <div class="widget" id="w-gas">
+    <div class="widget-title"><strong>Example, step by step. How gas leaves a hole in a casting</strong><span id="g-count"></span></div>
+    <canvas id="g-canvas"></canvas>
+    <div class="legend">
+      <span style="--c:var(--liquid)">Liquid copper</span>
+      <span style="--c:var(--atom)">Solid copper</span>
+      <span style="--c:var(--hydrogen)">Gas atom</span>
+      <span style="--c:var(--clay)">Mould wall</span>
+    </div>
+    <div class="controls">
+      <button class="ghost" id="g-back">Back</button>
+      <button id="g-next">Next</button>
+    </div>
+    <div class="caption" id="g-caption"></div>
+    <div class="note"><b>What the model shows and leaves out.</b> Liquid metal can hold much more dissolved gas than solid metal. As the metal freezes, the gas comes out as bubbles, and they remain as holes.<a class="fn" href="#s-defects"></a> Simplified: the number and size of the atoms, and the flat edge of the solid moving from one wall. The picture moves the gas atoms that the solid cannot hold into the liquid beside it. This is the simplest way to draw the solid holding less gas, not a measured path. A real bubble is far larger than a few atoms. The shrinking of the metal is not shown.</div>
+  </div>
 </section>
 
 <section>
@@ -363,11 +379,19 @@
   </ol>
 </div>
 
-<script src="assets/places.js?v=37"></script>
-<script src="assets/core.js?v=37"></script>
-<script src="assets/lang.js?v=37"></script>
+<script src="assets/places.js?v=38"></script>
+<script src="assets/core.js?v=38"></script>
+<script src="assets/lang.js?v=38"></script>
 <script>
 window.T = {
+  stepCount: "Step {n} of {total}",
+  gas: [
+    "Liquid copper beside the wall of the mould. The copper atoms have no fixed places. Single gas atoms are spread among them: the gas is dissolved.",
+    "The copper begins to freeze at the cool wall. In the solid, the atoms stand in rows, and there is almost no room left for gas atoms. They move into the liquid that remains.",
+    "The solid part grows. The liquid that is left now holds almost all the gas, and the gas atoms are crowded.",
+    "The liquid cannot hold so much gas. The gas atoms gather and form a bubble.",
+    "The copper freezes around the bubble. The bubble stays as a hole in the casting."
+  ],
   fireCamp: "An ordinary campfire. The copper glows, but it is still far too cool to melt.",
   fireWood: "Walls or blowing make the wood fire hotter. In this model, wood still cannot bring the copper to its melting temperature.",
   fireNoAir: "Without blowing, the charcoal burns quietly. The air supply controls how much heat it gives.",
@@ -465,9 +489,9 @@ window.QUIZ = [
   }
 ];
 </script>
-<script src="assets/quiz.js?v=37"></script>
-<script src="assets/ch3.js?v=37"></script>
-<script src="assets/feedback.js?v=37"></script>
-<script src="assets/toc.js?v=37"></script>
+<script src="assets/quiz.js?v=38"></script>
+<script src="assets/ch3.js?v=38"></script>
+<script src="assets/feedback.js?v=38"></script>
+<script src="assets/toc.js?v=38"></script>
 </body>
 </html>

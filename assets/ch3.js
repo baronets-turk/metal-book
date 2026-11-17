@@ -1418,8 +1418,128 @@
     reset();
   }
 
+  function gas() {
+    const g = NARROW
+      ? { w: 360, h: 176, a: 20, r: 8.4, cols: 17, rows: 8 }
+      : { w: 760, h: 240, a: 26, r: 11, cols: 28, rows: 9 };
+    const WALL = 12;
+    const COUNT = 14;
+    const KEPT = 0;
+    const STEPS = [
+      { front: 0, bubble: 0, join: 0 },
+      { front: 0.35, bubble: 0, join: 0 },
+      { front: 0.6, bubble: 0, join: 0 },
+      { front: 0.66, bubble: 1, join: 1 },
+      { front: 1.1, bubble: 1, join: 1 }
+    ];
+    const ctx = setupCanvas(el('g-canvas'), g.w, g.h);
+    const rh = g.a * 0.866;
+    const top = (g.h - (g.rows - 1) * rh) / 2;
+    const hole = { x: g.w * 0.82, y: g.h / 2, r: g.a * 1.55 };
+    const homes = Array.from({ length: COUNT }, (_, i) => ({
+      x: i === KEPT ? g.w * 0.16 : WALL + 14 + hash(i, 3) * (g.w - WALL - 28),
+      y: 14 + hash(i, 7) * (g.h - 28)
+    }));
+    let step = 0;
+    let now = Object.assign({}, STEPS[0]);
+    let from = now;
+    let started = 0;
+    let running = false;
+
+    function gasAt(i) {
+      const home = homes[i];
+      if (i === KEPT) {
+        return home;
+      }
+      const front = now.front * g.w;
+      const pushed = home.x < front + 10 ? Math.min(front + 10 + hash(i, 11) * g.w * 0.16, g.w - 10) : home.x;
+      const angle = hash(i, 13) * TAU;
+      const reach = hole.r * 0.62 * Math.sqrt(hash(i, 17));
+      return {
+        x: lerp(pushed, hole.x + Math.cos(angle) * reach, now.join),
+        y: lerp(home.y, hole.y + Math.sin(angle) * reach, now.join)
+      };
+    }
+
+    function render() {
+      readColours();
+      ctx.clearRect(0, 0, g.w, g.h);
+      ctx.fillStyle = K.clay;
+      ctx.fillRect(0, 0, WALL, g.h);
+      const front = now.front * g.w;
+      const solid = 'rgb(' + P.atom.join(',') + ')';
+      for (let r = 0; r < g.rows; r++) {
+        for (let c = 0; c < g.cols; c++) {
+          const x0 = WALL + g.r + 2 + c * g.a + (r % 2 ? g.a / 2 : 0);
+          const y0 = top + r * rh;
+          const frozen = x0 < front;
+          const x = frozen ? x0 : x0 + (hash(r, c) - 0.5) * g.a * 0.5;
+          const y = frozen ? y0 : y0 + (hash(c, r + 40) - 0.5) * g.a * 0.5;
+          if (x > g.w + g.r || Math.hypot(x - hole.x, y - hole.y) < hole.r * now.bubble + g.r * 0.6 * now.bubble) {
+            continue;
+          }
+          ctx.fillStyle = frozen ? solid : K.liquid;
+          ctx.beginPath();
+          ctx.arc(x, y, g.r, 0, TAU);
+          ctx.fill();
+        }
+      }
+      ctx.fillStyle = K.hydrogen;
+      ctx.strokeStyle = K.well;
+      ctx.lineWidth = 1.5;
+      for (let i = 0; i < COUNT; i++) {
+        const p = gasAt(i);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, g.r * 0.42, 0, TAU);
+        ctx.fill();
+        ctx.stroke();
+      }
+    }
+
+    function labels() {
+      say(el('g-count'), ['stepCount', { n: step + 1, total: STEPS.length }]);
+      say(el('g-caption'), 'gas.' + step);
+      el('g-back').disabled = step === 0;
+      el('g-next').disabled = step === STEPS.length - 1;
+    }
+
+    function frame(t) {
+      const k = part(t, started, started + 1000);
+      now = {};
+      for (const key of Object.keys(STEPS[step])) {
+        now[key] = lerp(from[key], STEPS[step][key], k);
+      }
+      render();
+      if (k < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        running = false;
+      }
+    }
+
+    function go(to) {
+      step = Math.max(0, Math.min(STEPS.length - 1, to));
+      from = now;
+      started = performance.now();
+      labels();
+      if (!running) {
+        running = true;
+        requestAnimationFrame(frame);
+      }
+    }
+
+    el('g-back').onclick = () => go(step - 1);
+    el('g-next').onclick = () => go(step + 1);
+    renders.push(render);
+    labels();
+    render();
+  }
+
   readColours();
   renders.push(readColours);
+  if (el('g-canvas')) {
+    gas();
+  }
   if (el('f-canvas')) {
     fire();
   }
