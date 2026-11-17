@@ -1535,8 +1535,73 @@
     render();
   }
 
+  function beds() {
+    const W = NARROW ? 320 : 280;
+    const H = NARROW ? 150 : 190;
+    const FLOOR = H - 20;
+    const STREAMS = [0.25, 0.75];
+
+    function panel(id, size, gap, reach, spent) {
+      const ctx = setupCanvas(el(id), W, H);
+      return () => {
+        readColours();
+        const muted = getComputedStyle(document.documentElement).getPropertyValue('--muted').trim();
+        ctx.clearRect(0, 0, W, H);
+        ctx.lineWidth = 3;
+        ctx.lineCap = 'round';
+        STREAMS.forEach((sx, n) => {
+          const top = FLOOR - (FLOOR - 8) * reach;
+          const turn = FLOOR - (FLOOR - 8) * spent;
+          [[H - 3, Math.max(top, turn), K.oxygen], [turn, top, muted]].forEach(([from, to, colour]) => {
+            if (from <= to) {
+              return;
+            }
+            ctx.strokeStyle = colour;
+            ctx.beginPath();
+            for (let y = from; y >= to; y -= 2) {
+              const x = sx * W + (y < FLOOR ? Math.sin((FLOOR - y) / (size * 1.1) + n) * Math.min(size * 0.35, 5) : 0);
+              ctx[y === from ? 'moveTo' : 'lineTo'](x, y);
+            }
+            ctx.stroke();
+          });
+        });
+        ctx.fillStyle = K.carbon;
+        const step = size * 2 + gap;
+        for (let r = 0; r < 40; r++) {
+          for (let c = -1; c * step < W + step; c++) {
+            const wide = gap > size;
+            const x = wide ? (c * W) / 2 + (hash(r, c) - 0.5) * 10 : c * step + (r % 2 ? step / 2 : 0) + (hash(r, c) - 0.5) * gap * 0.6;
+            const y = FLOOR - size - r * (wide ? size * 2 + 8 : step * 0.9) + (hash(c, r + 9) - 0.5) * (wide ? 8 : gap * 0.6);
+            if (y > size * 0.9 && (wide ? c >= 0 && c <= 2 : gap < 3 || STREAMS.every((sx) => Math.abs(x - sx * W) > size + gap / 2 - 1))) {
+              ctx.beginPath();
+              ctx.arc(x, y, size, 0, TAU);
+              ctx.fill();
+            }
+          }
+        }
+        STREAMS.forEach((sx) => {
+          const top = FLOOR - (FLOOR - 8) * reach;
+          ctx.strokeStyle = spent < reach ? muted : K.oxygen;
+          ctx.beginPath();
+          ctx.moveTo(sx * W - 7, top + 8);
+          ctx.lineTo(sx * W, top);
+          ctx.lineTo(sx * W + 7, top + 8);
+          ctx.stroke();
+        });
+      };
+    }
+
+    [panel('q-dust', 3, 1, 0, 1), panel('q-even', 11, 5, 1, 0.45), panel('q-big', 30, 44, 1, 1)].forEach((render) => {
+      renders.push(render);
+      render();
+    });
+  }
+
   readColours();
   renders.push(readColours);
+  if (el('q-dust')) {
+    beds();
+  }
   if (el('g-canvas')) {
     gas();
   }

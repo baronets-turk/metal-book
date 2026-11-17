@@ -977,6 +977,19 @@ ol.sources li:target { background: var(--panel-2); }
 
 .steps-duo > div { min-width: 0; }
 
+.trio {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.trio > div { min-width: 0; }
+.trio h4 { margin: 0 0 8px; font-size: 16px; }
+
+@media (max-width: 700px) {
+  .trio { grid-template-columns: 1fr; }
+}
+
 .steps-duo h4 {
   margin: 0 0 8px;
   font-size: 16px;
