@@ -257,6 +257,17 @@ window.MB = (function () {
     openAtDown = !pop.hidden || !tip.hidden;
   }, true);
   document.addEventListener('click', (e) => {
+    const note = e.target.closest('.widget .note');
+    if (!note || openAtDown || !pop.hidden || !tip.hidden) {
+      return;
+    }
+    const open = note.classList.contains('open');
+    if (!open || e.target.closest('b') === note.firstElementChild) {
+      note.classList.toggle('open', !open);
+      e.stopImmediatePropagation();
+    }
+  });
+  document.addEventListener('click', (e) => {
     const a = noteLink(e);
     const wasOpen = openAtDown || !pop.hidden;
     openAtDown = false;

@@ -425,6 +425,20 @@ p { margin: 0 0 16px; }
 
 .note b { color: var(--text); }
 
+.widget .note > b:first-child { cursor: pointer; }
+.widget .note > b:first-child::before { content: "▸ "; color: var(--muted); }
+.widget .note.open > b:first-child::before { content: "▾ "; }
+
+.widget .note:not(.open) {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  padding: 10px 16px;
+}
+
+.widget .note:not(.open) .fn { display: none; }
+
 .widget {
   width: min(980px, calc(100vw - 24px));
   margin: 28px 0 32px 50%;
