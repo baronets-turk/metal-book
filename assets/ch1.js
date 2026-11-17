@@ -842,6 +842,78 @@
     render();
   }
 
+  function notch() {
+    const NARROW = window.matchMedia('(max-width: 700px)').matches;
+    const W = NARROW ? 320 : 440;
+    const H = NARROW ? 130 : 150;
+    const SIDE = 44;
+    const TOP = 26;
+    const THICK = H - 2 * TOP;
+    const DEEP = THICK * 0.26;
+    const LINES = 8;
+
+    function panel(id, cut) {
+      const ctx = setupCanvas(el(id), W, H);
+      return () => {
+        const css = getComputedStyle(document.documentElement);
+        const text = css.getPropertyValue('--text').trim();
+        const mid = W / 2;
+        ctx.clearRect(0, 0, W, H);
+        ctx.fillStyle = mix(P.atom, P.atom, 0);
+        ctx.fillRect(SIDE, TOP, W - 2 * SIDE, THICK);
+        if (cut) {
+          ctx.save();
+          ctx.globalCompositeOperation = 'destination-out';
+          ctx.beginPath();
+          ctx.moveTo(mid - DEEP * 0.4, TOP - 1);
+          ctx.lineTo(mid, TOP + DEEP);
+          ctx.lineTo(mid + DEEP * 0.4, TOP - 1);
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
+        }
+        ctx.strokeStyle = text;
+        ctx.lineWidth = 1.2;
+        for (let i = 0; i < LINES; i++) {
+          const depth = (THICK * (i + 0.5)) / LINES;
+          const push = cut ? (DEEP + 5 - Math.min(depth, 5)) * Math.exp(-depth / (DEEP * 1.6)) : 0;
+          ctx.beginPath();
+          for (let x = SIDE; x <= W - SIDE; x += 2) {
+            const bump = Math.exp(-(((x - mid) / (DEEP * 0.9)) ** 2));
+            ctx[x === SIDE ? 'moveTo' : 'lineTo'](x, TOP + depth + push * bump);
+          }
+          ctx.stroke();
+        }
+        ctx.lineWidth = 3;
+        ctx.lineCap = 'round';
+        [[SIDE - 8, SIDE - 34], [W - SIDE + 8, W - SIDE + 34]].forEach(([x1, x2]) => {
+          const way = x2 > x1 ? 1 : -1;
+          ctx.beginPath();
+          ctx.moveTo(x1, H / 2);
+          ctx.lineTo(x2, H / 2);
+          ctx.moveTo(x2 - way * 9, H / 2 - 7);
+          ctx.lineTo(x2, H / 2);
+          ctx.lineTo(x2 - way * 9, H / 2 + 7);
+          ctx.stroke();
+        });
+        if (cut) {
+          ctx.fillStyle = 'rgb(' + P.danger.join(',') + ')';
+          ctx.beginPath();
+          ctx.arc(mid, TOP + DEEP + 1, 4, 0, 6.2832);
+          ctx.fill();
+        }
+      };
+    }
+
+    [panel('x-smooth', false), panel('x-cut', true)].forEach((render) => {
+      renders.push(render);
+      render();
+    });
+  }
+
+  if (el('w-notch')) {
+    notch();
+  }
   if (el('w-pair')) {
     source();
   }
