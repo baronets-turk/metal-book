@@ -6,7 +6,7 @@
 
   function readColours() {
     const css = getComputedStyle(document.documentElement);
-    ['tin', 'tin-rich', 'delta', 'bronze', 'liquid', 'well', 'text', 'line', 'muted', 'patina', 'danger', 'copper', 'squeeze', 'stretch', 'sans'].forEach((name) => {
+    ['tin', 'tin-rich', 'delta', 'bronze', 'liquid', 'well', 'text', 'line', 'muted', 'patina', 'danger', 'copper', 'squeeze', 'stretch', 'lead', 'sans'].forEach((name) => {
       K[name] = css.getPropertyValue('--' + name).trim();
     });
   }
@@ -280,7 +280,37 @@
       };
     }
 
-    [panel('d-low', 1 / 18, false), panel('d-high', 1 / 12, true)].forEach((render) => {
+    function drops(id) {
+      const ctx = setupCanvas(el(id), W, H);
+      const rh = A * 0.866;
+      const wide = A * 1.33;
+      const inside = (x, y, grow) => ((x - W / 2) / (A * 3.4 + grow)) ** 2 + ((y - H / 2) / (A * 2.3 + grow)) ** 2 < 1;
+      return () => {
+        ctx.clearRect(0, 0, W, H);
+        for (let r = -1; r * rh < H + A; r++) {
+          for (let c = -1; c * A < W + A; c++) {
+            const x = c * A + (r % 2 ? A / 2 : 0);
+            if (!inside(x, r * rh + 4, R)) {
+              ball(ctx, x, r * rh + 4, hash(r + 3, c + 9) < 1 / 18);
+            }
+          }
+        }
+        ctx.fillStyle = K.lead;
+        for (let r = -6; r <= 6; r++) {
+          for (let c = -6; c <= 6; c++) {
+            const x = W / 2 + c * wide + (r % 2 ? wide / 2 : 0);
+            const y = H / 2 + r * wide * 0.866;
+            if (inside(x, y, -R * 1.33)) {
+              ctx.beginPath();
+              ctx.arc(x, y, R * 1.33, 0, TAU);
+              ctx.fill();
+            }
+          }
+        }
+      };
+    }
+
+    [panel('d-low', 1 / 18, false), panel('d-high', 1 / 12, true), drops('d-lead')].forEach((render) => {
       renders.push(render);
       render();
     });
@@ -302,8 +332,10 @@
       { tin: true, at: 0.18 },
       { tin: true, at: 'tin' },
       { tin: true, at: 'tin', shake: true },
-      { tin: true, at: 0.86 }
+      { tin: true, at: 0.86 },
+      { tin: false, small: true, at: 'tin' }
     ];
+    const SMALL = { r: PLANE + 1, c: TIN.c - (PLANE % 2 ? 0 : 1), scale: 0.84 };
     const ctx = setupCanvas(el('h-canvas'), g.w, g.h);
     const rh = g.a * 0.866;
     const home = (r, c) => g.left + c * g.a + (r % 2 ? g.a / 2 : 0);
@@ -337,7 +369,18 @@
       return { dx, dy, k: Math.exp(-(dx * dx + dy * dy) / 1.4) };
     }
 
+    function beside(r, c) {
+      const dx = (shifted(r, c) - tinX) / g.a;
+      const dy = (g.bottom - r * rh - (tinY - rh)) / g.a;
+      return { dx, dy, k: Math.exp(-(dx * dx + dy * dy) / 1.4) };
+    }
+
     function jig(r, c) {
+      if (STEPS[step].small && !(r === SMALL.r && c === SMALL.c)) {
+        const n = beside(r, c);
+        const d = Math.hypot(n.dx, n.dy) || 1;
+        return [-PUSH * 0.8 * g.a * n.k * n.dx / d, -PUSH * 0.8 * g.a * n.k * n.dy / d];
+      }
       if (!STEPS[step].tin || (r === TIN.r && c === TIN.c)) {
         return [0, 0];
       }
@@ -351,6 +394,9 @@
       if (STEPS[step].tin && r === TIN.r && c === TIN.c) {
         return { scale: SIZE, fill: K.tin };
       }
+      if (STEPS[step].small && r === SMALL.r && c === SMALL.c) {
+        return { scale: SMALL.scale, fill: K['tin-rich'] };
+      }
       let squeeze = STEPS[step].tin ? near(r, c).k * ease() : 0;
       let stretch = 0;
       if (x !== null) {
@@ -358,7 +404,7 @@
         const dy = r - PLANE - 0.5;
         const k = Math.exp(-(dx * dx * 0.3 + dy * dy * 0.45));
         if (dy > 0) {
-          squeeze = Math.max(squeeze, k);
+          squeeze = Math.max(squeeze, STEPS[step].small ? k * (1 - 0.7 * beside(r, c).k) : k);
         } else {
           stretch = k;
         }
@@ -368,7 +414,7 @@
     }
 
     function render() {
-      const held = x !== null && STEPS[step].tin && Math.abs(x - tinX) < g.a;
+      const held = x !== null && (STEPS[step].tin || STEPS[step].small) && Math.abs(x - tinX) < g.a;
       drawLattice(ctx, g, x === null ? [] : [{ x, p: PLANE, dir: 1, state: held ? 'stuck' : 'moving' }], null, { kind, jig });
     }
 

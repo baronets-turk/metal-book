@@ -14,9 +14,9 @@
 <meta property="og:description" content="Copper is soft. Tin is another metal, softer still. Yet melt them together, and the mixture can be harder than either one. How can the softer metal help?">
 <meta property="og:url" content="https://baronets-turk.github.io/metal-book/ch4.html">
 <meta property="og:image" content="https://baronets-turk.github.io/metal-book/assets/img/bronze-pour.jpg">
-<link rel="stylesheet" href="assets/style.css?v=45">
-<script src="assets/ui.en.js?v=45"></script>
-<script src="assets/theme.js?v=45"></script>
+<link rel="stylesheet" href="assets/style.css?v=46">
+<script src="assets/ui.en.js?v=46"></script>
+<script src="assets/theme.js?v=46"></script>
 </head>
 <body>
 
@@ -130,6 +130,7 @@
     <div class="legend">
       <span style="--c:var(--atom)">Copper atom</span>
       <span style="--c:var(--tin)">Tin atom</span>
+      <span style="--c:var(--tin-rich)">Smaller foreign atom</span>
       <span style="--c:var(--squeeze)">Squeezed rows</span>
       <span style="--c:var(--stretch)">Stretched rows</span>
       <span style="--c:var(--fold-move)">Free fold</span>
@@ -140,7 +141,7 @@
       <button id="h-next">Next</button>
     </div>
     <div class="caption" id="h-caption"></div>
-    <div class="note"><b>What the model shows and leaves out.</b> A larger atom squeezes the rows around it. A fold has a squeezed side and a stretched side. The larger atom fits better on the stretched side, and pulling the fold away from it takes extra force.<a class="fn" href="#s-solute"></a><a class="fn" href="#s-strengthening"></a> The sizes of the two atoms are drawn in their measured proportion, 145 to 135.<a class="fn" href="#s-radii"></a> Set by hand: how far the neighbours are pushed, which is drawn larger than in a real crystal so that it can be seen, how strong the colours are, and how hard each blow is. One tin atom holds a fold only weakly. Bronze is harder because a fold meets a great many of them. A real crystal has depth, and a fold is a line running through it, not a point.</div>
+    <div class="note"><b>What the model shows and leaves out.</b> A larger atom squeezes the rows around it. A fold has a squeezed side and a stretched side. The larger atom fits better on the stretched side, and pulling the fold away from it takes extra force.<a class="fn" href="#s-solute"></a><a class="fn" href="#s-strengthening"></a> The sizes of the two atoms are drawn in their measured proportion, 145 to 135.<a class="fn" href="#s-radii"></a> Set by hand: how far the neighbours are pushed, which is drawn larger than in a real crystal so that it can be seen, how strong the colours are, and how hard each blow is. The size of the smaller atom in the last step was chosen by hand. It stands for no particular substance. One tin atom holds a fold only weakly. Bronze is harder because a fold meets a great many of them. A real crystal has depth, and a fold is a line running through it, not a point.</div>
   </div>
   <p>Below, try a light blow on pure copper, then on copper with tin atoms. Watch which folds pass through and which stay held; then try a harder blow.</p>
   <div class="widget" id="w-tin">
@@ -179,8 +180,8 @@
   <p>Copper can hold only a limited amount of tin in its rows. The theoretical limit is about 17 parts tin, but the practical limit is nearer 14. Castings rarely hold even that much evenly. Extra tin can join copper in a different crystal: the <span class="term">delta phase</span>, a hard, brittle compound with about a third tin by weight.<a class="fn" href="#s-scott"></a></p>
   <p>Much of this compound makes bronze break under the hammer. Between 17 and 19 parts tin, bronze can be worked neither hot nor cold. Above 19 parts, hot working becomes possible again. <span class="history">Ancient bells and mirrors often used 20–25 parts tin, with 2 to 10 parts lead and the rest copper.</span> <span class="history">These objects were almost always cast.<a class="fn" href="#s-scott"></a></span></p>
   <div class="widget" id="w-delta">
-    <div class="widget-title"><strong>Picture. Tin that fits in the rows, and tin that does not</strong><span>one crystal pattern or two</span></div>
-    <div class="steps-duo">
+    <div class="widget-title"><strong>Picture. What fits in copper’s rows, and what does not</strong><span>tin, extra tin and lead</span></div>
+    <div class="trio">
       <div>
         <h4>About 10 parts tin</h4>
         <canvas id="d-low"></canvas>
@@ -189,15 +190,20 @@
         <h4>More tin than the rows can hold</h4>
         <canvas id="d-high"></canvas>
       </div>
+      <div>
+        <h4>Bronze with lead</h4>
+        <canvas id="d-lead"></canvas>
+      </div>
     </div>
     <div class="legend">
       <span style="--c:var(--atom)">Copper atom</span>
       <span style="--c:var(--tin)">Tin atom</span>
       <span style="--c:var(--delta)">Brittle crystal with another pattern</span>
       <span style="--c:var(--danger)">Crack</span>
+      <span style="--c:var(--lead)">Lead atom</span>
     </div>
-    <div class="caption">On the left, all the tin atoms sit in copper’s own rows. The whole piece has one pattern, and folds can move through it, so it bends under the hammer. On the right, the rows are full. The extra tin has joined copper in a strip with a different pattern, much richer in tin. This strip is hard and brittle. Under the hammer it does not bend, and the crack runs along it.</div>
-    <div class="note"><b>What the model shows and leaves out.</b> Copper’s rows hold only a limited amount of tin. Extra tin joins copper in a different crystal, a hard and brittle compound with about a third tin by weight, and much of it makes bronze break under the hammer.<a class="fn" href="#s-scott"></a> In the strip, 1 atom in 5 is tin, which gives about a third by weight.<a class="fn" href="#s-inference"></a> Simplified: the real pattern of this crystal is much more complicated than the square grid drawn here. The width and place of the strip, the places of the tin atoms and the path of the crack were chosen by hand. A real crystal has depth.</div>
+    <div class="caption">In the first picture, all the tin atoms sit in copper’s own rows. The whole piece has one pattern, and folds can move through it, so it bends under the hammer. In the second, the rows are full. The extra tin has joined copper in a strip with a different pattern, much richer in tin. This strip is hard and brittle. Under the hammer it does not bend, and the crack runs along it. In the third, lead has been added. Lead atoms do not enter copper’s rows at all. They gather in a soft drop of their own between the grains, and the blade is weaker there.</div>
+    <div class="note"><b>What the model shows and leaves out.</b> Copper’s rows hold only a limited amount of tin. Extra tin joins copper in a different crystal, a hard and brittle compound with about a third tin by weight, and much of it makes bronze break under the hammer.<a class="fn" href="#s-scott"></a> In the strip, 1 atom in 5 is tin, which gives about a third by weight.<a class="fn" href="#s-inference"></a> Simplified: the real pattern of this crystal is much more complicated than the square grid drawn here. The width and place of the strip, the places of the tin atoms and the path of the crack were chosen by hand. Lead does not dissolve in copper’s rows and tends to gather between the grains.<a class="fn" href="#s-scott"></a> The size and shape of the lead drop were chosen by hand. A real crystal has depth.</div>
   </div>
   <h3>A casting does not freeze all at once</h3>
   <p>Pure copper freezes at 1085 °C.<a class="fn" href="#s-copper"></a> Bronze freezes over a range of temperatures.<a class="fn" href="#s-scott"></a> With about 10 parts tin, the first crystals appear near 1000 °C. Modern alloys of this kind lose their last liquid around 831–843 °C, roughly one hundred and sixty degrees below the start.<a class="fn" href="#s-cda"></a></p>
@@ -451,9 +457,9 @@
   </ol>
 </div>
 
-<script src="assets/places.js?v=45"></script>
-<script src="assets/core.js?v=45"></script>
-<script src="assets/lang.js?v=45"></script>
+<script src="assets/places.js?v=46"></script>
+<script src="assets/core.js?v=46"></script>
+<script src="assets/lang.js?v=46"></script>
 <script>
 window.T = {
   mixParts: "{n} parts in 100",
@@ -484,7 +490,8 @@ window.T = {
     "Copper with one tin atom, and a fold to the left of it. A light blow will push the fold along the rows towards the tin atom.",
     "The fold has reached the tin atom. The large atom is now on the stretched side, where there is more room, and it squeezes its neighbours much less. The atom and the fold fit together comfortably.",
     "Another light blow. The fold shifts a little and comes back. To go on, it would have to leave this comfortable place, and a light blow is not enough for that.",
-    "A harder blow pulls the fold away and it moves on. The tin atom squeezes its neighbours again. Every tin atom on the way asks for extra force like this, so bronze is harder than copper."
+    "A harder blow pulls the fold away and it moves on. The tin atom squeezes its neighbours again. Every tin atom on the way asks for extra force like this, so bronze is harder than copper.",
+    "A foreign atom smaller than copper works the other way round. It fits best on the squeezed side of a fold, where it leaves the crowded rows more room. It holds the fold too."
   ],
   coredHeat: "500–800 °C",
   cored: [
@@ -563,9 +570,9 @@ window.QUIZ = [
   }
 ];
 </script>
-<script src="assets/quiz.js?v=45"></script>
-<script src="assets/ch4.js?v=45"></script>
-<script src="assets/feedback.js?v=45"></script>
-<script src="assets/toc.js?v=45"></script>
+<script src="assets/quiz.js?v=46"></script>
+<script src="assets/ch4.js?v=46"></script>
+<script src="assets/feedback.js?v=46"></script>
+<script src="assets/toc.js?v=46"></script>
 </body>
 </html>
