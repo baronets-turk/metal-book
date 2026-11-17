@@ -14,9 +14,9 @@
 <meta property="og:description" content="Если долго ковать медь, она затвердеет и треснет. Но подержи её в огне, и она снова станет мягкой, как свежий самородок. Можно продолжать придавать ей форму.">
 <meta property="og:url" content="https://baronets-turk.github.io/metal-book/ru/ch2.html">
 <meta property="og:image" content="https://baronets-turk.github.io/metal-book/assets/img/glowing-iron.jpg">
-<link rel="stylesheet" href="../assets/style.css?v=40">
-<script src="../assets/ui.ru.js?v=40"></script>
-<script src="../assets/theme.js?v=40"></script>
+<link rel="stylesheet" href="../assets/style.css?v=41">
+<script src="../assets/ui.ru.js?v=41"></script>
+<script src="../assets/theme.js?v=41"></script>
 </head>
 <body>
 
@@ -46,6 +46,22 @@
   <p><b>Остужать можно обоими способами.</b> Оставь медь на воздухе или брось в воду. Она будет мягкой в обоих случаях.<a class="fn" href="#s-anneal"></a> Вспомни это, когда в шестой главе мы дойдём до <span class="term">стали</span>, железа с добавкой углерода. Там от скорости остывания будет зависеть почти всё.<a class="fn" href="#s-anneal"></a></p>
   <p><b>Медь выходит из огня чёрной.</b> На поверхности появляется тёмный налёт. Под молотом он осыпается.</p>
   <div class="note"><b>Первое химическое уравнение.</b> Чёрный налёт образуется, когда нагретая медь соединяется с <span class="term">кислородом</span>, газом из воздуха. Новое вещество называется <span class="term">оксидом меди</span>. <span class="term">Химическое уравнение</span> кратко записывает это превращение: <b>2Cu + O<sub>2</sub> → 2CuO</b>. Читай так: два атома меди и одна пара атомов кислорода дают две частицы оксида меди. В воздухе атомы кислорода соединены попарно. Поэтому мы пишем O<sub>2</sub>. Группу связанных атомов называют <span class="term">молекулой</span>. Эта реакция идёт при нагреве меди на воздухе примерно от 300 до 800 °C. Оксид уже не металл. Он легко крошится и не блестит. Под чёрным налётом есть ещё один оксид меди: красноватый слой Cu<sub>2</sub>O. В нём на каждый атом кислорода приходится два атома меди.<a class="fn" href="#s-oxide"></a> В третьей главе уравнение снова пригодится. Там мы будем отнимать у оксида кислород, чтобы получить металл. Сам по себе кислород медь не покинет. Его заберёт уголь, или <span class="term">углерод</span>, с обозначением C: <b>2CuO + C → 2Cu + CO<sub>2</sub></b>. Здесь CO<sub>2</sub> обозначает <span class="term">углекислый газ</span>. В каждой его молекуле один атом углерода и два атома кислорода.<a class="fn" href="#s-oxide"></a></div>
+  <div class="widget" id="w-oxide">
+    <div class="widget-title"><strong>Пример по шагам. Медь встречает кислород</strong><span id="o-count"></span></div>
+    <canvas id="o-canvas"></canvas>
+    <div class="legend">
+      <span style="--c:var(--atom)">Атом меди</span>
+      <span style="--c:var(--oxygen)">Атом кислорода</span>
+      <span style="--c:var(--oxide)">Чёрный оксид меди, CuO</span>
+      <span style="--c:var(--cuprite)">Красноватый оксид меди, Cu<sub>2</sub>O</span>
+    </div>
+    <div class="controls">
+      <button class="ghost" id="o-back">Назад</button>
+      <button id="o-next">Далее</button>
+    </div>
+    <div class="caption" id="o-caption"></div>
+    <div class="note"><b>Что здесь верно, а что упрощено.</b> Нагретая медь соединяется с кислородом воздуха. Два атома меди и одна пара атомов кислорода дают две частицы чёрного оксида меди. Под чёрным слоем лежит красноватый оксид, где на каждый атом кислорода приходится два атома меди.<a class="fn" href="#s-oxide"></a> Упрощено: в твёрдом оксиде атомы меди и кислорода стоят своими рядами, а не отдельными парами. Здесь они сгруппированы только для того, чтобы их можно было сосчитать. Слои нарисованы толщиной в несколько атомов. Как атомы проходят сквозь растущий слой, не показано.</div>
+  </div>
 </section>
 
 <section>
@@ -255,11 +271,18 @@
   </ol>
 </div>
 
-<script src="../assets/places.js?v=40"></script>
-<script src="../assets/core.js?v=40"></script>
-<script src="../assets/lang.js?v=40"></script>
+<script src="../assets/places.js?v=41"></script>
+<script src="../assets/core.js?v=41"></script>
+<script src="../assets/lang.js?v=41"></script>
 <script>
 window.T = {
+  stepCount: 'Шаг {n} из {total}',
+  oxide: [
+    'Горячая медь на воздухе. Атомы меди стоят рядами. В воздухе атомы кислорода ходят парами. Каждая пара это одна молекула, её записывают O₂.',
+    'Одна пара опускается к поверхности и садится над двумя атомами меди.',
+    'Пара распадается. Каждый атом кислорода соединяется с одним атомом меди. Два атома меди и одна пара атомов кислорода дали две частицы оксида меди: 2Cu + O₂ → 2CuO.',
+    'После множества таких встреч поверхность покрыта целиком. Сверху чёрный оксид меди, CuO, где на каждый атом кислорода один атом меди. Под ним красноватый слой, Cu₂O, где на каждый атом кислорода два атома меди. Ещё ниже металл.'
+  ],
   glow: ['едва заметное красное свечение', 'тёмно-красный', 'тёмно-вишнёвый', 'вишнёвый', 'светло-вишнёвый', 'тёмно-оранжевый', 'оранжевый'],
   noGlow: 'нет свечения',
   heatRoom: 'Комнатная температура и чуть выше. Атомы дрожат, но каждый остаётся около своего места. Наклёпанная медь остаётся твёрдой.',
@@ -346,9 +369,9 @@ window.QUIZ = [
   }
 ];
 </script>
-<script src="../assets/quiz.js?v=40"></script>
-<script src="../assets/ch2.js?v=40"></script>
-<script src="../assets/feedback.js?v=40"></script>
-<script src="../assets/toc.js?v=40"></script>
+<script src="../assets/quiz.js?v=41"></script>
+<script src="../assets/ch2.js?v=41"></script>
+<script src="../assets/feedback.js?v=41"></script>
+<script src="../assets/toc.js?v=41"></script>
 </body>
 </html>

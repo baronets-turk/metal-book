@@ -454,6 +454,149 @@
     el('c-reset').onclick();
   }
 
+  function oxide() {
+    const NARROW = window.matchMedia('(max-width: 700px)').matches;
+    const W = NARROW ? 360 : 760;
+    const H = NARROW ? 200 : 240;
+    const R = NARROW ? 10 : 13;
+    const O = R * 0.62;
+    const A = R * 2.1;
+    const TAU = 6.2832;
+    const ROW = A * 0.866;
+    const BASE = H - R - 4;
+    const PAIRS = NARROW ? [[0.5, 0.28], [0.16, 0.2], [0.84, 0.36]] : [[0.5, 0.28], [0.14, 0.2], [0.3, 0.42], [0.72, 0.36], [0.9, 0.16]];
+    const MID = Math.round(W / 2 / A);
+    const ctx = setupCanvas(el('o-canvas'), W, H);
+    const K = {};
+    let step = 0;
+    let k = 0;
+    let started = 0;
+    let running = false;
+
+    function ball(x, y, r, fill) {
+      ctx.fillStyle = fill;
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, TAU);
+      ctx.fill();
+    }
+
+    function metal(rows, top) {
+      for (let r = 0; r < rows; r++) {
+        for (let c = -1; c * A < W + A; c++) {
+          ball(c * A + (r % 2 ? A / 2 : 0), top + r * ROW, R, K.atom);
+        }
+      }
+    }
+
+    function pair(x, y, gap) {
+      ball(x - gap, y, O, K.oxygen);
+      ball(x + gap, y, O, K.oxygen);
+    }
+
+    function meeting() {
+      const top = BASE - ROW;
+      metal(2, top);
+      PAIRS.slice(1).forEach(([x, y]) => pair(x * W, y * H, O * 0.85));
+      const land = top - R - O * 0.55;
+      const fall = step === 0 ? 0 : step === 1 ? k : 1;
+      const open = step === 2 ? k : 0;
+      const x = MID * A + A / 2;
+      const y = PAIRS[0][1] * H + (land - O * 1.6 - PAIRS[0][1] * H) * fall + O * 1.6 * open;
+      pair(x, y, O * 0.85 + (A / 2 - O * 0.85) * open);
+      if (step > 0) {
+        ctx.strokeStyle = K.text;
+        ctx.lineWidth = 2;
+        [-1, 1].forEach((side) => {
+          const cx = x + side * A / 2;
+          ctx.beginPath();
+          if (step === 2 && k === 1) {
+            ctx.ellipse(cx, top - O * 0.6, R + 4, R + O + 5, 0, 0, TAU);
+          } else {
+            ctx.arc(cx, top, R + 3, 0, TAU);
+          }
+          ctx.stroke();
+        });
+      }
+    }
+
+    function layers() {
+      const rows = [[1, K.oxide], [2, K.cuprite]];
+      let y = R + 6;
+      rows.forEach(([copper, tint]) => {
+        ctx.fillStyle = tint;
+        ctx.globalAlpha = 0.45;
+        ctx.fillRect(0, y - R - 3, W, 2 * ROW + 4);
+        ctx.globalAlpha = 1;
+        for (let r = 0; r < 2; r++) {
+          let x = -A + (r ? A * 0.7 : 0);
+          for (let i = 0; x < W + A; i++) {
+            const oxygen = i % (copper + 1) === copper;
+            ball(x, y + r * ROW, oxygen ? O : R, oxygen ? K.oxygen : K.atom);
+            x += oxygen ? R + O : (i + 1) % (copper + 1) === copper ? R + O : A;
+          }
+        }
+        y += 2 * ROW + 6;
+      });
+      metal(Math.max(2, Math.floor((H - y) / ROW) + 1), y + 2);
+    }
+
+    function render() {
+      const css = getComputedStyle(document.documentElement);
+      ['oxygen', 'oxide', 'cuprite', 'text'].forEach((name) => {
+        K[name] = css.getPropertyValue('--' + name).trim();
+      });
+      K.atom = 'rgb(' + P.atom.join(',') + ')';
+      ctx.clearRect(0, 0, W, H);
+      if (step === 3) {
+        layers();
+      } else {
+        meeting();
+      }
+    }
+
+    function labels() {
+      say(el('o-count'), ['stepCount', { n: step + 1, total: 4 }]);
+      say(el('o-caption'), 'oxide.' + step);
+      el('o-back').disabled = step === 0;
+      el('o-next').disabled = step === 3;
+    }
+
+    function frame(t) {
+      const p = Math.max(0, Math.min(1, (t - started) / 900));
+      k = p * p * (3 - 2 * p);
+      render();
+      if (p < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        running = false;
+      }
+    }
+
+    function go(to) {
+      const forward = to > step;
+      step = Math.max(0, Math.min(3, to));
+      labels();
+      k = forward && (step === 1 || step === 2) ? 0 : 1;
+      if (k === 0) {
+        started = performance.now();
+        if (!running) {
+          running = true;
+          requestAnimationFrame(frame);
+        }
+      }
+      render();
+    }
+
+    el('o-back').onclick = () => go(step - 1);
+    el('o-next').onclick = () => go(step + 1);
+    renders.push(render);
+    labels();
+    render();
+  }
+
+  if (el('w-oxide')) {
+    oxide();
+  }
   experimentVibration();
   lens();
   cycleGame();

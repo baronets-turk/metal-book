@@ -14,9 +14,9 @@
 <meta property="og:description" content="Hammer copper for long enough, and it becomes hard and cracks. But give it time in a fire, and it becomes soft again, like a fresh nugget. You can go on shaping it.">
 <meta property="og:url" content="https://baronets-turk.github.io/metal-book/ch2.html">
 <meta property="og:image" content="https://baronets-turk.github.io/metal-book/assets/img/glowing-iron.jpg">
-<link rel="stylesheet" href="assets/style.css?v=40">
-<script src="assets/ui.en.js?v=40"></script>
-<script src="assets/theme.js?v=40"></script>
+<link rel="stylesheet" href="assets/style.css?v=41">
+<script src="assets/ui.en.js?v=41"></script>
+<script src="assets/theme.js?v=41"></script>
 </head>
 <body>
 
@@ -46,6 +46,22 @@
   <p><b>You can cool it either way.</b> Leave the copper to cool in the air, or drop it into water. It will be soft in both cases.<a class="fn" href="#s-anneal"></a> Remember this when we reach <span class="term">steel</span>, iron with added carbon, in chapter six. There, almost everything depends on how fast it cools.<a class="fn" href="#s-anneal"></a></p>
   <p><b>Copper comes out of the fire black.</b> A dark coating forms on its surface. It flakes off under the hammer.</p>
   <div class="note"><b>Our first chemical equation.</b> The black coating forms when heated copper joins with <span class="term">oxygen</span>, a gas in the air. The new substance is called <span class="term">copper oxide</span>. Here is the <span class="term">chemical equation</span>, a short way to write what changes: <b>2Cu + O<sub>2</sub> → 2CuO</b>. Read it like this: two copper atoms and one pair of oxygen atoms make two particles of copper oxide. In air, oxygen atoms are joined in pairs. That is why we write O<sub>2</sub>. A group of atoms joined together is called a <span class="term">molecule</span>. This reaction happens when copper is heated in air at about 300 to 800 °C. The oxide is no longer a metal. It breaks easily and does not shine. Under the black coating is another copper oxide, a reddish layer of Cu<sub>2</sub>O. It has two copper atoms for every oxygen atom.<a class="fn" href="#s-oxide"></a> We will use the equation again in chapter three. There, we will take oxygen away from the oxide to get metal. Oxygen will not leave the copper on its own. Charcoal, or <span class="term">carbon</span>, written C, will take it: <b>2CuO + C → 2Cu + CO<sub>2</sub></b>. Here CO<sub>2</sub> is <span class="term">carbon dioxide</span>, a gas. Each molecule has one carbon atom and two oxygen atoms.<a class="fn" href="#s-oxide"></a></div>
+  <div class="widget" id="w-oxide">
+    <div class="widget-title"><strong>Example, step by step. Copper meets oxygen</strong><span id="o-count"></span></div>
+    <canvas id="o-canvas"></canvas>
+    <div class="legend">
+      <span style="--c:var(--atom)">Copper atom</span>
+      <span style="--c:var(--oxygen)">Oxygen atom</span>
+      <span style="--c:var(--oxide)">Black copper oxide, CuO</span>
+      <span style="--c:var(--cuprite)">Reddish copper oxide, Cu<sub>2</sub>O</span>
+    </div>
+    <div class="controls">
+      <button class="ghost" id="o-back">Back</button>
+      <button id="o-next">Next</button>
+    </div>
+    <div class="caption" id="o-caption"></div>
+    <div class="note"><b>What is true, and what is simplified.</b> Heated copper joins with oxygen from the air. Two copper atoms and one pair of oxygen atoms give two particles of black copper oxide. Under the black layer lies a reddish oxide with two copper atoms for every oxygen atom.<a class="fn" href="#s-oxide"></a> Simplified: in the solid oxide, copper and oxygen atoms stand in rows of their own, not as separate pairs. They are grouped here only so that they can be counted. The layers are drawn a few atoms thick. How atoms travel through the growing layer is not shown.</div>
+  </div>
 </section>
 
 <section>
@@ -255,11 +271,18 @@
   </ol>
 </div>
 
-<script src="assets/places.js?v=40"></script>
-<script src="assets/core.js?v=40"></script>
-<script src="assets/lang.js?v=40"></script>
+<script src="assets/places.js?v=41"></script>
+<script src="assets/core.js?v=41"></script>
+<script src="assets/lang.js?v=41"></script>
 <script>
 window.T = {
+  stepCount: 'Step {n} of {total}',
+  oxide: [
+    'Hot copper in air. The copper atoms stand in rows. In the air, oxygen atoms go about in pairs. Each pair is one molecule, written O₂.',
+    'One pair comes down to the surface and lands above two copper atoms.',
+    'The pair comes apart. Each oxygen atom joins one copper atom. Two copper atoms and one pair of oxygen atoms have made two particles of copper oxide: 2Cu + O₂ → 2CuO.',
+    'After many such meetings, the surface is covered. On top is black copper oxide, CuO, with one copper atom for every oxygen atom. Under it is a reddish layer, Cu₂O, with two copper atoms for every oxygen atom. Below that is the metal.'
+  ],
   glow: ['barely visible red glow', 'dark red', 'dark cherry red', 'cherry red', 'light cherry red', 'dark orange', 'orange'],
   noGlow: 'no glow',
   heatRoom: 'Room temperature and a little above. Atoms shake, but each stays about its own place. Work-hardened copper stays hard.',
@@ -346,9 +369,9 @@ window.QUIZ = [
   }
 ];
 </script>
-<script src="assets/quiz.js?v=40"></script>
-<script src="assets/ch2.js?v=40"></script>
-<script src="assets/feedback.js?v=40"></script>
-<script src="assets/toc.js?v=40"></script>
+<script src="assets/quiz.js?v=41"></script>
+<script src="assets/ch2.js?v=41"></script>
+<script src="assets/feedback.js?v=41"></script>
+<script src="assets/toc.js?v=41"></script>
 </body>
 </html>
