@@ -583,6 +583,184 @@
     ));
   }
 
+  function source() {
+    const NARROW = window.matchMedia('(max-width: 700px)').matches;
+    const g = NARROW
+      ? { w: 360, h: 170, a: 20, cols: 18, rows: 8, r: 9.2, left: 10, bottom: 154, bulk: true }
+      : { w: 760, h: 260, a: 26, cols: 29, rows: 10, r: 12, left: 13, bottom: 240, bulk: true };
+    const PLANE = g.rows / 2 - 1;
+    const MARK = Math.floor(g.cols / 2);
+    const STEPS = [
+      { view: 'block' },
+      { view: 'rows', gap: null },
+      { view: 'loop' },
+      { view: 'rows', gap: 1.3 },
+      { view: 'rows', gap: NARROW ? 5.5 : 9 }
+    ];
+    const ctx = setupCanvas(el('p-canvas'), g.w, g.h);
+    const rh = g.a * 0.866;
+    const cx = g.left + MARK * g.a;
+    const cy = g.bottom - (PLANE + 0.5) * rh;
+    let step = 0;
+    let gap = null;
+    let from = 0;
+    let started = 0;
+    let running = false;
+    let text = '';
+
+    function arrow(x1, y1, x2, y2, width) {
+      const angle = Math.atan2(y2 - y1, x2 - x1);
+      const head = width * 3.2;
+      ctx.lineWidth = width;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.moveTo(x2 - head * Math.cos(angle - 0.5), y2 - head * Math.sin(angle - 0.5));
+      ctx.lineTo(x2, y2);
+      ctx.lineTo(x2 - head * Math.cos(angle + 0.5), y2 - head * Math.sin(angle + 0.5));
+      ctx.stroke();
+    }
+
+    function block() {
+      const s = NARROW ? 42 : 84;
+      const d = NARROW ? 5 : 8;
+      const mx = g.w / 2;
+      const my = g.h / 2 + 6;
+      ctx.clearRect(0, 0, g.w, g.h);
+      ctx.fillStyle = mix(P.atom, P.atom, 0);
+      [[-1, 1, [[-s, -s], [s, -s], [-s, s]]], [1, -1, [[s, -s], [s, s], [-s, s]]]].forEach(([dx, dy, shape]) => {
+        ctx.beginPath();
+        shape.forEach(([x, y], i) => ctx[i ? 'lineTo' : 'moveTo'](mx + x + dx * d, my + y + dy * d));
+        ctx.closePath();
+        ctx.fill();
+      });
+      ctx.strokeStyle = text;
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([6, 5]);
+      ctx.beginPath();
+      ctx.moveTo(mx + s + d, my - s - d);
+      ctx.lineTo(mx - s - d, my + s + d);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      arrow(mx, my - s - d - 28, mx, my - s - d - 6, 4);
+      arrow(mx, my + s + d + 28, mx, my + s + d + 6, 4);
+      ctx.strokeStyle = P.move;
+      arrow(mx - s * 0.1, my - s * 0.55, mx - s * 0.55, my - s * 0.1, 3);
+      arrow(mx + s * 0.1, my + s * 0.55, mx + s * 0.55, my + s * 0.1, 3);
+    }
+
+    function loop() {
+      const w = NARROW ? 300 : 440;
+      const h = NARROW ? 130 : 200;
+      const r = h * 0.3;
+      const mx = g.w / 2;
+      const my = g.h / 2;
+      ctx.clearRect(0, 0, g.w, g.h);
+      ctx.fillStyle = mix(P.atom, P.atom, 0);
+      ctx.globalAlpha = 0.55;
+      ctx.fillRect(mx - w / 2, my - h / 2, w, h);
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = mix(P.hot, P.hot, 0);
+      ctx.beginPath();
+      ctx.arc(mx, my, r, 0, 6.2832);
+      ctx.fill();
+      ctx.strokeStyle = P.move;
+      ctx.lineWidth = 3;
+      ctx.stroke();
+      for (let i = 0; i < 8; i++) {
+        const angle = i * 0.7854 + 0.3927;
+        arrow(mx + Math.cos(angle) * (r + 8), my + Math.sin(angle) * (r + 8), mx + Math.cos(angle) * (r + 24), my + Math.sin(angle) * (r + 24), 2);
+      }
+      ctx.strokeStyle = text;
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([6, 5]);
+      ctx.beginPath();
+      ctx.moveTo(mx - w / 2, my);
+      ctx.lineTo(mx + w / 2, my);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = P.move;
+      [-r, r].forEach((dx) => {
+        ctx.beginPath();
+        ctx.arc(mx + dx, my, 7, 0, 6.2832);
+        ctx.fill();
+      });
+    }
+
+    function rows() {
+      const folds = gap === null ? [] : [
+        { x: cx - gap * g.a, p: PLANE, dir: -1, state: 'moving' },
+        { x: cx + gap * g.a, p: PLANE, dir: 1, state: 'moving' }
+      ];
+      const kind = (r, c) => c === (r > PLANE && folds.length ? MARK - 1 : MARK) ? { scale: 1, fill: P.stuck } : null;
+      drawLattice(ctx, g, folds, null, { kind });
+      ctx.strokeStyle = text;
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([6, 5]);
+      ctx.beginPath();
+      ctx.moveTo(0, cy);
+      ctx.lineTo(g.w, cy);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      if (gap === null) {
+        ctx.strokeStyle = P.move;
+        arrow(g.w * 0.12, cy - rh * 1.5, g.w * 0.26, cy - rh * 1.5, 3);
+        arrow(g.w * 0.88, cy + rh * 1.5, g.w * 0.74, cy + rh * 1.5, 3);
+      }
+    }
+
+    function render() {
+      text = getComputedStyle(document.documentElement).getPropertyValue('--text').trim();
+      ({ block, loop, rows })[STEPS[step].view]();
+    }
+
+    function labels() {
+      say(el('p-count'), ['stepCount', { n: step + 1, total: STEPS.length }]);
+      say(el('p-caption'), 'source.' + step);
+      el('p-back').disabled = step === 0;
+      el('p-next').disabled = step === STEPS.length - 1;
+    }
+
+    function frame(t) {
+      const k = Math.max(0, Math.min(1, (t - started) / 1000));
+      gap = from + (STEPS[step].gap - from) * k * k * (3 - 2 * k);
+      render();
+      if (k < 1 && STEPS[step].gap) {
+        requestAnimationFrame(frame);
+      } else {
+        running = false;
+      }
+    }
+
+    function go(to) {
+      const before = STEPS[step];
+      step = Math.max(0, Math.min(STEPS.length - 1, to));
+      labels();
+      const now = STEPS[step];
+      if (now.gap && before.gap && now.gap > before.gap) {
+        from = gap;
+        started = performance.now();
+        if (!running) {
+          running = true;
+          requestAnimationFrame(frame);
+        }
+        return;
+      }
+      gap = now.gap || null;
+      render();
+    }
+
+    el('p-back').onclick = () => go(step - 1);
+    el('p-next').onclick = () => go(step + 1);
+    renders.push(render);
+    labels();
+    render();
+  }
+
+  if (el('w-pair')) {
+    source();
+  }
   experimentHit();
   experimentShift();
   experimentFold();

@@ -14,9 +14,9 @@
 <meta property="og:description" content="For more than two and a half million years, people and their ancestors struck stone against stone. Then someone struck a piece that behaved quite differently.">
 <meta property="og:url" content="https://baronets-turk.github.io/metal-book/ch1.html">
 <meta property="og:image" content="https://baronets-turk.github.io/metal-book/assets/img/native-copper.jpg">
-<link rel="stylesheet" href="assets/style.css?v=36">
-<script src="assets/ui.en.js?v=36"></script>
-<script src="assets/theme.js?v=36"></script>
+<link rel="stylesheet" href="assets/style.css?v=37">
+<script src="assets/ui.en.js?v=37"></script>
+<script src="assets/theme.js?v=37"></script>
 </head>
 <body>
 
@@ -233,6 +233,22 @@
   <p>A hammer does not push a fold as your hand pushes a fold in a carpet. A blow squeezes the whole piece. Throughout it, a force tries to slide the layers of atoms past each other. This effect is strongest on planes at an angle to the blow.<a class="fn" href="#s-crss"></a></p>
   <p>Folds come in two kinds, called opposite <span class="term">signs</span>. One has its extra half-row above it; the other has it below. The same force drives folds of opposite signs in opposite directions.<a class="fn" href="#s-opposite"></a> That is why folds in the lens move both left and right, although the hammer strikes from one side.</p>
   <p>When the metal first starts to change shape, folds mostly begin at uneven places on grain boundaries. They also start at the surface of the piece. But this matters little in a metal made of many grains: most grains do not touch the surface.<a class="fn" href="#s-disl"></a> Inside a grain, there are sources that release a fold as a closed loop under load. The loop expands in every direction.<a class="fn" href="#s-frank"></a> Our picture is a flat slice. A loop crosses that slice in two places, so it looks like two folds of opposite signs moving apart.<a class="fn" href="#s-loop"></a> Between them, the layer has already shifted by one atom.</p>
+  <div class="widget" id="w-pair">
+    <div class="widget-title"><strong>Example, step by step. Where two folds come from</strong><span id="p-count"></span></div>
+    <canvas id="p-canvas"></canvas>
+    <div class="legend">
+      <span style="--c:var(--atom)">copper atom</span>
+      <span style="--c:var(--atom-hot)">distorted lattice, shifted layer</span>
+      <span style="--c:var(--patina)">marked column of atoms</span>
+      <span style="--c:var(--fold-move)">fold, direction of force</span>
+    </div>
+    <div class="controls">
+      <button class="ghost" id="p-back">Back</button>
+      <button id="p-next">Next</button>
+    </div>
+    <div class="caption" id="p-caption"></div>
+    <div class="note"><b>What is true, and what is simplified.</b> The sliding force is strongest on planes at an angle to the blow.<a class="fn" href="#s-crss"></a> A source releases a fold as a closed loop that grows.<a class="fn" href="#s-frank"></a> A flat slice crosses the loop in two places, which look like two folds of opposite signs moving apart, and the layer between them has shifted by one atom.<a class="fn" href="#s-loop"></a><a class="fn" href="#s-opposite"></a> Simplified: the block is one crystal with one plane drawn at a fixed slant, the loop is drawn as a circle, and how the source makes the loop is not shown. Real loops are uneven, and a real piece has many grains and many planes. The speed of the folds is set by hand.</div>
+  </div>
   <p>Moving folds are more than a helpful picture. <span class="history">In 1956, the researchers Hirsch, Horne and Whelan recorded dislocations moving through thin aluminium foil with an electron microscope.<a class="fn" href="#s-hirsch"></a> They saw the motion directly.</span></p>
 
   <p>The lens below shows a small patch inside one grain. Its meters show hardness and <span class="term">ductility</span>, the ability to change shape without cracking. Grain boundaries also block folds. In the next grain, the rows point a different way, so a fold cannot simply carry on. We will look more closely at grains in chapters 2 and 9.</p>
@@ -370,11 +386,19 @@
   </ol>
 </div>
 
-<script src="assets/places.js?v=36"></script>
-<script src="assets/core.js?v=36"></script>
-<script src="assets/lang.js?v=36"></script>
+<script src="assets/places.js?v=37"></script>
+<script src="assets/core.js?v=37"></script>
+<script src="assets/lang.js?v=37"></script>
 <script>
 window.T = {
+  stepCount: 'Step {n} of {total}',
+  source: [
+    'A blow squeezes the whole piece from above and below. Inside it, the two halves on either side of a slanted plane try to slide past each other. The lens looks along such a plane, so in the next steps the plane is drawn level.',
+    'Rows of copper atoms along such a plane. The force pushes the rows above the dashed line to the right and the rows below it to the left. One column of atoms is marked so that a shift will be easy to see.',
+    'The same plane seen from above. A source inside the grain has released a fold as a closed loop. Inside the loop, the layer has already shifted by one atom. The loop grows in every direction. Our flat picture is the dashed line, and it crosses the loop in two places.',
+    'Back to the view from the side. The two crossings are two folds. One has its extra half-row above it, the other below: they are of opposite signs.',
+    'The same force drives them apart, one to the left and one to the right. Between them, the upper rows have moved one atom to the right. Look at the marked column: its upper half no longer stands over the lower half.'
+  ],
   hitStart: 'The two pieces look alike. Both are hard. Both are heavy.',
   flint: ['Flint: a sharp flake breaks off. This is what you want for a knife or scraper.', 'Flint: another flake. Each blow takes something away.', 'The flint has split. Stone cannot change shape this way. It either stays whole or breaks.'],
   copper: ['Copper: a dent. Nothing breaks off.', 'Copper: the piece is lower and wider.', 'Copper: wider again. There is just as much copper as before.', 'Copper: almost flat now.', 'Copper: a flat piece. The same copper has a new shape, with no fragments lost.'],
@@ -458,9 +482,9 @@ window.QUIZ = [
   }
 ];
 </script>
-<script src="assets/quiz.js?v=36"></script>
-<script src="assets/ch1.js?v=36"></script>
-<script src="assets/feedback.js?v=36"></script>
-<script src="assets/toc.js?v=36"></script>
+<script src="assets/quiz.js?v=37"></script>
+<script src="assets/ch1.js?v=37"></script>
+<script src="assets/feedback.js?v=37"></script>
+<script src="assets/toc.js?v=37"></script>
 </body>
 </html>
