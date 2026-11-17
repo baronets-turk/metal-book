@@ -14,9 +14,9 @@
 <meta property="og:description" content="Hammer copper for long enough, and it becomes hard and cracks. But give it time in a fire, and it becomes soft again, like a fresh nugget. You can go on shaping it.">
 <meta property="og:url" content="https://baronets-turk.github.io/metal-book/ch2.html">
 <meta property="og:image" content="https://baronets-turk.github.io/metal-book/assets/img/glowing-iron.jpg">
-<link rel="stylesheet" href="assets/style.css?v=42">
-<script src="assets/ui.en.js?v=42"></script>
-<script src="assets/theme.js?v=42"></script>
+<link rel="stylesheet" href="assets/style.css?v=43">
+<script src="assets/ui.en.js?v=43"></script>
+<script src="assets/theme.js?v=43"></script>
 </head>
 <body>
 
@@ -193,6 +193,20 @@
   <h3>What if you leave it too long?</h3>
   <p>If the metal stays in the fire after recrystallisation, a third stage begins: <span class="term">grain growth</span>. Large grains take over small ones. There are fewer grains, and each is larger. Metal with large grains is weaker.<a class="fn" href="#s-growth"></a> So overheating does harm even well below the melting temperature.</p>
   <p>You can make the grains smaller again by hammering and annealing. First hammer the cold metal again, carefully because it is now weaker. Then anneal it again without overheating or leaving it in the fire too long. During this anneal, recrystallisation replaces the old large grains with new ones. The more you hammer the metal before annealing, the smaller the new grains will be.<a class="fn" href="#s-recryst"></a> Too little hammering will not let new grains form at all.</p>
+  <div class="widget" id="w-grow">
+    <div class="widget-title"><strong>Example, step by step. Grains grow in the fire</strong><span id="n-count"></span></div>
+    <canvas id="n-canvas"></canvas>
+    <div class="legend">
+      <span style="--c:var(--atom)">Grain</span>
+      <span style="--c:var(--text)">Grain boundary</span>
+    </div>
+    <div class="controls">
+      <button class="ghost" id="n-back">Back</button>
+      <button id="n-next">Next</button>
+    </div>
+    <div class="caption" id="n-caption"></div>
+    <div class="note"><b>What is true, and what is simplified.</b> If the metal stays hot after recrystallisation, large grains take over small ones, and the metal becomes weaker.<a class="fn" href="#s-growth"></a> Hammering and a new anneal replace the large grains with new small ones.<a class="fn" href="#s-recryst"></a> Simplified: the picture is a flat slice. The grain shapes are drawn by a simple rule: every point belongs to the nearest grain centre. The numbers of grains, 60, 22 and 7, and which grains survive were chosen by hand. The shades only tell one grain from another.</div>
+  </div>
 </section>
 
 <section>
@@ -286,12 +300,18 @@
   </ol>
 </div>
 
-<script src="assets/places.js?v=42"></script>
-<script src="assets/core.js?v=42"></script>
-<script src="assets/lang.js?v=42"></script>
+<script src="assets/places.js?v=43"></script>
+<script src="assets/core.js?v=43"></script>
+<script src="assets/lang.js?v=43"></script>
 <script>
 window.T = {
   stepCount: 'Step {n} of {total}',
+  grow: [
+    'Copper just after recrystallisation, at a scale far larger than atoms. Each patch is one grain. The grains are small.',
+    'The copper stays in the fire. Large grains take over their small neighbours. There are fewer grains, and each is larger.',
+    'Still longer in the fire. Only a few large grains are left. Metal like this is weaker.',
+    'The metal has been hammered cold and annealed again without overheating. Recrystallisation has replaced the large grains with new small ones.'
+  ],
   cancel: [
     'A patch of hammered copper with two folds on the same rows. They are of opposite signs: one has its extra half-row below it, the other above it.',
     'Heat sets the folds moving. The two come towards each other.',
@@ -389,9 +409,9 @@ window.QUIZ = [
   }
 ];
 </script>
-<script src="assets/quiz.js?v=42"></script>
-<script src="assets/ch2.js?v=42"></script>
-<script src="assets/feedback.js?v=42"></script>
-<script src="assets/toc.js?v=42"></script>
+<script src="assets/quiz.js?v=43"></script>
+<script src="assets/ch2.js?v=43"></script>
+<script src="assets/feedback.js?v=43"></script>
+<script src="assets/toc.js?v=43"></script>
 </body>
 </html>

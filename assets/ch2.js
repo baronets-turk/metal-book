@@ -658,6 +658,105 @@
     render();
   }
 
+  function grow() {
+    const NARROW = window.matchMedia('(max-width: 700px)').matches;
+    const W = NARROW ? 360 : 760;
+    const H = NARROW ? 180 : 220;
+    const CELL = 4;
+    const COUNTS = [60, 22, 7, 60];
+    const ctx = setupCanvas(el('n-canvas'), W, H);
+    const seeds = (set) => Array.from({ length: 60 }, (_, i) => ({
+      x: hash(i + set * 100, 1) * W,
+      y: hash(i + set * 100, 2) * H,
+      tone: 0.08 + 0.42 * hash(i + set * 100, 3)
+    }));
+    const SETS = [seeds(0), seeds(1)];
+    let step = 0;
+    let k = 1;
+    let started = 0;
+    let running = false;
+
+    function render() {
+      const set = SETS[step === 3 ? 1 : 0];
+      const before = step === 0 || step === 3 ? 60 : COUNTS[step - 1];
+      const keep = COUNTS[step];
+      const cols = Math.ceil(W / CELL);
+      const rows = Math.ceil(H / CELL);
+      const owner = new Int16Array(cols * rows);
+      const fade = (1 - k) * (1 - k);
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const x = (c + 0.5) * CELL;
+          const y = (r + 0.5) * CELL;
+          let best = 0;
+          let low = Infinity;
+          for (let i = 0; i < before; i++) {
+            const dx = x - set[i].x;
+            const dy = y - set[i].y;
+            const d = dx * dx + dy * dy + (i >= keep ? (k >= 1 ? Infinity : (W * W * k) / Math.max(fade, 0.001) / 40) : 0);
+            if (d < low) {
+              low = d;
+              best = i;
+            }
+          }
+          owner[r * cols + c] = best;
+        }
+      }
+      const line = getComputedStyle(document.documentElement).getPropertyValue('--text').trim();
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const o = owner[r * cols + c];
+          const edge = (c + 1 < cols && owner[r * cols + c + 1] !== o) || (r + 1 < rows && owner[(r + 1) * cols + c] !== o);
+          ctx.fillStyle = edge ? line : mix(P.atom, P.bond, set[o].tone);
+          ctx.fillRect(c * CELL, r * CELL, CELL, CELL);
+        }
+      }
+    }
+
+    function labels() {
+      say(el('n-count'), ['stepCount', { n: step + 1, total: COUNTS.length }]);
+      say(el('n-caption'), 'grow.' + step);
+      el('n-back').disabled = step === 0;
+      el('n-next').disabled = step === COUNTS.length - 1;
+    }
+
+    function frame(t) {
+      k = Math.max(0, Math.min(1, (t - started) / 1400));
+      render();
+      if (k < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        running = false;
+      }
+    }
+
+    function go(to) {
+      const forward = to > step;
+      step = Math.max(0, Math.min(COUNTS.length - 1, to));
+      labels();
+      if (forward && (step === 1 || step === 2)) {
+        k = 0;
+        started = performance.now();
+        if (!running) {
+          running = true;
+          requestAnimationFrame(frame);
+        }
+        return;
+      }
+      k = 1;
+      render();
+    }
+
+    el('n-back').onclick = () => go(step - 1);
+    el('n-next').onclick = () => go(step + 1);
+    renders.push(render);
+    labels();
+    render();
+  }
+
+  if (el('w-grow')) {
+    grow();
+  }
   if (el('w-oxide')) {
     oxide();
   }

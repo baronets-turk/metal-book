@@ -14,9 +14,9 @@
 <meta property="og:description" content="Если долго ковать медь, она затвердеет и треснет. Но подержи её в огне, и она снова станет мягкой, как свежий самородок. Можно продолжать придавать ей форму.">
 <meta property="og:url" content="https://baronets-turk.github.io/metal-book/ru/ch2.html">
 <meta property="og:image" content="https://baronets-turk.github.io/metal-book/assets/img/glowing-iron.jpg">
-<link rel="stylesheet" href="../assets/style.css?v=42">
-<script src="../assets/ui.ru.js?v=42"></script>
-<script src="../assets/theme.js?v=42"></script>
+<link rel="stylesheet" href="../assets/style.css?v=43">
+<script src="../assets/ui.ru.js?v=43"></script>
+<script src="../assets/theme.js?v=43"></script>
 </head>
 <body>
 
@@ -193,6 +193,20 @@
   <h3>Что будет, если передержать?</h3>
   <p>Если после рекристаллизации металл остаётся в огне, начинается третья стадия: <span class="term">рост зёрен</span>. Крупные зёрна поглощают мелкие. Зёрен становится меньше, и каждое растёт. Металл с крупными зёрнами слабее.<a class="fn" href="#s-growth"></a> Поэтому перегрев вредит даже при температуре намного ниже плавления.</p>
   <p>Ковка и отжиг помогут снова сделать зёрна мельче. Сначала снова прокуй холодный металл, осторожно, ведь теперь он слабее. Затем снова отожги его, не перегревая и не передерживая в огне. При этом отжиге рекристаллизация заменит старые крупные зёрна новыми. Чем больше ты проковал металл перед отжигом, тем мельче будут новые зёрна.<a class="fn" href="#s-recryst"></a> Если проковать слишком мало, новые зёрна вообще не появятся.</p>
+  <div class="widget" id="w-grow">
+    <div class="widget-title"><strong>Пример по шагам. Зёрна растут в огне</strong><span id="n-count"></span></div>
+    <canvas id="n-canvas"></canvas>
+    <div class="legend">
+      <span style="--c:var(--atom)">Зерно</span>
+      <span style="--c:var(--text)">Граница зёрен</span>
+    </div>
+    <div class="controls">
+      <button class="ghost" id="n-back">Назад</button>
+      <button id="n-next">Далее</button>
+    </div>
+    <div class="caption" id="n-caption"></div>
+    <div class="note"><b>Что здесь верно, а что упрощено.</b> Если после рекристаллизации металл остаётся горячим, крупные зёрна поглощают мелкие, и металл слабеет.<a class="fn" href="#s-growth"></a> Ковка и новый отжиг заменяют крупные зёрна новыми мелкими.<a class="fn" href="#s-recryst"></a> Упрощено: картинка это плоский срез. Форма зёрен нарисована по простому правилу: каждая точка принадлежит ближайшему центру зерна. Число зёрен, 60, 22 и 7, и то, какие зёрна уцелеют, выбраны вручную. Оттенки нужны только для того, чтобы отличать одно зерно от другого.</div>
+  </div>
 </section>
 
 <section>
@@ -286,12 +300,18 @@
   </ol>
 </div>
 
-<script src="../assets/places.js?v=42"></script>
-<script src="../assets/core.js?v=42"></script>
-<script src="../assets/lang.js?v=42"></script>
+<script src="../assets/places.js?v=43"></script>
+<script src="../assets/core.js?v=43"></script>
+<script src="../assets/lang.js?v=43"></script>
 <script>
 window.T = {
   stepCount: 'Шаг {n} из {total}',
+  grow: [
+    'Медь сразу после рекристаллизации, в масштабе намного крупнее атомов. Каждый участок это одно зерно. Зёрна мелкие.',
+    'Медь остаётся в огне. Крупные зёрна поглощают мелких соседей. Зёрен становится меньше, и каждое крупнее.',
+    'Ещё дольше в огне. Осталось лишь несколько крупных зёрен. Такой металл слабее.',
+    'Металл проковали вхолодную и снова отожгли без перегрева. Рекристаллизация заменила крупные зёрна новыми мелкими.'
+  ],
   cancel: [
     'Участок кованой меди с двумя складками на одних и тех же рядах. У них противоположные знаки: у одной лишний полуряд снизу, у другой сверху.',
     'Нагрев приводит складки в движение. Они идут навстречу друг другу.',
@@ -389,9 +409,9 @@ window.QUIZ = [
   }
 ];
 </script>
-<script src="../assets/quiz.js?v=42"></script>
-<script src="../assets/ch2.js?v=42"></script>
-<script src="../assets/feedback.js?v=42"></script>
-<script src="../assets/toc.js?v=42"></script>
+<script src="../assets/quiz.js?v=43"></script>
+<script src="../assets/ch2.js?v=43"></script>
+<script src="../assets/feedback.js?v=43"></script>
+<script src="../assets/toc.js?v=43"></script>
 </body>
 </html>
