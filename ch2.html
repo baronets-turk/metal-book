@@ -14,9 +14,9 @@
 <meta property="og:description" content="Hammer copper for long enough, and it becomes hard and cracks. But give it time in a fire, and it becomes soft again, like a fresh nugget. You can go on shaping it.">
 <meta property="og:url" content="https://baronets-turk.github.io/metal-book/ch2.html">
 <meta property="og:image" content="https://baronets-turk.github.io/metal-book/assets/img/glowing-iron.jpg">
-<link rel="stylesheet" href="assets/style.css?v=41">
-<script src="assets/ui.en.js?v=41"></script>
-<script src="assets/theme.js?v=41"></script>
+<link rel="stylesheet" href="assets/style.css?v=42">
+<script src="assets/ui.en.js?v=42"></script>
+<script src="assets/theme.js?v=42"></script>
 </head>
 <body>
 
@@ -134,6 +134,21 @@
   <h3>Two stages: recovery and recrystallisation</h3>
   <p>Work-hardened metal stores some of the work spent on hammering it. Between one and five percent remains in the distorted lattice around the folds.<a class="fn" href="#s-recryst"></a> This state is unstable, like a compressed spring. At room temperature, the spring cannot release: the atoms shake too little to rearrange themselves. Heat lets them move, and the metal loses its folds in two stages.</p>
   <p><b><span class="term">Recovery</span>.</b> This is the first stage. Folds start moving. Two nearby folds of opposite signs meet and cancel each other out. The extra half-row of one fills the gap in the other. The grains stay as they were. Hardness falls a little.<a class="fn" href="#s-recov"></a></p>
+  <div class="widget" id="w-cancel">
+    <div class="widget-title"><strong>Example, step by step. Two folds cancel each other</strong><span id="r-count"></span></div>
+    <canvas id="r-canvas"></canvas>
+    <div class="legend">
+      <span style="--c:var(--atom)">Copper atom</span>
+      <span style="--c:var(--atom-hot)">Distorted lattice</span>
+      <span style="--c:var(--fold-move)">Fold</span>
+    </div>
+    <div class="controls">
+      <button class="ghost" id="r-back">Back</button>
+      <button id="r-next">Next</button>
+    </div>
+    <div class="caption" id="r-caption"></div>
+    <div class="note"><b>What is true, and what is simplified.</b> During recovery, folds start to move, and two nearby folds of opposite signs meet and cancel each other out.<a class="fn" href="#s-recov"></a> Simplified: only two folds are drawn, both on the same rows, in a flat slice. Real folds also have to change rows to meet. The speed is set by hand.</div>
+  </div>
   <p><b>Recrystallisation.</b> Small patches of regular lattice appear where the old lattice is most distorted. They grow in all directions, taking over the old metal and its folds. New grains without folds replace the old grains. Hardness falls to its original level. Ductility returns in full.<a class="fn" href="#s-recryst"></a> The objects from chapter one show the difference. The spearhead with fully renewed grains has a hardness of 59 units. The axe left after cold forging measures 116.<a class="fn" href="#s-hist"></a></p>
   <p>We can put numbers to this change. In heavily work-hardened metal, between a hundred million and ten billion folds cross each square millimetre of a cut surface. In annealed metal, the range is ten thousand to a million.<a class="fn" href="#s-dens"></a> The folds do not vanish completely. But their number falls by thousands or millions of times.</p>
 
@@ -271,12 +286,17 @@
   </ol>
 </div>
 
-<script src="assets/places.js?v=41"></script>
-<script src="assets/core.js?v=41"></script>
-<script src="assets/lang.js?v=41"></script>
+<script src="assets/places.js?v=42"></script>
+<script src="assets/core.js?v=42"></script>
+<script src="assets/lang.js?v=42"></script>
 <script>
 window.T = {
   stepCount: 'Step {n} of {total}',
+  cancel: [
+    'A patch of hammered copper with two folds on the same rows. They are of opposite signs: one has its extra half-row below it, the other above it.',
+    'Heat sets the folds moving. The two come towards each other.',
+    'They have met. The extra half-row of one has filled the gap in the other. Both folds are gone, and the rows are regular again.'
+  ],
   oxide: [
     'Hot copper in air. The copper atoms stand in rows. In the air, oxygen atoms go about in pairs. Each pair is one molecule, written O₂.',
     'One pair comes down to the surface and lands above two copper atoms.',
@@ -369,9 +389,9 @@ window.QUIZ = [
   }
 ];
 </script>
-<script src="assets/quiz.js?v=41"></script>
-<script src="assets/ch2.js?v=41"></script>
-<script src="assets/feedback.js?v=41"></script>
-<script src="assets/toc.js?v=41"></script>
+<script src="assets/quiz.js?v=42"></script>
+<script src="assets/ch2.js?v=42"></script>
+<script src="assets/feedback.js?v=42"></script>
+<script src="assets/toc.js?v=42"></script>
 </body>
 </html>

@@ -594,8 +594,75 @@
     render();
   }
 
+  function cancel() {
+    const NARROW = window.matchMedia('(max-width: 700px)').matches;
+    const g = NARROW
+      ? { w: 360, h: 170, a: 20, cols: 18, rows: 8, r: 9.2, left: 10, bottom: 154, bulk: true }
+      : { w: 760, h: 260, a: 26, cols: 29, rows: 10, r: 12, left: 13, bottom: 240, bulk: true };
+    const PLANE = g.rows / 2 - 1;
+    const GAPS = [NARROW ? 5 : 8, 1.3, 0];
+    const ctx = setupCanvas(el('r-canvas'), g.w, g.h);
+    const cx = g.left + Math.floor(g.cols / 2) * g.a;
+    let step = 0;
+    let gap = GAPS[0];
+    let from = gap;
+    let started = 0;
+    let running = false;
+
+    function render() {
+      drawLattice(ctx, g, gap < 0.05 ? [] : [
+        { x: cx - gap * g.a, p: PLANE, dir: -1, state: 'moving' },
+        { x: cx + gap * g.a, p: PLANE, dir: 1, state: 'moving' }
+      ], null, {});
+    }
+
+    function labels() {
+      say(el('r-count'), ['stepCount', { n: step + 1, total: GAPS.length }]);
+      say(el('r-caption'), 'cancel.' + step);
+      el('r-back').disabled = step === 0;
+      el('r-next').disabled = step === GAPS.length - 1;
+    }
+
+    function frame(t) {
+      const k = Math.max(0, Math.min(1, (t - started) / 1100));
+      gap = from + (GAPS[step] - from) * k * k * (3 - 2 * k);
+      render();
+      if (k < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        running = false;
+      }
+    }
+
+    function go(to) {
+      const forward = to > step;
+      step = Math.max(0, Math.min(GAPS.length - 1, to));
+      labels();
+      if (!forward) {
+        gap = GAPS[step];
+        render();
+        return;
+      }
+      from = gap;
+      started = performance.now();
+      if (!running) {
+        running = true;
+        requestAnimationFrame(frame);
+      }
+    }
+
+    el('r-back').onclick = () => go(step - 1);
+    el('r-next').onclick = () => go(step + 1);
+    renders.push(render);
+    labels();
+    render();
+  }
+
   if (el('w-oxide')) {
     oxide();
+  }
+  if (el('w-cancel')) {
+    cancel();
   }
   experimentVibration();
   lens();
