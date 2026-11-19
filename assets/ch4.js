@@ -1,5 +1,5 @@
 (function () {
-  const { el, renders, P, setupCanvas, mix, jolt, drawLattice, say, fmt } = window.MB;
+  const { el, renders, P, setupCanvas, mix, jolt, drawLattice, say } = window.MB;
   const TAU = 6.2832;
   const K = {};
   const NARROW = window.matchMedia('(max-width: 700px)').matches;
@@ -126,61 +126,27 @@
   }
 
   function atoms() {
-    const MASS = { cu: 63.546, sn: 118.71 };
     const SIZE = { cu: 135, sn: 145, error: 5 };
-    const COUNT = 108;
-    const COLS = 18;
-    const ORDER = [40, 85, 12, 62, 28, 99, 51, 2];
     const PILE = { cu: [5, 4, 3, 2, 1], sn: [4, 3, 1] };
     const W = NARROW ? 360 : 760;
-    const M = NARROW ? 26 : 34;
-    const GW = NARROW ? W - 2 * M : 400;
-    const PITCH = GW / COLS;
-    const R = PITCH * 0.4;
-    const TOP = 12;
-    const BH = 18;
-    const S1 = TOP + (COUNT / COLS) * PITCH + 32;
-    const S2 = S1 + BH + 18;
-    const LEFT = S2 + BH + 28;
-    const SCALE = NARROW ? 0.34 : 0.3;
+    const SCALE = NARROW ? 0.36 : 0.4;
     const GAP = 22;
     const PAIR = 2 * (SIZE.cu + SIZE.sn) * SCALE + GAP;
-    const MID = NARROW ? W / 2 : (M + GW + W) / 2;
-    const PX = MID - PAIR / 2;
-    const ARM = 70;
-    const PR = 7;
-    const BEAM = NARROW ? LEFT + 84 : 96;
-    const BASE = BEAM + 38 + 2 * (SIZE.sn + SIZE.error) * SCALE;
-    const H = Math.max(LEFT, BASE + 28);
+    const MID = NARROW ? W / 2 : 210;
+    const PX = (NARROW ? W / 2 : 560) - PAIR / 2;
+    const ARM = 80;
+    const PR = 9;
+    const BEAM = NARROW ? 104 : 118;
+    const BASE = NARROW ? BEAM + 44 + 2 * (SIZE.sn + SIZE.error) * SCALE : 152;
+    const H = BASE + 28;
     const ctx = setupCanvas(el('a-canvas'), W, H);
     const fillOf = (tin) => tin ? K.tin : 'rgb(' + P.atom.join(',') + ')';
-    let tin = [];
-    const isTin = (i) => tin.includes(i);
-    const amount = choice('a-amount', () => {
-      pick();
-      render();
-    });
-
-    function pick() {
-      const parts = Number(amount());
-      const share = (parts / MASS.sn) / (parts / MASS.sn + (100 - parts) / MASS.cu);
-      tin = ORDER.slice(0, Math.round(share * COUNT));
-    }
 
     function pile(x, rows, r, fill) {
       rows.forEach((n, j) => {
         for (let i = 0; i < n; i++) {
           disc(x + (i - (n - 1) / 2) * r * 2.06, BEAM - 3 - r - j * r * 1.78, r, fill, 1);
         }
-      });
-    }
-
-    function strip(y, widths) {
-      let x = M;
-      widths.forEach((w, i) => {
-        ctx.fillStyle = fillOf(i >= COUNT - tin.length);
-        ctx.fillRect(x, y, Math.max(w - 1, 1), BH);
-        x += w;
       });
     }
 
@@ -206,42 +172,12 @@
       ctx.font = '12px ' + K.sans;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      for (let i = 0; i < COUNT; i++) {
-        const x = M + (i % COLS + 0.5) * PITCH;
-        const y = TOP + (Math.floor(i / COLS) + 0.5) * PITCH;
-        disc(x, y, isTin(i) ? R * SIZE.sn / SIZE.cu : R, fillOf(isTin(i)), 1);
-      }
-      const heavy = tin.length * MASS.sn;
-      const share = heavy / (heavy + (COUNT - tin.length) * MASS.cu);
-      const total = heavy + (COUNT - tin.length) * MASS.cu;
-      const kinds = Array.from({ length: COUNT }, (_, i) => i >= COUNT - tin.length);
-      const b1 = M + GW * (1 - tin.length / COUNT);
-      const b2 = M + GW * (1 - share);
-      strip(S1, kinds.map(() => GW / COUNT));
-      strip(S2, kinds.map((sn) => GW * (sn ? MASS.sn : MASS.cu) / total));
-      ctx.globalAlpha = 0.3;
-      ctx.fillStyle = fillOf(true);
-      ctx.beginPath();
-      ctx.moveTo(b1, S1 + BH);
-      ctx.lineTo(M + GW - 1, S1 + BH);
-      ctx.lineTo(M + GW - 1, S2);
-      ctx.lineTo(b2, S2);
-      ctx.closePath();
-      ctx.fill();
-      ctx.globalAlpha = 1;
-      ctx.fillStyle = K.text;
-      ctx.textAlign = 'left';
-      ctx.font = '13px ' + K.sans;
-      ctx.fillText(fmt(window.T.atomsCount, { k: tin.length, total: COUNT }), M, S1 - 12);
-      ctx.fillText(fmt(window.T.atomsWeight, { n: Math.round(100 * share) }), M, S2 + BH + 13);
-      ctx.textAlign = 'center';
-      ctx.font = '12px ' + K.sans;
       ctx.strokeStyle = K.muted;
       ctx.fillStyle = K.muted;
       ctx.lineWidth = 3;
       ctx.beginPath();
-      ctx.moveTo(MID - ARM - 42, BEAM);
-      ctx.lineTo(MID + ARM + 42, BEAM);
+      ctx.moveTo(MID - ARM - 54, BEAM);
+      ctx.lineTo(MID + ARM + 54, BEAM);
       ctx.stroke();
       ctx.lineWidth = 1;
       ctx.beginPath();
@@ -266,7 +202,6 @@
     }
 
     renders.push(render);
-    pick();
     render();
   }
 

@@ -14,9 +14,9 @@
 <meta property="og:description" content="Copper is soft. Tin is another metal, softer still. Yet melt them together, and the mixture can be harder than either one. How can the softer metal help?">
 <meta property="og:url" content="https://baronets-turk.github.io/metal-book/ch4.html">
 <meta property="og:image" content="https://baronets-turk.github.io/metal-book/assets/img/bronze-pour.jpg">
-<link rel="stylesheet" href="assets/style.css?v=47">
-<script src="assets/ui.en.js?v=47"></script>
-<script src="assets/theme.js?v=47"></script>
+<link rel="stylesheet" href="assets/style.css?v=48">
+<script src="assets/ui.en.js?v=48"></script>
+<script src="assets/theme.js?v=48"></script>
 </head>
 <body>
 
@@ -102,23 +102,14 @@
   <p>In low-tin bronze, tin atoms take the places of some copper atoms. They share the same crystal rows. This is a <span class="term">solid solution</span>: atoms of a second kind are scattered among those of the first. Think of sugar spread through tea, but with the mixture now solid and its atoms sitting in rows.<a class="fn" href="#s-strengthening"></a><a class="fn" href="#s-scott"></a></p>
   <p>Ten parts tin by weight does not mean one tin atom in ten. A tin atom is heavier than a copper atom. With 10 parts tin by weight, about 1 atom in 18 is tin; with 5 parts, about 1 in 36.<a class="fn" href="#s-inference"></a> Each tin atom is a little bigger than a copper atom. One common measure gives sizes of 145 against 135 on the same scale, about seven hundredths larger. This measure is accurate only to about 5 units, so the difference of 10 is rough. Other ways of measuring give different sizes.<a class="fn" href="#s-radii"></a></p>
   <div class="widget" id="w-atoms">
-    <div class="widget-title"><strong>Example. Tin by weight and by count</strong><span>how much heavier, how much bigger</span></div>
+    <div class="widget-title"><strong>Picture. A tin atom is heavier and bigger</strong><span>by weight and by size</span></div>
     <canvas id="a-canvas"></canvas>
     <div class="legend">
       <span style="--c:var(--atom)">Copper atom</span>
       <span style="--c:var(--tin)">Tin atom</span>
     </div>
-    <div class="options">
-      <span>Tin by weight, parts in a hundred</span>
-      <div class="seg" id="a-amount">
-        <button data-value="2">2</button>
-        <button data-value="5">5</button>
-        <button data-value="10" class="on">10</button>
-        <button data-value="13">13</button>
-      </div>
-    </div>
-    <div class="caption">The block shows 108 atoms of bronze, and the grey ones are tin. Under the block the same atoms are lined up in two strips, copper first, then tin. In the upper strip every atom takes the same width, so the grey part shows the share of tin by count. In the lower strip the width of every atom equals its weight, so the grey part shows the share of tin by weight. A tin atom is almost twice as heavy as a copper atom: on the scales, 8 tin atoms balance 15 copper atoms. This is why the grey part is wider in the lower strip. With 10 parts tin by weight, only 6 atoms of 108 are tin, which is 1 in 18. Under the scales, one atom of each kind is drawn to the same scale. The rim around each atom shows how precisely its size is known.</div>
-    <div class="note"><b>What the model shows and leaves out.</b> The number of tin atoms is calculated from the weights of copper and tin atoms and rounded to whole atoms.<a class="fn" href="#s-inference"></a> The sizes 135 and 145 come from one set of measurements, accurate to about 5. Other ways of measuring give other numbers.<a class="fn" href="#s-radii"></a> The places of the tin atoms were chosen by hand. In real bronze they sit at random places. The atoms in the block are drawn in flat rows with gaps, and smaller than the two atoms under the scales. The scales are drawn level, although 8 tin atoms are lighter than 15 copper atoms by a little less than 1 part in 200. A real atom is not a ball with a sharp edge.</div>
+    <div class="caption">On the scales, 8 tin atoms balance 15 copper atoms: a tin atom is almost twice as heavy as a copper atom. This is why 10 parts tin by weight is only about 1 atom in 18. Next to the scales, one atom of each kind is drawn to the same scale. The rim around each atom shows how precisely its size is known.</div>
+    <div class="note"><b>What the model shows and leaves out.</b> The balance of 8 tin atoms against 15 copper atoms is calculated from the weights of copper and tin atoms.<a class="fn" href="#s-inference"></a> The scales are drawn level, although 8 tin atoms are lighter than 15 copper atoms by a little less than 1 part in 200. The sizes 135 and 145 come from one set of measurements, accurate to about 5. Other ways of measuring give other numbers.<a class="fn" href="#s-radii"></a> The atoms on the scales are drawn smaller than the two atoms next to them. A real atom is not a ball with a sharp edge.</div>
   </div>
   <p>The larger atom squeezes the rows around it, pressing them closer together.<a class="fn" href="#s-solute"></a> There is a limit to how well different atoms fit: a size difference greater than about 15 in a hundred usually makes it hard for many of them to share the same rows.<a class="fn" href="#s-hume"></a></p>
   <p>Recall the folds from chapter one. A fold has squeezed rows on one side and stretched rows on the other. On the stretched side there is more room, so a larger atom fits with less squeezing. The atom and fold sit comfortably together. A fold that reaches such a place tends to stay there. Pulling it away needs more force than moving it through plain copper.<a class="fn" href="#s-solute"></a></p>
@@ -456,9 +447,9 @@
   </ol>
 </div>
 
-<script src="assets/places.js?v=47"></script>
-<script src="assets/core.js?v=47"></script>
-<script src="assets/lang.js?v=47"></script>
+<script src="assets/places.js?v=48"></script>
+<script src="assets/core.js?v=48"></script>
+<script src="assets/lang.js?v=48"></script>
 <script>
 window.T = {
   mixParts: "{n} parts in 100",
@@ -480,8 +471,6 @@ window.T = {
   tinHardFreed: "The harder blow also pulled held folds loose, so they moved on. Shaping this metal takes more force.",
   tinFull: "The metal is fully work-hardened. In this model, another blow would crack it, as in chapter one. Start over, or recall how annealing helped in chapter two.",
   stepCount: "Step {n} of {total}",
-  atomsWeight: "By weight: tin is {n} in 100",
-  atomsCount: "By count: tin is {k} of {total} atoms",
   hold: [
     "Rows of copper atoms. All the atoms are the same size, so the rows are even.",
     "A tin atom has taken the place of one copper atom. It is a little bigger and pushes its neighbours apart. The rows around it are squeezed.",
@@ -569,9 +558,9 @@ window.QUIZ = [
   }
 ];
 </script>
-<script src="assets/quiz.js?v=47"></script>
-<script src="assets/ch4.js?v=47"></script>
-<script src="assets/feedback.js?v=47"></script>
-<script src="assets/toc.js?v=47"></script>
+<script src="assets/quiz.js?v=48"></script>
+<script src="assets/ch4.js?v=48"></script>
+<script src="assets/feedback.js?v=48"></script>
+<script src="assets/toc.js?v=48"></script>
 </body>
 </html>
